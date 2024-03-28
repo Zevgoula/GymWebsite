@@ -10,6 +10,8 @@ body {
 h1 {
     color: rgb(0, 0, 0);
     text-align: center;
+    border-color: #f8f8f8;
+    border: 2px solid #f8f8f8;
 }
 
 #boxes {
@@ -75,8 +77,8 @@ ul {
     -ms-flex-align: center;
     align-items: center;
     border-radius: 6.25rem;
-    background-color: #97fb57;
-    color: #121212;
+    background-color: #000000;
+    color: #f8f8f8;
     font-size: .875rem;
     font-weight: 600;
     text-align: center;
