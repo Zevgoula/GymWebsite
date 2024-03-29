@@ -8,24 +8,26 @@ body {
 }
 
 h1 {
-    color: rgb(255, 255, 255);
-    text-align: center;
-    border-color: #f8f8f8;
-    border-radius: 15px;
-    border: 2px solid #f8f8f8;
-    font-family: Inter, sans-serif;
     display: inline-block;
-    padding: 5px;
-    border: 2px solid #f8f8f8;
+    padding: 5px 15px;
+    align-items: center;
+    border: 2px solid #ffffff;
+    border-radius: 6.25rem;
+    font-family: Inter, sans-serif;
+    color: #fff;
+    text-align: center ;
+    
+    
 }
 
 #boxes {
     display: flex;
-    margin: 10% auto;
+    margin-left: auto;
     width: 75%;
     height: 280px;
     text-align: center;
 }
+
 .box {
     border-radius: 25px;
     background: rgb(255, 255, 255);
@@ -34,13 +36,11 @@ h1 {
     margin: 0 5px;
     justify-content: center; 
     align-items: center; 
- 
     
 }
 
 .type_of_membership {
     font-size: 1.5em;
-    color: rgb(0, 0, 0);
     text-align: center;
 }
 
@@ -62,14 +62,11 @@ h1 {
 
 ul {
     font-size: 1.5em;
-    color: rgb(0, 0, 0);
     text-align: center;
-    list-style-type: "✅";
 }
 
 .description {
     font-size: 1.5em;
-    color: rgb(0, 0, 0);
     text-align: center;
     opacity: 0.5;
 }
@@ -81,7 +78,7 @@ ul {
     border-radius: 6.25rem;
     background-color: #000000;
     color: #f8f8f8;
-    font-size: .875rem;
+    font-size: 1.5em;
     font-weight: 600;
     text-align: center;
 }

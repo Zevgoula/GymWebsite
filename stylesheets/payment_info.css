@@ -44,3 +44,18 @@ body {
 .payment_info_form button.submit_button:hover {
     background-color: #45a049;
 }
+
+
+
+.submit_button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit_button:hover {
+    background-color: #45a049;
+}
