@@ -8,9 +8,14 @@ body {
 }
 
 h1 {
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     text-align: center;
     border-color: #f8f8f8;
+    border-radius: 15px;
+    border: 2px solid #f8f8f8;
+    font-family: Inter, sans-serif;
+    display: inline-block;
+    padding: 5px;
     border: 2px solid #f8f8f8;
 }
 
@@ -27,6 +32,9 @@ h1 {
     width: 300px;
     height: 400px;
     margin: 0 5px;
+    justify-content: center; 
+    align-items: center; 
+ 
     
 }
 
@@ -68,13 +76,7 @@ ul {
 
 .free-trial {
     padding: .5rem 1rem;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
     border-radius: 6.25rem;
     background-color: #000000;
@@ -102,12 +104,6 @@ h3 {
 }
 
 .perk {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
 }
