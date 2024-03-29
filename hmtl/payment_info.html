@@ -4,12 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment Info</title>
-    <link rel="stylesheet" href="personal_info_style.css">
+    <link rel="stylesheet" href="/stylesheets/payment_info.css">
+    <style>
+        
+    </style>
 </head>
 <body>
-    <h2 class="header_personal_info">Enter your personal info</h2>
+    <h2 class="header_payment_info">Add your payment info</h2>
     
-    <fieldset class="personal_info_form">
+    <fieldset class="payment_info_form">
         <div>
             <label for="first_name">First Name</label>
             <input type="text" id="first_name" name="first_name" required>
@@ -41,7 +44,7 @@
         
 
         <div>
-            <label for="billing_zip_code">BIlling ZIP Code</label>
+            <label for="billing_zip_code">Billing ZIP Code</label>
             <input type="text" inputmode="numeric" id="billing_zip_code" name="billing_zip_code" required>
         </div>
 
@@ -50,12 +53,12 @@
     
     <button class="submit_button" onclick="loadAnotherFile()">Submit</button>
 
-        <script>
-            function loadAnotherFile() {
-                // Load the other HTML file here
-                window.location.href = "checkout.html";
-            }
-        </script>
+    <script>
+        function loadAnotherFile() {
+            // Load the other HTML file here
+            window.location.href = "checkout.html";
+        }
+    </script>
         
 </body>
 </html>
