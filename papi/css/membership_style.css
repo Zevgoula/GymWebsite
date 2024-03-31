@@ -44,6 +44,7 @@ body {
 }
 
 .boxes {
+    margin-top: 30px;
     padding-top: 50px;
     display: flex;
     flex-direction: row;
@@ -54,10 +55,11 @@ body {
 .box {
     border-radius: 25px;
     background-color: rgba(58, 58, 58, 0.5);
+    padding-top: 50px;
     width: 300px;
     height: 400px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 50px;
+    margin-right: 50px;
     justify-content: center; 
     align-items: center; 
 }
@@ -97,12 +99,23 @@ body {
     font-size: 1.5em;
     color: rgb(255, 255, 255);
     text-align: center;
+    margin-top: 1.5em;
 }
 
 .perk {
     display: flex;
     align-items: center;
     margin-top: 1em;
+    padding-left: 25%;
+}
+
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .description {
@@ -111,14 +124,17 @@ body {
     opacity: 0.5;
     margin-top: 1em;
     color: white;
+    margin-top: 2.5em;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .free-trial{
     width: 200px;
     padding: 15px 0;
     text-align: center;
-    margin-top: 100px;
-    margin-left: 40px;
+    margin: 50px 50px 0 50px;
     border-radius: 25px;
     font-weight: bold;
     border: 2px solid #474545;
@@ -149,12 +165,10 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 260px;
+    margin-top: 185px;
     text-align: center;
     color: #666;
     font-size: 1.5em;
 }
 
-a:hover {
-    text-decoration: underline;
-  }
+
