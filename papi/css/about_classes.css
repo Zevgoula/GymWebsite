@@ -1,39 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-header {
-    background-color: #f2f2f2;
-    padding: 20px;
+:root {
+  font-size: 10px;
+}
+
+.banner {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.932);
+  display: flex;
+  flex-direction: column;
+}
+
+.header_big{
+    display: inline-block;
     text-align: center;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-size: 1.2em;
+    border: 2px solid white;
+    border-radius: 2em;
+    padding: 10px;
 }
 
-h1 {
-    color: #333;
+.logo {
+  width: 150px;
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  left: 40px;
 }
 
-main {
-    padding: 20px;
+.service {
+  display: flex;
+  flex-direction: row;
 }
 
-section {
-    margin-bottom: 20px;
+.content_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  margin-top: 300px;
+  width: 40%;
+  height: 60%;
+  padding: 10px;
+  border: 2px solid #5f7252;
+  border-radius: 2em;
+  background-color: rgba(0, 0, 0, 0);
 }
 
-h2 {
-    color: #333;
+.image{
+    padding-top: 300px;
+    padding-left: 50%;
+    height: 35%;
+    width: 25%;
+
 }
 
-p {
-    color: #666;
+.header {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  font-size: 1.2em;
+  padding: 10px;
+  width: 50%;
 }
 
-footer {
-    background-color: #f2f2f2;
-    padding: 20px;
-    text-align: center;
-    font-size: 12px;
-    color: #666;
+.description p {
+  display: flex;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  font-size: 2em;
+}
+
+.perks {
+  font-size: 1.5em;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  margin-top: 1.5em;
+  width: 50%;
+}
+
+.perk {
+  display: flex;
+  align-items: center;
+  margin-top: 1em;
+  padding-left: 25%;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 175px;
+  text-align: center;
+  color: #666;
+  font-size: 1.5em;
 }
