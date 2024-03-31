@@ -11,7 +11,9 @@
 </head>
 
 <body>
-    <img src="/nektar2/css/logo.png" class="logo">
+    <a href="/nektar2/html_and_js/newhome.html">
+        <img src="/nektar2/css/logo.png" class="logo">
+    </a>
     <div class="wrapper">
         <form action="">
             <h1>Personal Info</h1>
@@ -37,7 +39,13 @@
             <div class="remember-forgot">
                 <label><input type="checkbox">Remember me.</label>
             </div>
-            <button type="submit" class="btn">Submit</button>
+            <button type="submit" class="btn" onclick="loadAnotherFile()">Submit</button>
+            <script>
+                function loadAnotherFile() {
+                    // Load the other HTML file here
+                    window.location.href = "/nektar2/html_and_js/payment_info.html";
+                }
+            </script>
 
         </form>
     </div>
