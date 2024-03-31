@@ -60,7 +60,6 @@ body {
     margin-right: auto;
     justify-content: center; 
     align-items: center; 
-    
 }
 
 .type_of_membership {
@@ -114,35 +113,34 @@ body {
     color: white;
 }
 
-button {
+.free-trial{
     width: 200px;
     padding: 15px 0;
     text-align: center;
-    margin: 20px 10px;
+    margin-top: 100px;
+    margin-left: 40px;
     border-radius: 25px;
     font-weight: bold;
     border: 2px solid #474545;
     background: transparent;
-    color: #ffffff;
+    color: #fff;
     cursor: pointer;
     position: relative;
     overflow: hidden;
+ }
 
-}
-
-span{
+ .free-trial span{
     background: #474545;
     height: 100%;
     width: 0;
     border-radius: 25px;
-    position: absolute;
     left: 0;
     bottom: 0;
     z-index: -1;
     transition: 0.5s;
  }
 
-button:hover span{
+ .free-trial:hover span{
     width: 100%;
  }
 
@@ -155,5 +153,8 @@ button:hover span{
     text-align: center;
     color: #666;
     font-size: 1.5em;
-
 }
+
+a:hover {
+    text-decoration: underline;
+  }
