@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Info</title>
+    <link rel="stylesheet" href="/papi/css//payment_info.css">
+    <style>
+        
+    </style>
+</head>
+<body>
+    <h2 class="header_payment_info">Add your payment info</h2>
+    
+    <fieldset class="payment_info_form">
+        <div>
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" required>
+        </div>
+        
+        <div>
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" required>
+        </div>
+        
+
+        <div>
+            <label for="credit_card_number">Credit Card Number</label>
+            <input type="number" id="credit_card_number" name="credit_card_number" required>
+        </div>
+        
+
+        <div>
+            <label for="exp_date">Expiration Date</label>
+            <input type="text" id="exp_date" name="exp_date">
+            
+        </div>
+        
+
+        <div>
+            <label for="cvv">CVV</label>
+            <input type="text" inputmode="numeric" id="cvv" name="cvv" required>
+        </div>
+        
+
+        <div>
+            <label for="billing_zip_code">Billing ZIP Code</label>
+            <input type="text" inputmode="numeric" id="billing_zip_code" name="billing_zip_code" required>
+        </div>
+
+    </fieldset>
+        
+    
+    <button class="submit_button" onclick="loadAnotherFile()">Submit</button>
+
+    <script>
+        function loadAnotherFile() {
+            // Load the other HTML file here
+            window.location.href = "checkout.html";
+        }
+    </script>
+        
+</body>
+</html>

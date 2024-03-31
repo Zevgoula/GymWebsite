@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+.header_personal_info {
+    text-align: center;
+    color: #333;
+}
+
+.subheader_personal_info {
+    text-align: center;
+    color: #666;
+}
+
+.personal_info_form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.personal_info_form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.personal_info_form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.Home {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.Home label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.Home input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.submit_button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit_button:hover {
+    background-color: #45a049;
+}
