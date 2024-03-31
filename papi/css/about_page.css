@@ -1,33 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-header {
-    background-color: #f2f2f2;
-    padding: 20px;
+:root{
+    font-size: 10px;
+}
+
+.banner{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.banner > h2{
+    margin-top: 20px;
+    color:#ffffff;
     text-align: center;
+    font-size: 2em;
 }
 
-main {
-    padding: 20px;
-}
+.logo{
+    width: 150px;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    left: 40px;
+ }
 
-section {
-    margin-bottom: 20px;
-}
-
-h2 {
-    color: #333;
-}
-
-p {
-    color: #666;
-}
-
-footer {
-    background-color: #f2f2f2;
+.header{
+    display: inline-block;
+    text-align: center;
+    margin-top: 6%;
+    margin-left: 45%;
+    color: white;
+    text-align: center;
+    font-size: 1.2em;
+    border: 2px solid white;
+    border-radius: 2em;
     padding: 10px;
+
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    color: white;
     text-align: center;
+    font-size: 12px;
+}
+
+.info > h1{
+    font-size: 2em;
+    font-weight: bold;
+    width: 50%;
+    padding-top: 5px;
+    
+    
+}
+
+.info > p{
+    padding-top: 20px;
+    font-size: 1.3em;
+    width: 50%;
+    
+}
+
+.trainers{
+    padding-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.trainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.trainer > img{
+    cursor: pointer;
+    width: 40%;
+    flex: 33.3%;
+    border-radius: 1em;
+    
+}
+
+.trainer h3{
+    color: white;
+    text-align: center;
+    font-size: 2em;
+    padding-top: 10px;
+}
+
+.trainer p{
+    display: block;
+    color: #ffffff;
+    font-size: 1.5em;
+    text-align: center;
+    width: 50%;
+
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 23px;
+    text-align: center;
+    color: #666;
+    font-size: 1.5em;
+
 }
