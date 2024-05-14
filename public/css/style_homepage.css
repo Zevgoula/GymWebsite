@@ -11,7 +11,7 @@ body {
     justify-content: center; /* Space between items */
     align-items: center; /* Align items vertically */
     background-color: black;
-    background-image: url('bg.jpg');
+    background-image: url('/public/images/bg.jpg');
     background-size: 100%;
     background-repeat: no-repeat;
 

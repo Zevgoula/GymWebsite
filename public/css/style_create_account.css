@@ -4,7 +4,7 @@ body {
     display: flex; /* Use flexbox layout for body */
     justify-content: space-between; /* Space between items */
     align-items: center; /* Align items vertically */
-    background-image: url('create_account.jpg');
+    background-image: url('/public/images/create_account.jpg');
     background-size: cover;
     height: 80vh
 }
