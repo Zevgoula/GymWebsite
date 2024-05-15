@@ -1,0 +1,38 @@
+<a href="/views/partials/newhome.html">
+        <img src="/images/logo.png" class="logo">
+</a>
+<div class="wrapper">
+    <form action="">
+        <h1>Personal Info</h1>
+        <div class="input-box">
+            <input type="text" placeholder="First name" required>
+            <input type="text" placeholder="Adress" required; style = "margin-left: 120px;">
+        </div>
+        <div class="input-box">
+            <input type="text" placeholder="Last name" required>
+            <input type="text" placeholder="City" required; style = "margin-left: 120px;">
+        </div>
+        <div class="input-box">
+            <input type="text" placeholder="Email" required>
+            <input type="text" placeholder="State" required; style = "margin-left: 120px;">
+
+        </div>
+        <div class="input-box">
+            <input type="password" placeholder="Phone number" required>
+            <input type="text" placeholder="Zip Code" required; style = "margin-left: 120px;">
+
+        </div>
+        
+        <div class="remember-forgot">
+            <label><input type="checkbox">Remember me.</label>
+        </div>
+        <button type="submit" class="btn" onclick="loadAnotherFile()">Submit</button>
+        <script>
+            function loadAnotherFile() {
+                // Load the other HTML file here
+                window.location.href = "/views/partials/payment_info.html";
+            }
+        </script>
+
+    </form>
+</div>
