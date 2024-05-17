@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
 }
 
-import gymChainApp from './app.mjs';
+import { gymChainApp } from './app.mjs';
 
 const port = process.env.PORT || 3000;
 
@@ -19,4 +19,4 @@ process.on('SIGTERM', () => {
     server.close(() => {
        console.log('Http server closed.');
     });
- });
+});

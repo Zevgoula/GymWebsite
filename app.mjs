@@ -23,8 +23,11 @@ import routes from './routes/router.mjs'
 
 app.use('/', routes);
 
-app.engine('hbs', exphbs.engine({ extname: '.hbs' }));
+app.engine('hbs', exphbs.engine({ 
+  extname: '.hbs' 
+}));
+
 
 app.set('view engine', 'hbs');
 
-export {app as gymChainApp};
+export {app as gymChainApp}
