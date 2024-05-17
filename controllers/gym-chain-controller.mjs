@@ -6,5 +6,5 @@ if (process.env.NODE_ENV !== 'production') {
    dotenv.config();
 }
 
-/** Διαλέξτε το κατάλληλο μοντέλο στο αρχείο .env */
+/* Διαλέξτε το κατάλληλο μοντέλο στο αρχείο .env */
 const model = await import(`../model/${process.env.MODEL}/gym-chain-model-${process.env.MODEL}.mjs`);
