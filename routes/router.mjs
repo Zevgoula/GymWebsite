@@ -21,6 +21,8 @@ router.route('/personal_info').get((req, res) => { res.render('personal_info') }
 router.route('/payment_info').get((req, res) => { res.render('payment_info') });
 router.route('/login').get((req, res) => { res.render('login') });
 router.route('/createAccount').get((req, res) => { res.render('createAccount') });
+router.route('/joinNow').get((req, res) => { res.render('joinNow') });
+
 
 
 
