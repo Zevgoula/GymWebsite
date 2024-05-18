@@ -19,7 +19,7 @@ router.route('/home').get((req, res) => { res.render('home', {layout : "main"}) 
 router.route('/memberships').get((req, res) => { res.render('memberships') });
 router.route('/personal_info').get((req, res) => { res.render('personal_info') });
 router.route('/payment_info').get((req, res) => { res.render('payment_info') });
-router.route('/login').get((req, res) => { res.render('login') });
+router.route('/login').get((req, res) => { res.render('login', {layout : "forms_layout"}) });
 router.route('/createAccount').get((req, res) => { res.render('createAccount') });
 
 
