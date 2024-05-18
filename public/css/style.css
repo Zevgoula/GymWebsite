@@ -218,3 +218,12 @@
    text-decoration: underline;
 }
 
+/* Gym Benefits */
+
+.benefits_title{
+   text-align: center;
+   color: #ffffff;
+   text-align: center;
+   font-size: 2em;
+   padding-bottom: 100px;
+}
