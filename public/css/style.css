@@ -5,44 +5,60 @@
     padding: 0;
     font-family: sans-serif;
 }
-/* Homepage */
-.homepage_body{
-    width: 100%;
-    height: 100vh;
-    background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/images/bg.jpg');
-    background-size: cover;
-    background-position: center;
+
+:root{
+   font-size: 10px;
 }
 
- .homepage_navbar{
-    width: 85%;
-    margin: auto;
-    padding: 35px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+/* Universal Footer */
+.footer {
+   text-align: center;
+   color: #666;
+   font-size: 1.5em;
+}
 
- }
+body{
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+   justify-content: center;
+   background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/images/bg.jpg');
+   background-size: cover;
+   background-position: center;
+}
+
+/* Header */
+
+.header_navbar{
+   width: 85%;
+   margin: auto;
+   padding: 35px 0;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+
+}
 
  .logo{
     width: 150px;
     cursor: pointer;
  }
 
- .homepage_navbar ul li{
+ .header_navbar ul li{
     list-style: none;
     display: inline-block;
     margin: 0 20px;
     position: relative;
  }
 
- .homepage_navbar ul li a{
+ .header_navbar ul li a{
     text-decoration: none;
     color: #fff;
     text-transform: uppercase;
+    font-size: 1.5em;
  }
 
- .homepage_navbar ul li::after{
+ .header_navbar ul li::after{
     content:'';
     height: 3px;
     width: 0;    
@@ -53,9 +69,11 @@
     transition: 0.5s;
  }
 
- .homepage_navbar ul li:hover::after{
+ .header_navbar ul li:hover::after{
     width: 100%;
  }
+
+/* Homepage */
 
  .homepage_content{
     width: 100%;
@@ -71,7 +89,6 @@
     margin-top: 80px;
  }
  
-
  .homepage_content p{
     margin: 20px auto;
     font-weight: 100;
@@ -111,14 +128,6 @@
 
 /* Forms */
 
-.login_body{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   min-height: 100vh;
-
-}
-
 .wrapper{
    width: 420px;
    background: transparent;
@@ -127,7 +136,12 @@
    color: #fff;
    border-radius: 10px;
    padding: 30px 40px;
-   margin-top: 50px;
+   text-align: center;
+}
+
+.wrapper form{
+   display: flex;
+   flex-direction: column;
 }
 
 .wrapper h1{
@@ -179,6 +193,7 @@
    accent-color: #fff;
    margin-right: 3px;
 }
+
 .remember-forgot a{
    color: #fff;
    text-decoration: none;
