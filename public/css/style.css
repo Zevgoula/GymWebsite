@@ -28,6 +28,7 @@ body{
    height: 5vh;
    margin: auto;
    padding: 35px 0;
+   margin-bottom: -50px;
    display: flex;
    align-items: center;
    justify-content: space-between;
@@ -68,8 +69,7 @@ body{
  }
 
  /* Universal content container */
-
- .content{
+ .main-content{
       width: 85vw;
       height: 85vh;
       margin: auto;
@@ -90,7 +90,6 @@ body{
    color: #666;
    font-size: 1.5em;
 }
-
 
 /* Homepage */
  .homepage_content{
@@ -113,35 +112,35 @@ body{
    font-size: 1.5em;
  }
 
- .anim_button {
-    width: 200px;
-    padding: 15px 0;
-    text-align: center;
-    margin: 20px 10px;
-    border-radius: 25px;
-    font-weight: bold;
-    border: 2px solid #474545;
-    background: transparent;
-    color: #fff;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+.anim_button {
+   width: 200px;
+   padding: 15px 0;
+   text-align: center;
+   margin: 20px 10px;
+   border-radius: 25px;
+   font-weight: bold;
+   border: 2px solid #474545;
+   background: transparent;
+   color: #fff;
+   cursor: pointer;
+   position: relative;
+   overflow: hidden;
  }
 
 .anim_button span{
-    background: #474545;
-    height: 100%;
-    width: 0;
-    border-radius: 25px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-    transition: 0.5s;
+   background: #474545;
+   height: 100%;
+   width: 0;
+   border-radius: 25px;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: -1;
+   transition: 0.5s;
  }
 
 .anim_button:hover span{
-    width: 100%;
+   width: 100%;
  }
 
 /* Forms */
@@ -258,7 +257,6 @@ form h1{
 }
 
 /* Gym Benefits */
-
 .benefits_title{
    text-align: center;
    color: #ffffff;
@@ -269,7 +267,6 @@ form h1{
 
 
 /* About Page */
-
 .title{
    text-align: center;
    color: white;
@@ -280,6 +277,7 @@ form h1{
    padding: 10px;
    
 }
+
 .meet-trainers{
    color:#ffffff;
    text-align: center;
@@ -347,3 +345,163 @@ form h1{
    text-align: center;
    width: 50%;
 }
+
+
+/* Join Now */
+.select_club{
+   text-align: center;
+   font-size: 60px;
+   margin-top: 100px;
+   margin-bottom: 0px;
+   color: #fff;
+}
+
+.row {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+}
+ 
+.column {
+   padding: 50px;
+}
+
+.column img{
+   width: 100%;
+   display: block;
+   margin: auto;
+}
+ 
+
+.content h3{
+   margin-top: 10px;
+   font-size: 30px;
+   text-align: center;
+   margin-bottom: 10px;
+   color:#fff
+}
+
+.content p{
+   font-size: 15px;
+   margin-top: 1px;
+   text-align: center;
+   color:#fff
+}
+
+/* Memberships */
+.boxes {
+   margin-top: 30px;
+   padding-top: 50px;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+}
+
+.box {
+   border-radius: 25px;
+   background-color: rgba(58, 58, 58, 0.5);
+   padding-top: 50px;
+   width: 300px;
+   height: 400px;
+   margin-left: 50px;
+   margin-right: 50px;
+   justify-content: center; 
+   align-items: center; 
+}
+
+.type_of_membership {
+   font-size: 1.5em;
+   text-align: center;
+   color: white;
+   font-weight: bold;
+}
+
+.pricing_type {
+   margin-top: 0;
+   margin-bottom: 0;
+   font-size: 2rem;
+   line-height: 1.2;
+   font-weight: 700;
+   letter-spacing: -.1rem;
+}
+
+.price {
+   font-family: Inter, sans-serif;
+   color: #5f7252;
+   font-size: 2.3125rem;
+   font-weight: 700;
+   text-align: center;
+   letter-spacing: -3px;
+}
+
+.per_month{
+   color:rgb(255, 255, 255);
+   font-size: 1.125em;
+   letter-spacing: -1px;
+}
+
+.perks {
+   font-size: 1.5em;
+   color: rgb(255, 255, 255);
+   text-align: center;
+   margin-top: 1.5em;
+}
+
+.perk {
+   display: flex;
+   align-items: center;
+   margin-top: 1em;
+   padding-left: 25%;
+}
+
+a {
+   color: #ffffff;
+   text-decoration: none;
+}
+
+a:hover {
+   text-decoration: underline;
+}
+
+.description {
+   font-size: 1.5em;
+   text-align: center;
+   opacity: 0.5;
+   margin-top: 1em;
+   color: white;
+   margin-top: 2.5em;
+   width: 50%;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.free-trial{
+   width: 200px;
+   padding: 15px 0;
+   margin: 50px 50px 0 50px;
+   border-radius: 25px;
+   font-weight: bold;
+   border: 2px solid #474545;
+   background: transparent;
+   color: #fff;
+   cursor: pointer;
+   position: relative;
+   overflow: hidden;
+}
+
+.free-trial span{
+   background: #474545;
+   height: 100%;
+   width: 0;
+   border-radius: 25px;
+   z-index: -1;
+   transition: 0.5s;
+}
+
+.free-trial:hover span{
+   width: 100%;
+}
+
