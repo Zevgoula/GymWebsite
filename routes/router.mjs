@@ -17,6 +17,10 @@ router.route('/services').get((req, res) => { res.render('services') });
 router.route('/contact').get((req, res) => { res.render('contact') });
 router.route('/home').get((req, res) => { res.render('home', {layout : "main"}) });
 router.route('/memberships').get((req, res) => { res.render('memberships') });
+router.route('/personal_info').get((req, res) => { res.render('personal_info') });
+router.route('/payment_info').get((req, res) => { res.render('payment_info') });
+router.route('/login').get((req, res) => { res.render('login') });
+router.route('/createAccount').get((req, res) => { res.render('createAccount') });
 
 
 
