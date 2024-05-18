@@ -1,0 +1,15 @@
+Pilates: Mon, Tues, Thurs, Sat
+	9-12, 18-21
+	Capacity: 20
+
+CrossFit: Mon, Wed, Fri, Sat
+	10-13, 19-21
+	Capacity: 20
+
+Yoga: Wed, Fri
+	9-12, 17-20
+	Capacity: 20
+
+RPM: Thurs, Sat
+	10-12, 18-20
+	Capacity: 20
