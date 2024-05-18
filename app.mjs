@@ -1,5 +1,6 @@
 import express from 'express'
 const app = express()
+const __dirname = path.resolve()
 import path from 'path'
 
 import dotenv from 'dotenv'
@@ -24,11 +25,13 @@ import routes from './routes/router.mjs'
 
 app.use('/', routes);
 
+
 app.engine('hbs', exphbs.engine({ 
   extname: '.hbs',
   defaultLayout: 'main'
 }));
 
 app.set('view engine', 'hbs');
+
 
 export {app as gymChainApp}
