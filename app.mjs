@@ -1,5 +1,6 @@
 import express from 'express'
 const app = express()
+import path from 'path'
 
 import dotenv from 'dotenv'
 if (process.env.NODE_ENV !== 'production') {
@@ -24,9 +25,9 @@ import routes from './routes/router.mjs'
 app.use('/', routes);
 
 app.engine('hbs', exphbs.engine({ 
-  extname: '.hbs' 
+  extname: '.hbs',
+  defaultLayout: 'main'
 }));
-
 
 app.set('view engine', 'hbs');
 
