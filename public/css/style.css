@@ -11,15 +11,15 @@
 }
 
 body{
-   width: 100vw;
-   height: 100%;
+   /* width: 100vw; */
+   /* height: 100%; */
    display: flex;
    flex-direction: column;
    text-align: center;
    justify-content: center;
    background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url('/images/bg.jpg');
    background-attachment: fixed;
-   background-size: cover;
+   background-size: contain;
    background-position: center;
 }
 
@@ -69,9 +69,6 @@ body{
 
  /* Universal content container */
  .main-content{
-   width: 85vw;
-   height: 85vh;
-   margin: auto;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -81,7 +78,7 @@ body{
  /* Universal Footer */
  .footer {
    width: 100vw;
-   height: 5vh;
+   height: 5%;
    text-align: center;
    width: 100%;
    color: #666;
@@ -92,7 +89,6 @@ body{
 .homepage_contents{
    width: 100%;
    height: 100%;
-   margin-top: 500px;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -100,8 +96,7 @@ body{
 }
 
  .homepage_content{
-   width: 100vw;
-   height: 50vh;
+   width: 100%;
    text-align: center;
    justify-content: center;
    color: #fff;
@@ -159,10 +154,11 @@ body{
    align-items: center;
    color: #fff;
    margin-top: 10px;
+   gap: 50px;
 }
 
 .about_info{
-   width: 50vw;
+   width: 45%;
    height: 100%;
    display: flex;
    flex-direction: column;
@@ -186,7 +182,7 @@ body{
 }
 
 textarea{
-   width: 90%;
+   width: 100%;
    height: 100%;
    background: transparent;
    border: none;
@@ -223,6 +219,9 @@ form h1{
    height: 50px;
    padding-top: 20px;
    padding-bottom: 20px;
+   text-align: center;
+   justify-content: center;
+   gap: 50px;
 }
 
 .input-box input{
@@ -303,12 +302,14 @@ form h1{
 .personal_form{
    width: 50vw;
    justify-content: center;
+   
 }
 
 .personal_form .input-box{
    display: flex;
    justify-content: space-between;
    flex-direction: row;
+   gap: 50px;
 }
 
 /* Gym Benefits */
