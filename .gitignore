@@ -3,3 +3,5 @@ node_modules/
 package-lock.json
 package.json
 test.html
+data/schema.jpeg
+data/schema.json
