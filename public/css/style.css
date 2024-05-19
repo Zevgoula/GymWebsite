@@ -659,7 +659,7 @@ a:hover {
 /* About Classes */
 .services-placeholder{
    width: 80vw;
-   height: 100vh;
+   height: auto;
    margin-top: 1000px;
    display: flex;
    flex-direction: column;
@@ -668,17 +668,17 @@ a:hover {
 }
 
 .classes-title{
-   height: 10vh;
+   height: auto;
    width: 80vw;
    text-align: left;
    color: white;
    font-size: 3em;
-   padding-top: 500px;
+   padding-top: 1000px;
 }
 
 .classes-subtitle{
    width: 80vw;
-   height: 10vh;
+   height: auto;
    text-align: left;
    color: white;
    font-size: 1.5em;
@@ -701,8 +701,7 @@ a:hover {
 
 .services-info{
    background: transparent;
-   border: 2px solid rgba(225, 225, 225, 0.3);
-   backdrop-filter: blur(10px);
+   backdrop-filter: blur(12px);
    color: #fff;
    border-radius: 15px;
    margin-top: 50px;
