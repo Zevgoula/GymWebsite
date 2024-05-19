@@ -338,7 +338,7 @@ form h1{
    justify-content: center; 
    align-items: center;
    text-align: center;
-   cursor: pointer;
+
 }
 
 .service:nth-child(1){
@@ -374,9 +374,9 @@ form h1{
    text-decoration: none;
 }
 
-.service a:hover {
+/* .service a:hover {
    text-decoration: underline;
-}
+} */
 
 .service a h3{
    margin-top: 45%;
@@ -660,13 +660,51 @@ a:hover {
 /* About Classes */
 .services-placeholder{
    width: 80vw;
+   height: auto;
+   margin-top: 1000px;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
 }
 
+.classes-title{
+   height: auto;
+   width: 80vw;
+   text-align: left;
+   color: white;
+   font-size: 3em;
+   padding-top: 1000px;
+}
+
+.classes-subtitle{
+   width: 80vw;
+   height: auto;
+   text-align: left;
+   color: white;
+   font-size: 1.5em;
+   padding-top: 100px;
+   padding-bottom: 100px;
+}
+
+.classes-info{
+   background: transparent;
+   border: 2px solid rgba(225, 225, 225, 0.3);
+   backdrop-filter: blur(10px);
+   color: #fff;
+   border-radius: 15px;
+   margin-top: 50px;
+   width: 100%;
+   height: 70%;
+   display: flex;
+   flex-direction: row;
+}
+
 .services-info{
+   background: transparent;
+   backdrop-filter: blur(12px);
+   color: #fff;
+   border-radius: 15px;
    margin-top: 50px;
    width: 100%;
    height: 70%;
@@ -675,32 +713,18 @@ a:hover {
 }
 
 .about-image-container{
-   width: 30vw;
+   width: 50vw;
    height: 50vh;
    color: white;
    border-radius: 25px;
    justify-content: center; 
    align-items: center;
    text-align: center;
-   cursor: pointer;
 }
 
 .about-image-container a {
    color: #ffffff;
    text-decoration: none;
-}
-
-.about-image-container a:hover {
-   text-decoration: underline;
-}
-
-.about-image-container a h3{
-   margin-top: 45%;
-   color: #fff;
-   font-size: 2rem;
-   line-height: 1.2;
-   font-weight: 700;
-   letter-spacing: -.1rem;
 }
 
 .content_info{
@@ -709,31 +733,33 @@ a:hover {
 }
 
 .content_info .description p{
-   font-size: 2em;
+   font-size: 1.6em;
    color: white;
    font-weight: bold;
+   text-align: left;
 }
 
-.services-info:nth-child(2) .about-image-container{
+.services-info:nth-child(3) .about-image-container{
    background-size: cover;
    background-position: center;
    background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.431), rgba(50, 50, 50, 0.431)), url(/images/pilates.png);
 }
 
-.services-info:nth-child(3) .about-image-container {
+.services-info:nth-child(4) .about-image-container {
    background-size: cover;
    background-position: center;
    background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.431), rgba(50, 50, 50, 0.431)), url(/images/yoga.jpg);
 }
 
-.services-info:nth-child(4) .about-image-container {
+.services-info:nth-child(5) .about-image-container {
    background-size: cover;
    background-position: center;
    background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.431), rgba(50, 50, 50, 0.431)), url(/images/crossfit.jpg);
 }
 
-.services-info:nth-child(5) .about-image-container {
+.services-info:nth-child(6) .about-image-container {
    background-size: cover;
    background-position: center;
    background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.431), rgba(50, 50, 50, 0.431)), url(/images/login.jpg);
 }
+
