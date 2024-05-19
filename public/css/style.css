@@ -85,6 +85,7 @@ body{
    text-align: center;
    position: absolute;
    bottom: 0;
+   width: 100%;
    color: #666;
    font-size: 1.5em;
 }
@@ -197,7 +198,6 @@ textarea{
    justify-content: center;
    align-items: center;
    color: #fff;
-
 } */
 
 /* Forms */
@@ -659,6 +659,15 @@ a:hover {
 }
 
 /* About Classes */
+.services-placeholder{
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
 .services-info{
    margin-top: 50px;
    width: 100%;
@@ -667,9 +676,9 @@ a:hover {
    flex-direction: row;
 }
 
-.service-info{
-   width: 388px;
-   height: 388px;
+.about-image-container{
+   width: 30vw;
+   height: 50vh;
    color: white;
    border-radius: 25px;
    justify-content: center; 
@@ -678,22 +687,22 @@ a:hover {
    cursor: pointer;
 }
 
-.service-info a {
+.about-image-container a {
    color: #ffffff;
    text-decoration: none;
 }
 
-.service-info a:hover {
+.about-image-container a:hover {
    text-decoration: underline;
 }
 
-.service-info a h3{
+.about-image-container a h3{
    margin-top: 45%;
    color: #fff;
    font-size: 2rem;
    line-height: 1.2;
    font-weight: 700;
-   letter-spacing: -.1rem;;
+   letter-spacing: -.1rem;
 }
 
 .content_info{
@@ -707,10 +716,26 @@ a:hover {
    font-weight: bold;
 }
 
-.service-info:nth-child(1){
+.about-image-container:nth-child(1) {
    background-size: cover;
    background-position: center;
-   background-image: linear-gradient(180deg, rgba(95, 114, 82, .2), rgba(95, 114, 82, .75)), url(/images/pilates.png);
+   background-image: linear-gradient(180deg, rgba(79, 80, 83, 0.2), rgba(79, 80, 83, 0.2)), url(/images/pilates.png);
 }
 
+.about-image-container:nth-child(2) {
+   background-size: cover;
+   background-position: center;
+   background-image: linear-gradient(180deg, rgba(63, 69, 190, 0.2), rgba(63, 69, 190, 0.2)), url(/images/crossfit.png);
+}
 
+.about-image-container:nth-child(3) {
+   background-size: cover;
+   background-position: center;
+   background-image: linear-gradient(180deg, rgba(63, 69, 190, 0.2), rgba(63, 69, 190, 0.2)), url(/images/pilates.png);
+}
+
+.about-image-container:nth-child(4) {
+   background-size: cover;
+   background-position: center;
+   background-image: linear-gradient(180deg, rgba(63, 69, 190, 0.2), rgba(63, 69, 190, 0.2)), url(/images/yoga.png);
+}
