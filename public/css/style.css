@@ -12,7 +12,7 @@
 
 body{
    width: 100vw;
-   height: 100vh;
+   height: 100%;
    display: flex;
    flex-direction: column;
    text-align: center;
@@ -36,21 +36,21 @@ body{
  .logo{
     width: 150px;
     cursor: pointer;
- }
+}
 
  .header_navbar ul li{
     list-style: none;
     display: inline-block;
     margin: 0 20px;
     position: relative;
- }
+}
 
  .header_navbar ul li a{
     text-decoration: none;
     color: #fff;
     text-transform: uppercase;
     font-size: 1.5em;
- }
+}
 
  .header_navbar ul li::after{
     content:'';
@@ -61,55 +61,63 @@ body{
     left: 0;
     bottom: -5px;
     transition: 0.5s;
- }
+}
 
  .header_navbar ul li:hover::after{
     width: 100%;
- }
+}
 
  /* Universal content container */
  .main-content{
-      width: 85vw;
-      height: 85vh;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
- }
+   width: 85vw;
+   height: 85vh;
+   margin: auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
 
  /* Universal Footer */
 .footer {
    width: 100vw;
    height: 5vh;
    text-align: center;
-   position: absolute;
-   bottom: 0;
    width: 100%;
    color: #666;
    font-size: 1.5em;
 }
 
 /* Homepage */
+.homepage_contents{
+   width: 100%;
+   height: 100%;
+   margin-top: 500px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
  .homepage_content{
    width: 100vw;
    height: 50vh;
    text-align: center;
    justify-content: center;
    color: #fff;
- }
+}
 
  .homepage_content h1{
     font-size: 7em;
     margin-top: 10vh;
- }
+}
  
  .homepage_content p{
    margin: 20px auto;
    font-weight: 100;
    line-height: 5px;
    font-size: 1.5em;
- }
+}
 
 .anim_button {
    width: 200px;
@@ -124,7 +132,7 @@ body{
    cursor: pointer;
    position: relative;
    overflow: hidden;
- }
+}
 
 .anim_button span{
    background: #474545;
@@ -150,7 +158,7 @@ body{
    justify-content: center;
    align-items: center;
    color: #fff;
-   /* margin-top: -100px; */
+   margin-top: 10px;
 }
 
 .about_info{
@@ -189,16 +197,6 @@ textarea{
    color: #fff;
    justify-content: center;
 }
-
-/* .contact{
-   width: 100vw;
-   height: 85vh;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   color: #fff;
-} */
 
 /* Forms */
 form{
