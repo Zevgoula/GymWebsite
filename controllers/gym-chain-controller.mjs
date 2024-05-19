@@ -43,7 +43,7 @@ export async function login(req, res) {
 }
 
 export async function createAccount(req, res) {
-    res.render('create-account', { layout: 'main' });
+    res.render('createAccount', { layout: 'main' });
 }
 
 export async function joinNow(req, res) {

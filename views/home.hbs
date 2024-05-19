@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="about" style="margin-top:-10px">
+    <div class="about" >
         <div class="about_info">
             <h2>Our Mission</h2>
             <p>To provide affordable, accessible, and private fitness spaces close to home for the everyday person.</p>
@@ -72,12 +72,13 @@
                 <input type="number" placeholder="Phone" required>
                 <input type="address" placeholder="Address" required>
             </div>
-            <div class="input-box", style="width:105%">
+            <div class="input-box">
                 <input  type="text" placeholder="Subject" required></input>
             </div>
-            <div class="input-box">
+            {{!-- <div class="input-box"> --}}
                 <textarea placeholder="Message" required></textarea>
-            </div>
+            {{!-- </div> --}}
+            <button type="submit" class="btn" onclick="loadAnotherFile()">Submit</button>
         </form>
     </div>
     
