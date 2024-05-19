@@ -11,18 +11,18 @@ const gymChainController = await import(`../controllers/gym-chain-controller.mjs
 
 router.route('/').get((req, res) => { res.redirect('/home') });
 
-router.route('/about_classes').get((req, res) => { res.render('about_classes') });
-router.route('/about_page').get((req, res) => { res.render('about_page') });
-router.route('/services').get((req, res) => { res.render('services') });
-router.route('/contact').get((req, res) => { res.render('contact') });
-router.route('/home').get((req, res) => { res.render('home', {layout : "main"}) });
-router.route('/memberships').get((req, res) => { res.render('memberships') });
-router.route('/personal_info').get((req, res) => { res.render('personal_info') });
-router.route('/payment_info').get((req, res) => { res.render('payment_info') });
-router.route('/login').get((req, res) => { res.render('login') });
-router.route('/createAccount').get((req, res) => { res.render('createAccount') });
-router.route('/joinNow').get((req, res) => { res.render('joinNow') });
-router.route('/contact').get((req, res) => { res.render('contact') });
+router.get('/about_classes', gymChainController.about_classes);
+router.get('/about_page', gymChainController.about_page);
+router.get('/services', gymChainController.services);
+router.get('/contact', gymChainController.contact);
+router.get('/home', gymChainController.home);
+router.get('/memberships', gymChainController.memberships);
+router.get('/personal_info', gymChainController.personal_info);
+router.get('/payment_info', gymChainController.payment_info);
+router.get('/login', gymChainController.login);
+router.get('/createAccount', gymChainController.createAccount);
+router.get('/joinNow', gymChainController.joinNow);
+router.get('/contact', gymChainController.contact);
 
 
 
