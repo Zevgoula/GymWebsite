@@ -54,13 +54,13 @@ body{
 
  .header_navbar ul li::after{
     content:'';
-    height: 3px;
+    height: 2px;
     width: 0;    
-    background-color: #474545;
+    background-color: #c5c5c5;
     position: absolute;
     left: 0;
     bottom: -5px;
-    transition: 0.5s;
+    transition: 0.7s;
 }
 
  .header_navbar ul li:hover::after{
@@ -131,7 +131,7 @@ body{
 }
 
 .anim_button span{
-   background: #474545;
+   background: #969595;
    height: 100%;
    width: 0;
    border-radius: 25px;
@@ -588,8 +588,6 @@ form h1{
 
 /* Memberships */
 .boxes {
-   margin-top: 30px;
-   padding-top: 50px;
    display: flex;
    flex-direction: row;
    align-items: center;
@@ -617,26 +615,27 @@ form h1{
 
 .pricing_type {
    margin-top: 0;
-   margin-bottom: 0;
-   font-size: 2rem;
+   margin-bottom: 0.5em;
+   font-size: 2.4rem;
    line-height: 1.2;
    font-weight: 700;
-   letter-spacing: -.1rem;
+   letter-spacing: -.2rem;
 }
 
 .price {
    font-family: Inter, sans-serif;
    color: #5f7252;
-   font-size: 2.3125rem;
+   font-size: 2.2rem;
    font-weight: 700;
    text-align: center;
    letter-spacing: -3px;
+   margin-bottom: 4rem;
 }
 
 .per_month{
    color:rgb(255, 255, 255);
    font-size: 1.125em;
-   letter-spacing: -1px;
+   letter-spacing: -0.5px;
 }
 
 .perks {
@@ -663,16 +662,27 @@ a:hover {
    text-decoration: underline;
 }
 
-.description {
-   font-size: 1.5em;
-   text-align: center;
-   opacity: 0.5;
-   margin-top: 1em;
-   color: white;
-   margin-top: 2.5em;
-   width: 50%;
-   margin-left: auto;
-   margin-right: auto;
+.membership-description {
+      font-size: 1.5em;
+      text-align: center;
+      opacity: 0.5;
+      margin-top: 1em;
+      color: white;
+      margin-top: 2.5em;
+      width: 50%;
+      margin-left: auto;
+      margin-right: auto;
+}
+
+.info-class-description{
+      font-size: 2.5em;
+      text-align: center;
+      font-weight: bold;
+      opacity: 0.5;
+      margin-top: 1em;
+      color: white;
+      margin-top: 2.5em;
+      width: 50%;
 }
 
 .free-trial{
@@ -721,15 +731,21 @@ a:hover {
    font-size: 3em;
    padding-top: 100px;
 }
-
-.classes-subtitle{
+.classes-subtitle-container{
    width: 80vw;
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-start; /* Changed from 'left' to 'flex-start' */
+   align-items: flex-start; /* Changed from 'left' to 'flex-start' */
+   padding-top: 150px;
+   padding-bottom: 250px;
+}
+.classes-subtitle{
+   width: 50vw;
    height: auto;
    text-align: left;
    color: white;
    font-size: 1.5em;
-   padding-top: 200px;
-   padding-bottom: 100px;
 }
 
 .classes-info{
@@ -744,11 +760,12 @@ a:hover {
    height: 70%;
    display: flex;
    flex-direction: row;
+   align-items: center;
 }
 
 .services-info{
    background: transparent;
-   backdrop-filter: blur(12px);
+   backdrop-filter: blur(5px);
    color: #fff;
    border-radius: 15px;
    margin-top: 100px;
@@ -760,7 +777,7 @@ a:hover {
 
 .about-image-container{
    width: 50vw;
-   height: 50vh;
+   height: 70vh;
    color: white;
    border-radius: 25px;
    justify-content: center; 
@@ -768,44 +785,43 @@ a:hover {
    text-align: center;
 }
 
-.about-image-container a {
-   color: #ffffff;
-   text-decoration: none;
-}
-
 .content_info{
    display: flex;
    flex-direction: column;
+   width: 80vw;
+   align-items: left;
 }
+
+
 
 .content_info .description p{
    font-size: 1.6em;
    color: white;
    font-weight: bold;
-   text-align: left;
+   
 }
 
 .services-info:nth-child(3) .about-image-container{
    background-size: cover;
    background-position: center;
-   background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.431), rgba(50, 50, 50, 0.431)), url(/images/pilates.png);
+   background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.3), rgba(50, 50, 50, 0.3)), url(/images/login.jpg);
 }
 
 .services-info:nth-child(4) .about-image-container {
    background-size: cover;
    background-position: center;
-   background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.431), rgba(50, 50, 50, 0.431)), url(/images/yoga.jpg);
+   background-image: linear-gradient(180deg,  rgba(50, 50, 50, 0.3), rgba(50, 50, 50, 0.3)), url(/images/crossfit.jpg);
 }
 
 .services-info:nth-child(5) .about-image-container {
    background-size: cover;
    background-position: center;
-   background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.431), rgba(50, 50, 50, 0.431)), url(/images/crossfit.jpg);
+   background-image: linear-gradient(180deg,  rgba(50, 50, 50, 0), rgba(50, 50, 50, 0)), url(/images/yoga.jpg);
 }
 
 .services-info:nth-child(6) .about-image-container {
    background-size: cover;
    background-position: center;
-   background-image: linear-gradient(180deg, rgba(50, 50, 50, 0.431), rgba(50, 50, 50, 0.431)), url(/images/login.jpg);
+   background-image: linear-gradient(180deg,  rgba(50, 50, 50, 0.2), rgba(50, 50, 50, 0.2)), url(/images/pilates.png);
 }
 
