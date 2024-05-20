@@ -30,6 +30,7 @@ router.get('/personal_info', gymChainController.personal_info);
 router.get('/payment_info', gymChainController.payment_info);
 router.get('/joinNow', gymChainController.joinNow);
 router.get('/contact', gymChainController.contact);
+router.get('/account_page', gymChainController.accountPage);
 
 
 

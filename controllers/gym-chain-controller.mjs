@@ -16,7 +16,8 @@ import * as model from '../model/gym-chain-model-sqlite-async.mjs';
 
 export async function home(req, res) {
 
-    // let isAdmin = await model.isAdmin(req.session.loggedUserId);
+    let isAdmin = await model.isAdmin(req.session.loggedUserId);
+    console.log('isAdmin', isAdmin);
     try {
         res.render('home', { layout: 'main', session: req.session});
     }
@@ -24,6 +25,10 @@ export async function home(req, res) {
         console.error('home error: ' + error);
         res.render('home', { layout: 'main', session: req.session });
     }
+}
+
+export async function accountPage(req, res) {
+    res.render('account_page', { layout: 'main', session: req.session });
 }
 
 export async function about_classes(req, res) {
