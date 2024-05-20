@@ -13,6 +13,19 @@ import { User as MyUser } from '../model/gym.js';
 
 import * as model from '../model/gym-chain-model-sqlite-async.mjs';
 
+
+export async function home(req, res) {
+
+    // let isAdmin = await model.isAdmin(req.session.loggedUserId);
+    try {
+        res.render('home', { layout: 'main', session: req.session});
+    }
+    catch (error) {
+        console.error('home error: ' + error);
+        res.render('home', { layout: 'main', session: req.session });
+    }
+}
+
 export async function about_classes(req, res) {
     res.render('about_classes', { layout: 'main' , session: req.session});
 }
@@ -22,12 +35,11 @@ export async function about_page(req, res) {
 }
 
 export async function services(req, res) {
+    
     res.render('services', { layout: 'main' , session: req.session});
 }
 
-export async function home(req, res) {
-   res.render('home', { layout: 'main', session: req.session});
-}
+
 
 export async function memberships(req, res) {
     res.render('memberships', { layout: 'main', session: req.session });

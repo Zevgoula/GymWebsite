@@ -61,3 +61,15 @@ export let registerUser = async function (fname, lname, username, password, emai
         }
     }
 }
+
+
+export let isAdmin = async function (username) {
+    const stmt = await sql.prepare("SELECT role FROM User WHERE username = ?");
+    try {
+        const role = await stmt.all(username);
+        console.log('role', role);
+        return role[0].role === 'admin';
+    } catch (err) {
+        throw err;
+    }
+}

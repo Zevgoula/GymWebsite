@@ -7,6 +7,11 @@
         <li><a href="/about_classes">Gym Benefits</a></li>
         <li><a href="/memberships">Memberships</a></li>
         <li><a href="/contact">Contact</a></li>
-        <li><a href="/login">Login</a></li>
+        {{#if userId}}
+            <li><a href="/logout">Logout</a></li>
+        {{else}}
+            <li><a href="/login">Login</a></li>
+        {{/if}}
+
     </ul>
 </div>

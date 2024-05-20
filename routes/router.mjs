@@ -12,7 +12,9 @@ import * as gymChainController from '../controllers/gym-chain-controller.mjs';
 //Για την υποστήριξη σύνδεσης/αποσύνδεσης χρηστών
 import * as logInController from '../controllers/login-controller-password.mjs';
 
-router.route('/').get((req, res) => { res.redirect('/home') });
+router.route('/').get((req, res) => { 
+    res.redirect('/home') 
+});
 
 
 
