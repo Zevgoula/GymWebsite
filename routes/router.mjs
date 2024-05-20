@@ -42,9 +42,9 @@ router.route('/login').post(logInController.doLogin);
 router.route('/logout').get(logInController.doLogout);
 
 // //Εγγραφή νέου χρήστη
-router.route('/createAcount').get(logInController.checkAuthenticated, logInController.showRegisterForm);
+router.route('/createAccount').get(logInController.checkAuthenticated, logInController.showRegisterForm);
 
-router.post('/createAcount', logInController.doRegister);
+router.post('/createAccount', logInController.doRegister);
 
 
 
