@@ -7,8 +7,9 @@ if (process.env.NODE_ENV !== 'production') {
    dotenv.config();
 }
 
-/* Διαλέξτε το κατάλληλο μοντέλο στο αρχείο .env */
-const model = await import(`../model/gym-chain-model-${process.env.MODEL}.mjs`);
+
+// import * from '../model/gym.js';
+import * as model from '../model/gym-chain-model-sqlite-async.mjs';
 
 export async function about_classes(req, res) {
     res.render('about_classes', { layout: 'main' });
@@ -36,14 +37,6 @@ export async function personal_info(req, res) {
 
 export async function payment_info(req, res) {
     res.render('payment_info', { layout: 'main' });
-}
-
-export async function login(req, res) {
-    res.render('login', { layout: 'main' });
-}
-
-export async function createAccount(req, res) {
-    res.render('createAccount', { layout: 'main' });
 }
 
 export async function joinNow(req, res) {
