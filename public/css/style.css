@@ -554,12 +554,22 @@ form h1{
    background-color: rgba(0,0,0,1);
    position: relative;
    width: auto;
+   opacity: 1;
+   border-radius: 15px;
 }
 
- .cont-img-container img:hover{
+.cont-img-container img {
    transition: .5s ease;
-   opacity: 0.5;
- }
+   opacity: 0.7; /* Set initial opacity to match container */
+   filter: brightness(0.6); /* Start with a slightly darker image */
+   border-radius: 15px;
+}
+
+.cont-img-container img:hover {
+   opacity: 1; /* Optional: Adjust opacity */
+   filter: brightness(1); /* Increase brightness on hover */
+   border-radius: 15px;
+}
 
 .content h3{
    margin-top: 10px;
@@ -630,10 +640,11 @@ form h1{
 }
 
 .perks {
-   font-size: 1.5em;
-   color: rgb(255, 255, 255);
+   font-size: 1.4em;
+   color: rgb(184, 184, 184);
    text-align: center;
    margin-top: 1.5em;
+   font-weight: bold;
 }
 
 .perk {
