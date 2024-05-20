@@ -12,7 +12,6 @@ catch (error) {
     throw Error('Error connecting to the database: ' + error);
 }
 
-
 // Not used anywhere for now
 export let findUserByUsernamePassword = async (username, password) => {
     //Φέρε μόνο μια εγγραφή (το LIMIT 0, 1) που να έχει username και password ίσο με username και password 
@@ -67,7 +66,6 @@ export let registerUser = async function (fname, lname, username, password, emai
     }
 }
 
-
 export let isAdmin = async function (username) {
     if (username === undefined) {
         console.log('user is visitor');
@@ -78,7 +76,8 @@ export let isAdmin = async function (username) {
         try {
             const role = await stmt.get(username);
             return role.role === 'admin';
-        } catch (err) {
+        } 
+        catch (err) {
             throw err;
         }
     }

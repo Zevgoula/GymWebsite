@@ -62,7 +62,6 @@ export async function services(req, res) {
     }
 }
 
-
 export async function memberships(req, res) {
     try {
         res.render('memberships', { session: req.session });
