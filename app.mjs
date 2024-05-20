@@ -24,7 +24,7 @@ app.use((req, res, next) => {
   if (req.session) {
      res.locals.userId = req.session.loggedUserId;
   } else {
-     res.locals.userId = 'επισκέπτης';
+     res.locals.userId = 'visitor';
   }
   next();
 });
@@ -41,6 +41,13 @@ app.engine('hbs', exphbs.engine({
 }));
 
 app.set('view engine', 'hbs');
+
+//Debugging middleware
+app.use((err, req, res, next) => {
+
+  console.error('ERROR: ' + err.message + err.stack);
+
+})
 
 
 export {app as gymChainApp}

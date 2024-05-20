@@ -12,7 +12,9 @@ import * as gymChainController from '../controllers/gym-chain-controller.mjs';
 //Για την υποστήριξη σύνδεσης/αποσύνδεσης χρηστών
 import * as logInController from '../controllers/login-controller-password.mjs';
 
-router.route('/').get((req, res) => { res.redirect('/home') });
+router.route('/').get((req, res) => { 
+    res.redirect('/home') 
+});
 
 
 
@@ -28,6 +30,7 @@ router.get('/personal_info', gymChainController.personal_info);
 router.get('/payment_info', gymChainController.payment_info);
 router.get('/joinNow', gymChainController.joinNow);
 router.get('/contact', gymChainController.contact);
+router.get('/account_page', gymChainController.accountPage);
 
 
 
@@ -42,9 +45,9 @@ router.route('/login').post(logInController.doLogin);
 router.route('/logout').get(logInController.doLogout);
 
 // //Εγγραφή νέου χρήστη
-router.route('/createAcount').get(logInController.checkAuthenticated, logInController.showRegisterForm);
+router.route('/createAccount').get(logInController.checkAuthenticated, logInController.showRegisterForm);
 
-router.post('/createAcount', logInController.doRegister);
+router.post('/createAccount', logInController.doRegister);
 
 
 

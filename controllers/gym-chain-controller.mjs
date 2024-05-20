@@ -1,48 +1,109 @@
-// import { Task as MyTask } from '../model/task.js'
-import dotenv from 'dotenv';
-import e from 'express';
-// const userId = "mitsos";
+import { Anhkei as MyAnhkei } from '../model/gym.js';
+import { Books as MyBooks } from '../model/gym.js';
+import { Gym as MyGym } from '../model/gym.js';
+import { Customer as MyCustomer } from '../model/gym.js';
+import { Membership as MyMembership } from '../model/gym.js';
+import { Offers as MyOffers } from '../model/gym.js';
+import { Selects as MySelects } from '../model/gym.js';
+import { Includes as MyIncludes } from '../model/gym.js';
+import { Trainer as MyTrainer } from '../model/gym.js';
+import { Supervises as MySupervises } from '../model/gym.js';
+import { Class as MyClass } from '../model/gym.js';
+import { User as MyUser } from '../model/gym.js';
 
-if (process.env.NODE_ENV !== 'production') {
-   dotenv.config();
-}
-
-
-// import * from '../model/gym.js';
 import * as model from '../model/gym-chain-model-sqlite-async.mjs';
 
+
+export async function home(req, res) {
+
+    let isAdmin = await model.isAdmin(req.session.loggedUserId);
+    console.log('isAdmin', isAdmin);
+    try {
+        res.render('home', { session: req.session});
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function accountPage(req, res) {
+    try {
+        res.render('account_page', {session: req.session });
+    }
+    catch (error) {
+        next(error);    
+    }
+}
+
 export async function about_classes(req, res) {
-    res.render('about_classes', { layout: 'main' });
+    try {
+        res.render('about_classes', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function about_page(req, res) {
-    res.render('about_page', { layout: 'main' });
+    try {
+        res.render('about_page', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function services(req, res) {
-    res.render('services', { layout: 'main' });
-}
-
-export async function home(req, res) {
-   res.render('home', { layout: 'main' });
+    try {
+        res.render('services', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function memberships(req, res) {
-    res.render('memberships', { layout: 'main' });
+    try {
+        res.render('memberships', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function personal_info(req, res) {
-    res.render('personal_info', { layout: 'main' });
+    try {
+        res.render('personal_info', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
+    
 }
 
 export async function payment_info(req, res) {
-    res.render('payment_info', { layout: 'main' });
+    try {
+        res.render('payment_info', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function joinNow(req, res) {
-    res.render('joinNow', { layout: 'main' });
+    try {
+        res.render('joinNow', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function contact(req, res) {
-    res.render('contact', { layout: 'main' });
+    try {
+        res.render('contact', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
