@@ -42,5 +42,12 @@ app.engine('hbs', exphbs.engine({
 
 app.set('view engine', 'hbs');
 
+//Debugging middleware
+app.use((err, req, res, next) => {
+
+  console.error('ERROR: ' + err.message + err.stack);
+
+})
+
 
 export {app as gymChainApp}

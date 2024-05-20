@@ -19,49 +19,92 @@ export async function home(req, res) {
     let isAdmin = await model.isAdmin(req.session.loggedUserId);
     console.log('isAdmin', isAdmin);
     try {
-        res.render('home', { layout: 'main', session: req.session});
+        res.render('home', { session: req.session});
     }
     catch (error) {
-        console.error('home error: ' + error);
-        res.render('home', { layout: 'main', session: req.session });
+        next(error);
     }
 }
 
 export async function accountPage(req, res) {
-    res.render('account_page', { layout: 'main', session: req.session });
+    try {
+        res.render('account_page', {session: req.session });
+    }
+    catch (error) {
+        next(error);    
+    }
 }
 
 export async function about_classes(req, res) {
-    res.render('about_classes', { layout: 'main' , session: req.session});
+    try {
+        res.render('about_classes', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function about_page(req, res) {
-    res.render('about_page', { layout: 'main' , session: req.session});
+    try {
+        res.render('about_page', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function services(req, res) {
-    
-    res.render('services', { layout: 'main' , session: req.session});
+    try {
+        res.render('services', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
-
 
 
 export async function memberships(req, res) {
-    res.render('memberships', { layout: 'main', session: req.session });
+    try {
+        res.render('memberships', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function personal_info(req, res) {
-    res.render('personal_info', { layout: 'main', session: req.session});
+    try {
+        res.render('personal_info', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
+    
 }
 
 export async function payment_info(req, res) {
-    res.render('payment_info', { layout: 'main' , session: req.session});
+    try {
+        res.render('payment_info', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function joinNow(req, res) {
-    res.render('joinNow', { layout: 'main' , session: req.session});
+    try {
+        res.render('joinNow', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 export async function contact(req, res) {
-    res.render('contact', { layout: 'main' , session: req.session});
+    try {
+        res.render('contact', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }

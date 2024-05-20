@@ -4,10 +4,11 @@ import bcrypt from 'bcrypt'
 
 let sql;
 
-try{
+try {
     sql = await Database.open('data/gym_chain.db');
     console.log('Connected to the gym-chain database.');
-} catch (error) {
+} 
+catch (error) {
     throw Error('Error connecting to the database: ' + error);
 }
 
@@ -18,7 +19,8 @@ export let findUserByUsernamePassword = async (username, password) => {
     const stmt = await sql.prepare("SELECT username, password FROM User WHERE username = ? AND password = ? LIMIT 0, 1");
     try {
         const user = await stmt.all(username, password);
-    } catch (err) {
+    } 
+    catch (err) {
         throw err;
     }
 }
@@ -32,7 +34,8 @@ export let getUserByUsername = async (username) => {
         const user = await stmt.all(username);
         console.log('user', user);
         return user[0];
-    } catch (err) {
+    } 
+    catch (err) {
         throw err;
     }
 }
@@ -43,7 +46,8 @@ export let registerUser = async function (fname, lname, username, password, emai
     const userId = await getUserByUsername(username);
     if (userId != undefined) {
         return { message: "Υπάρχει ήδη χρήστης με αυτό το όνομα" };
-    } else {
+    } 
+    else {
         try {
             const hashedPassword = await bcrypt.hash(password, 10);
             
@@ -56,7 +60,8 @@ export let registerUser = async function (fname, lname, username, password, emai
             const info = await stmt.run(username, hashedPassword);
             console.log('info', info.lastID);
             return info.lastID;
-        } catch (error) {
+        } 
+        catch (error) {
             throw error;
         }
     }
@@ -77,5 +82,4 @@ export let isAdmin = async function (username) {
             throw err;
         }
     }
-    
 }

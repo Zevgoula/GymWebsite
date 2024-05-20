@@ -18,6 +18,7 @@ export let doRegister = async function (req, res) {
         const registrationResult = await userModel.registerUser(req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.email);
         if (registrationResult.message) {
             //FIXME πρεπει να λεει οτι υπαρχει ηδη χρηστης με αυτο το ονομα
+            console.log("user already exists");
             res.render('createAccount', {layout: 'main'})
         }
         else {
@@ -53,6 +54,7 @@ export let doLogin = async function (req, res) {
         }
         else {
             //FIXME πρεπει να λεει οτι ο κωδικος ειναι λαθος
+            console.log("password is wrong");
             res.render("login")
         }
     }
