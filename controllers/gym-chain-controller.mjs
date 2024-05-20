@@ -1,48 +1,50 @@
-// import { Task as MyTask } from '../model/task.js'
-import dotenv from 'dotenv';
-import e from 'express';
-// const userId = "mitsos";
+import { Anhkei as MyAnhkei } from '../model/gym.js';
+import { Books as MyBooks } from '../model/gym.js';
+import { Gym as MyGym } from '../model/gym.js';
+import { Customer as MyCustomer } from '../model/gym.js';
+import { Membership as MyMembership } from '../model/gym.js';
+import { Offers as MyOffers } from '../model/gym.js';
+import { Selects as MySelects } from '../model/gym.js';
+import { Includes as MyIncludes } from '../model/gym.js';
+import { Trainer as MyTrainer } from '../model/gym.js';
+import { Supervises as MySupervises } from '../model/gym.js';
+import { Class as MyClass } from '../model/gym.js';
+import { User as MyUser } from '../model/gym.js';
 
-if (process.env.NODE_ENV !== 'production') {
-   dotenv.config();
-}
-
-
-// import * from '../model/gym.js';
 import * as model from '../model/gym-chain-model-sqlite-async.mjs';
 
 export async function about_classes(req, res) {
-    res.render('about_classes', { layout: 'main' });
+    res.render('about_classes', { layout: 'main' , session: req.session});
 }
 
 export async function about_page(req, res) {
-    res.render('about_page', { layout: 'main' });
+    res.render('about_page', { layout: 'main' , session: req.session});
 }
 
 export async function services(req, res) {
-    res.render('services', { layout: 'main' });
+    res.render('services', { layout: 'main' , session: req.session});
 }
 
 export async function home(req, res) {
-   res.render('home', { layout: 'main' });
+   res.render('home', { layout: 'main', session: req.session});
 }
 
 export async function memberships(req, res) {
-    res.render('memberships', { layout: 'main' });
+    res.render('memberships', { layout: 'main', session: req.session });
 }
 
 export async function personal_info(req, res) {
-    res.render('personal_info', { layout: 'main' });
+    res.render('personal_info', { layout: 'main', session: req.session});
 }
 
 export async function payment_info(req, res) {
-    res.render('payment_info', { layout: 'main' });
+    res.render('payment_info', { layout: 'main' , session: req.session});
 }
 
 export async function joinNow(req, res) {
-    res.render('joinNow', { layout: 'main' });
+    res.render('joinNow', { layout: 'main' , session: req.session});
 }
 
 export async function contact(req, res) {
-    res.render('contact', { layout: 'main' });
+    res.render('contact', { layout: 'main' , session: req.session});
 }

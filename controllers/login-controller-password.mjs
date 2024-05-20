@@ -33,7 +33,7 @@ export let doRegister = async function (req, res) {
 export let doLogin = async function (req, res) {
     //Ελέγχει αν το username και το password είναι σωστά και εκτελεί την
     //συνάρτηση επιστροφής authenticated
-
+    console.log("doLogin", req.body.username, req.body.password);
     const user = await userModel.getUserByUsername(req.body.username);
     if (user == undefined || !user.password || !user.id) {
         //FIXME
@@ -47,7 +47,7 @@ export let doLogin = async function (req, res) {
             //Αν έχει τιμή η μεταβλητή req.session.originalUrl, αλλιώς όρισέ τη σε "/" 
             // res.redirect("/");            
             const redirectTo = req.session.originalUrl || "/home";
-
+            console.log("redirecting to " + redirectTo);
             res.redirect(redirectTo);
         }
         else {

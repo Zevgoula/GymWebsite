@@ -44,9 +44,12 @@ export let registerUserNoPass = async function (username) {
  * Επιστρέφει τον χρήστη με όνομα 'username'
  */
 export let getUserByUsername = async (username) => {
-    const stmt = await sql.prepare("SELECT username, password FROM User WHERE username = ? LIMIT 0, 1");
+    
+    const stmt = await sql.prepare("SELECT username, password, role FROM User WHERE username = ?").get(username);
+    
     try {
         const user = await stmt.all(username);
+        console.log("user", user);
         return user[0];
     } catch (err) {
         throw err;
