@@ -12,13 +12,22 @@ import exphbs from 'express-handlebars'
 
 app.use(express.urlencoded({ extended: false }))
 
+
+import gymChainSession from './app-setup/app-setup-session.mjs'
+
+app.use(gymChainSession)
+
 app.use(express.static('public'))
 
 
 app.use((req, res, next) => {
-    res.locals.userId = "mitsos";
-    next();
-})
+  if (req.session) {
+     res.locals.userId = req.session.loggedUserId;
+  } else {
+     res.locals.userId = 'επισκέπτης';
+  }
+  next();
+});
 
 
 import routes from './routes/router.mjs'
