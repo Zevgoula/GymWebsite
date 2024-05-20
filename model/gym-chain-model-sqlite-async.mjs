@@ -12,7 +12,7 @@ try{
 }
 
 
-
+// Not used anywhere for now
 export let findUserByUsernamePassword = async (username, password) => {
     //Φέρε μόνο μια εγγραφή (το LIMIT 0, 1) που να έχει username και password ίσο με username και password 
     const stmt = await sql.prepare("SELECT username, password FROM User WHERE username = ? AND password = ? LIMIT 0, 1");
@@ -23,26 +23,7 @@ export let findUserByUsernamePassword = async (username, password) => {
     }
 }
 
-//Η συνάρτηση δημιουργεί έναν νέο χρήστη
-export let registerUserNoPass = async function (username) {
-    // ελέγχουμε αν υπάρχει χρήστης με αυτό το username
-    const userId = getUserByUsername(username);
-    if (userId != undefined) {
-        return { message: "Υπάρχει ήδη χρήστης με αυτό το όνομα" };
-    } else {
-        try {
-            const stmt = await sql.prepare('INSERT INTO user VALUES (?, ?, "customer")');
-            const info = await stmt.run(username, username);
-            return info.lastInsertRowid;
-        } catch (err) {
-            throw err;
-        }
-    }
-}
-
-/**
- * Επιστρέφει τον χρήστη με όνομα 'username'
- */
+// Return the first user found with the given username
 export let getUserByUsername = async (username) => {
     
     const stmt = await sql.prepare("SELECT username, password, role FROM User WHERE username = ?");
@@ -60,7 +41,6 @@ export let getUserByUsername = async (username) => {
 export let registerUser = async function (fname, lname, username, password, email) {
     // ελέγχουμε αν υπάρχει χρήστης με αυτό το username
     const userId = await getUserByUsername(username);
-    console.log('userId', userId);
     if (userId != undefined) {
         return { message: "Υπάρχει ήδη χρήστης με αυτό το όνομα" };
     } else {
@@ -69,7 +49,7 @@ export let registerUser = async function (fname, lname, username, password, emai
             
             // Add to Customer table
             const customerStmt = await sql.prepare('INSERT INTO Customer (username, fname, lname, email) VALUES (?, ?, ?, ?)');
-            const customerInfo = await customerStmt.run(username, fname, lname, email);
+            await customerStmt.run(username, fname, lname, email);
             
             // Add to User table
             const stmt = await sql.prepare('INSERT INTO user VALUES (?, ?, "customer")');

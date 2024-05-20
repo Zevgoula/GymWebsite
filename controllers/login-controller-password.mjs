@@ -17,7 +17,7 @@ export let doRegister = async function (req, res) {
     try {
         const registrationResult = await userModel.registerUser(req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.email);
         if (registrationResult.message) {
-            //FIXME
+            //FIXME πρεπει να λεει οτι υπαρχει ηδη χρηστης με αυτο το ονομα
             res.render('createAccount', {layout: 'main'})
         }
         else {
