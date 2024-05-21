@@ -1,7 +1,7 @@
 <form class='personal_form' action="">
   <h1>Personal Info</h1>
   <div class="input-box">
-    <input onkeydown="return /[a-z]/i.test(event.key)" placeholder="First name" required />
+    <input onkeydown="return /[a-z]/i.test(event.key)" name="fname" placeholder="First name" required />
     <input
       type="text"
       placeholder="Adress"
@@ -10,7 +10,7 @@
     />
   </div>
   <div class="input-box">
-    <input onkeydown="return /[a-z]/i.test(event.key)" placeholder="Last name" required />
+    <input onkeydown="return /[a-z]/i.test(event.key)" name="lname" placeholder="Last name" required />
     <input
       type="text"
       placeholder="City"
@@ -19,7 +19,7 @@
     />
   </div>
   <div class="input-box">
-    <input type="email" placeholder="Email" required />
+    <input type="email" name="email" placeholder="Email" required />
     <input
       onkeydown="return /[a-z]/i.test(event.key)"
       placeholder="State"
@@ -29,7 +29,7 @@
 
   </div>
   <div class="input-box">
-    <input type="text" inputmode="numeric" placeholder="Phone number" required />
+    <input type="text" name="phone_number" inputmode="numeric" placeholder="Phone number" required />
     <input
       type="text" inputmode="numeric"
       placeholder="Zip Code"
