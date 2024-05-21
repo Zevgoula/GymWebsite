@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt';
 let sql;
 
 try {
-    sql = await Database.open('data/gym_chain.db');
+    sql = await Database.open('data/gym_chain_new.db');
     console.log('Connected to the gym-chain database.');
 } 
 catch (error) {
