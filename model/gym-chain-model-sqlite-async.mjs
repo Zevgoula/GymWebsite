@@ -91,12 +91,13 @@ export let getCustomerIDFromUsername = async function (username) {
     const stmt = await sql.prepare("SELECT customer_id FROM Customer WHERE username = ?");
     try {
         const customerId = await stmt.get(username);
-        return customerId;
+        return customerId.customer_id;
     } 
     catch (err) {
         throw err;
     }
 }
+
 
 // export let getActiveMemberships = async function (username) {
 //     const stmt = await sql.prepare("");
