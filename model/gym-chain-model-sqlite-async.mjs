@@ -100,8 +100,7 @@ export let getCustomerIDFromUsername = async function (username) {
 
 // export let getActiveMemberships = async function (username) {
 //     const stmt = await sql.prepare("");
-//     try {
-        
+//     try {    
 //         return memberships;
 //     } 
 //     catch (err) {
