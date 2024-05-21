@@ -15,7 +15,7 @@ export let showRegisterForm = function (req, res) {
 
 export let doRegister = async function (req, res) {
     try {
-        const registrationResult = await userModel.registerUser(req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.email);
+        const registrationResult = await userModel.registerUser(req.body.fname, req.body.lname, req.body.username, req.body.password);
         if (registrationResult.message) {
             //FIXME πρεπει να λεει οτι υπαρχει ηδη χρηστης με αυτο το ονομα
             console.log("user already exists");

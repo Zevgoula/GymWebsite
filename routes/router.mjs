@@ -16,10 +16,6 @@ router.route('/').get((req, res) => {
     res.redirect('/home') 
 });
 
-
-
-
-
 router.get('/about_classes', gymChainController.about_classes);
 router.get('/about_page', gymChainController.about_page);
 router.get('/services', gymChainController.services);
