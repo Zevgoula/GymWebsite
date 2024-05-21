@@ -2,18 +2,18 @@
     <form action="">
         <h1>Payment info</h1>
         <div class="input-box">
-            <input type="text" placeholder="First name" required>
+            <input onkeydown="return /[a-z]/i.test(event.key)" placeholder="First name" required>
         </div>
         <div class="input-box">
-            <input type="text" placeholder="Last name" required>
+            <input onkeydown="return /[a-z]/i.test(event.key)" placeholder="Last name" required>
         </div>
         <div class="input-box">
-            <input type="text" placeholder="Credit card number" required>
-
+            <input id="ccn" type="tel" inputmode="numeric"
+         placeholder="Credit card number" required>
         </div>
         <div class="input-box">
-            <input type="password" placeholder="Expiration date" required>
-
+            <input id="cvv" type="tel" inputmode="numeric"
+            placeholder="Expiration date" required>
         </div>
         <div class="input-box">
             <input type="email" placeholder="CVV" required>
