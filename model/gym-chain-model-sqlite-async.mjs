@@ -392,3 +392,14 @@ export let sendMessage = async function (username, subject, message_text) {
         throw err;
     }
 }
+
+export let getMessages = async function () {
+    const stmt = await sql.prepare("SELECT * FROM Message");
+    try {
+        const messages = await stmt.all();
+        return messages;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
