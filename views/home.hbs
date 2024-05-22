@@ -3,7 +3,11 @@
         <h1>GET FIT</h1>
         <p>JOIN US AND GET FIT WITH OUR TRAINERS</p>
         <div>
-            <button class="anim_button" onclick="window.location.href='/joinNow'"><span></span>JOIN NOW</button>
+            {{#if userId}}
+                <button class="anim_button" onclick="window.location.href='/joinNow'"><span></span>JOIN NOW</button>
+            {{else}}
+                <button class="anim_button" onclick="window.location.href='/login'"><span></span>JOIN NOW</button>
+            {{/if}}
             <button class="anim_button" onclick="window.location.href='/about_classes'"><span></span>LEARN MORE</button>
         </div>
     </div>
