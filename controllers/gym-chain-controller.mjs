@@ -57,6 +57,7 @@ export async function services(req, res) {
     try {
         res.render('services', { session: req.session });
         console.log(localStorage.getItem("selectedClub"));
+
     }
     catch (error) {
         next(error);
