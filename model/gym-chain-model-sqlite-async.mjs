@@ -403,3 +403,20 @@ export let getMessages = async function () {
         throw err;
     }
 }
+
+
+export let getClassNameFromMembershipID = async function (membershipId) {
+    const stmt = await sql.prepare("SELECT class_id FROM INCLUDES WHERE membership_id = ?");
+    const stmt2 = await sql.prepare("SELECT name FROM Class WHERE class_id = ?");
+    try {
+        const classId_obj = await stmt.get(membershipId);
+        const class_id = classId_obj.class_id;
+        const className = await stmt2.get(class_id);
+        return className.name;
+
+        
+    } 
+    catch (err) {
+        throw err;
+    }
+}

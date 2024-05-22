@@ -6,7 +6,7 @@ export async function home(req, res, next) {
         req.session.previousPage = req.originalUrl;
         const message = req.session.message;
         req.session.message = null; 
-        res.render('home', { message: message ,session: req.session});
+        res.render('home', { message: message, session: req.session});
     }
     catch (error) {
         next(error);
@@ -154,8 +154,22 @@ export async function accountPage(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
+        const activeMemberships = await model.getActiveMemberships(customerInfo.customer_id);
+        // console.log('Active memberships: ', activeMemberships);
+        let name = [];
+        for (let i = 0; i < activeMemberships.length; i++) {
+            name.push(await model.getClassNameFromMembershipID(activeMemberships[i].membership_id));
+        }
+        const combined = activeMemberships.map((item, i) => {
+            return {
+                ...item,
+                name: name[i]
+            }
+        });
 
-        res.render('account_page', {customerInfo: customerInfo, session: req.session });
+        console.log('Combined: ', combined);
+
+        res.render('account_page', {customerInfo: customerInfo, session: req.session, memberships: combined});
     }
     catch (error) {
         next(error);    
@@ -179,7 +193,7 @@ export async function doContact(req, res, next) {
         req.session.previousPage = req.originalUrl;
         await model.sendMessage(req.session.loggedUserId, req.body.subject, req.body.message_text);
         req.session.message = "Message sent successfully";
-        res.redirect('/home#contact_form');
+        res.redirect('/home/#contact_form');
     }
     catch (error) {
         next(error);
