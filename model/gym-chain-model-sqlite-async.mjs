@@ -116,6 +116,17 @@ export let getMembershipsInfo = async function () {
     }
 }
 
+export let getMembershipInfofromID = async function (membershipId) {
+    const stmt = await sql.prepare("SELECT * FROM Membership WHERE membership_id = ?");
+    try {
+        const membership = await stmt.get(membershipId);
+        return membership;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 //Get the membership IDs for the selected class (all classes have 3 memberships)
 export let getMembershipsInfofromClassID = async function (classId) {
     // Get the membership IDs for the selected class
@@ -141,7 +152,7 @@ export let getCustomerIDFromUsername = async function (username) {
     const stmt = await sql.prepare("SELECT customer_id FROM Customer WHERE username = ?");
     try {
         const customerId = await stmt.get(username);
-        return customerId;
+        return customerId.customer_id;
     } 
     catch (err) {
         throw err;
@@ -159,98 +170,164 @@ export let getCustomerInfo = async function (username) {
     }
 }
 
-//   OLD
+export let updatePersonalInfo = async function (username, phone_number, address, city, state, zip_code) {
+    const stmt = await sql.prepare("UPDATE Customer SET phone_number = ?, address = ?, city = ?, state = ?, zip_code = ? WHERE username = ?");
+    try {
+        await stmt.run(phone_number, address, city, state, zip_code, username);
+    } 
+    catch (err) {
+        throw err;
+    }
+}
 
-// export let getActiveMemberships = async function (username) {
-//     const stmt = await sql.prepare("");
-//     try {    
-//         return memberships;
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
+export let addPaymentInfo = async function (username, ccn, cvv,  exp_date) {
+    const stmt = await sql.prepare("INSERT INTO Payment_info (username, ccn, cvv, exp_date) VALUES (?, ?, ?, ?)");
+    try {
+        await stmt.run(username, ccn, cvv,  exp_date);
+    } 
+    catch (err) {
+        throw err;
+    }
+}
 
-// export let selectsMembership = async function (customer_id, membership_id) {
-//     const stmt = await sql.prepare("INSERT INTO Selects_membership VALUES (?, ?)");
-//     try {
-//         await stmt.run(customer_id, membership_id);
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
+export let buyMembership = async function (customerId, membershipId) {
+    const membershipInfo = await getMembershipInfofromID(membershipId);
+    const current_date = new Date();
+    const start_date = current_date.getDate() + "-" + current_date.getMonth() + "-" + current_date.getFullYear();
 
-// export let getAvailableClassesforMembership = async function (membershipId) {
-//     const classIds = await sql.prepare("SELECT classId FROM Offers_class WHERE membership_id = ?");
+    let additional_days = 0;
+    if (membershipInfo.length === 1) {
+        additional_days = 30;
+    }
+    else if (membershipInfo.length === 2) {
+        additional_days = 6 * 30;
+    }
+    else {
+        additional_days = 12 * 30;
+    }
 
-//     const stmt = await sql.prepare("SELECT * FROM Class WHERE class_id = ?");
-//     try {
-//         let classes = await stmt.all(classIds);
-//         return classes;
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
+    current_date.setDate(current_date.getDate() + additional_days);
+    const exp_date = current_date.getDate() + '-' + current_date.getMonth() + '-' + current_date.getFullYear();
+    
+    const stmt = await sql.prepare("INSERT INTO BUYS (membership_id, customer_id, start_date, exp_date) VALUES (?, ?, ?, ?)");
+    try {
+        await stmt.run(membershipId, customerId, start_date, exp_date);
+    } 
+    catch (err) {
+        throw err;
+    }
+}
 
-// export let checkCustomersInClass = async function (classId) {
-//     const stmt = await sql.prepare("SELECT COUNT(*) FROM Books_class WHERE class_id = ?");
+export let getActiveMemberships = async function (customerId) {
+    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ?");
+    try {
+        const memberships = await stmt.all(customerId);
+        let activeMemberships = [];
+        for (let i = 0; i < memberships.length; i++) {
+            if (await checkIfMembershipIsActive(customerId, memberships[i].membership_id, memberships[i].purchase_id)) {
+                activeMemberships.push(memberships[i]);
+            }
+        }
+        return activeMemberships;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
 
-//     try {
-//         const count = await stmt.get(classId);
-//         return count;
-//     }
-//     catch (err) {
-//         throw err;
-//     }
-// }
+export let checkIfCustomerHasMembership = async function (customerId, membershipId) {
+    const purchaseId = await getPurchaseID(customerId, membershipId);
+    const isActive = await checkIfMembershipIsActive(customerId, membershipId, purchaseId);
+    try {
+        if (isActive) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    } 
+    catch (err) {
+        throw err;
+    }
+}
 
-// export let checkIfClassIsBookable = async function (class_id) {
-//     const stmt = await sql.prepare("SELECT room_capacity FROM Class WHERE class_id = ?");
-//     const stmt2 = await sql.prepare("UPDATE Class SET bookability = ? WHERE class_id = ?");
-//     try {
-//         const capacity = await stmt.get(class_id);
-//         const count = await checkCustomersInClass(class_id);
+export let checkIfMembershipIsActive = async function (customerId, membershipId, purchaseId) {
+    const stmt = await sql.prepare("SELECT exp_date FROM BUYS WHERE customer_id = ? AND membership_id = ? AND purchase_id = ?");
+    try {
+        const exp_date_obj = await stmt.get(customerId, membershipId, purchaseId);
+        const currentDate = new Date();
 
-//         if (count >= capacity) {
-//             await stmt2.run(0, class_id);
-//             return false;
-//         }
-//         else {
-//             await stmt2.run(1, class_id);
-//             return True;
-//         }
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
+        const expirationDate = stringToDate(exp_date_obj.exp_date);
+        console.log('Current date: ', currentDate);
+        console.log('Expiration date: ', expirationDate);
 
-// export let getClassInfo = async function (class_id) {
-//     const stmt = await sql.prepare("SELECT * FROM Class WHERE class_id = ?");
-//     try {
-//         const classInfo = await stmt.get(class_id);
-//         return classInfo;
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
+        if (currentDate > expirationDate) {
+            return false;
+        } else {
+            return true;
+}
+    } 
+    catch (err) {
+        throw err;
+    }
+}
 
-// export let bookClass = async function (customerId, class_id) {
-//     const stmt = await sql.prepare("INSERT INTO Books_class(day, time, class_id, customer_id) VALUES (?, ?, ?, ?)");
-//     try {
-//         let classInfo = await getClassInfo(class_id);
-//         if (classInfo.bookability === 1) {
-//             await stmt.run(classInfo.day, classInfo.time, class_id, customerId);
-//             return true;
-//         }
-//         else {
-//             return false;
-//         }
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
+export let getPurchaseID = async function (customerId, membershipId) {
+    const stmt = await sql.prepare("SELECT purchase_id FROM BUYS WHERE customer_id = ? AND membership_id = ?");
+    try {
+        const purchaseId = await stmt.get(customerId, membershipId);
+        return purchaseId.purchase_id;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+export let extendMembership = async function (customerId, membershipId, purchaseId) {
+
+    try {
+        const exp_date = await getExpDate(customerId, membershipId, purchaseId);
+        const oldExpDate = stringToDate(exp_date);
+        // const expirationDate = stringToDate(exp_date);
+        const membershipInfo = await getMembershipInfofromID(membershipId);
+        const length = membershipInfo.length;
+        let additional_days = 0;
+        if (length === 1) {
+            additional_days = 30;
+        }
+        else if (length === 2) {
+            additional_days = 6 * 30;
+        }
+        else {
+            additional_days = 12 * 30;
+        }
+        oldExpDate.setDate(oldExpDate.getDate() + additional_days);
+        const new_exp_date = DateToString(oldExpDate);
+        const stmt2 = await sql.prepare("UPDATE BUYS SET exp_date = ? WHERE customer_id = ? AND membership_id = ? AND purchase_id = ?");
+        await stmt2.run(new_exp_date, customerId, membershipId, purchaseId);
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getExpDate = async function (customerId, membershipId, purchaseId) {
+    const stmt = await sql.prepare("SELECT exp_date FROM BUYS WHERE customer_id = ? AND membership_id = ? AND purchase_id = ?");
+    try {
+        const exp_date_obj = await stmt.get(customerId, membershipId, purchaseId);
+        return exp_date_obj.exp_date;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+export let DateToString = function (date) {
+    return date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear();
+}
+
+export let stringToDate = function (dateString) {
+    const listDate = dateString.split('-');
+    const date = new Date(listDate[2], listDate[1], listDate[0]);
+    return date;
+}

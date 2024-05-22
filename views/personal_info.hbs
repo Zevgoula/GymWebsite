@@ -1,4 +1,4 @@
-<form class='personal_form' action="/personal_info" method="post">
+<form class='personal_form' action="/personal_info/{{gym_id}}/{{class_id}}/{{membership_id}}" method="post">
   <h1>Personal Info</h1>
   <div class="input-box">
     <input onkeydown="return /[a-z]/i.test(event.key)" name="fname" placeholder="First name" required />
@@ -7,6 +7,7 @@
       placeholder="Adress"
       required;
       style="margin-left: 120px;"
+      name="address"
     />
   </div>
   <div class="input-box">
@@ -16,6 +17,7 @@
       placeholder="City"
       required;
       style="margin-left: 120px;"
+      name="city"
     />
   </div>
   <div class="input-box">
@@ -25,6 +27,7 @@
       placeholder="State"
       required;
       style="margin-left: 120px;"
+      name="state"
     />
 
   </div>
@@ -35,6 +38,7 @@
       placeholder="Zip Code"
       required;
       style="margin-left: 120px;"
+      name="zip_code"
     />
 
   </div>
