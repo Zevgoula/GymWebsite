@@ -44,25 +44,11 @@
   </div>
 </div>
 <script>
-
-    document.getElementById('athens').addEventListener('click', function(event) {
-    const clubId = document.getElementById('athens').id;
+document.querySelectorAll('a[id]').forEach(function(club) {
+        club.addEventListener('click', function(event) {
+    const clubId = club.id;
     localStorage.setItem('selectedClub', clubId);
     console.log('Selected club:', clubId);
 });
-
-document.getElementById('patra').addEventListener('click', function(event) {
-    const clubId = document.getElementById('patra').id;
-    localStorage.setItem('selectedClub', clubId);
-    console.log('Selected club:', clubId);
 });
-
-document.getElementById('karpenisi').addEventListener('click', function(event) {
-    const clubId = document.getElementById('karpenisi').id;
-    localStorage.setItem('selectedClub', clubId);
-    console.log('Selected club:', clubId);
-});
-
-
-    
 </script>
