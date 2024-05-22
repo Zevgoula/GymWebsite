@@ -12,7 +12,7 @@ catch (error) {
     throw Error('Error connecting to the database: ' + error);
 }
 
-// Not used anywhere for now
+//Not used anywhere for now
 export let findUserByUsernamePassword = async (username, password) => {
     //Φέρε μόνο μια εγγραφή (το LIMIT 0, 1) που να έχει username και password ίσο με username και password 
     const stmt = await sql.prepare("SELECT username, password FROM User WHERE username = ? AND password = ? LIMIT 0, 1");
@@ -24,7 +24,7 @@ export let findUserByUsernamePassword = async (username, password) => {
     }
 }
 
-// Return the first user found with the given username
+//Return the first user found with the given username
 export let getUserByUsername = async (username) => {
     
     const stmt = await sql.prepare("SELECT username, password, role FROM User WHERE username = ?");

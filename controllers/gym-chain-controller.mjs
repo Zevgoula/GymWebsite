@@ -45,7 +45,7 @@ export async function selectClass(req, res) {
     }
 }
 
-export async function selectMembership(req, res) {
+export async function selectMembership(req, res, next) {
     try {
         const selectedgymID = req.params.selectedgymID;
         const selectedclassID = req.params.selectedclassID;
@@ -61,9 +61,10 @@ export async function selectMembership(req, res) {
 }
 
 //Only loads the template, no connection to the database
-export async function personal_info(req, res) {
+export async function personal_info(req, res, next) {
     try {
-        console.log(req.params.selectedclassID);
+        console.log('selected membership' + req.params.selectedmembershipID);
+        console.log('user is ' + req.session.loggedUserId);
         res.render('personal_info', { session: req.session });
     }
     catch (error) {
@@ -73,7 +74,7 @@ export async function personal_info(req, res) {
 }
 
 //Only loads the template, no connection to the database
-export async function payment_info(req, res) {
+export async function payment_info(req, res, next) {
     try {
         res.render('payment_info', { session: req.session });
     }
@@ -83,7 +84,7 @@ export async function payment_info(req, res) {
 }
 
 //Need to implement the following functions
-export async function accountPage(req, res) {
+export async function accountPage(req, res, next) {
     try {
         const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
 
@@ -95,7 +96,7 @@ export async function accountPage(req, res) {
 }
 
 //Has to be lead somewhere (mallon skip)
-export async function about_page(req, res) {
+export async function about_page(req, res, next) {
     try {
         res.render('about_page', { session: req.session });
     }
@@ -105,7 +106,7 @@ export async function about_page(req, res) {
 }
 
 //Only loads the template, no connection to the database
-export async function contact(req, res) {
+export async function contact(req, res, next) {
     try {
         res.render('contact', { session: req.session });
     }
