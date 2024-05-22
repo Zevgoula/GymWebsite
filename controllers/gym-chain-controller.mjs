@@ -56,6 +56,7 @@ export async function about_page(req, res) {
 export async function services(req, res) {
     try {
         res.render('services', { session: req.session });
+        console.log(localStorage.getItem("selectedClub"));
     }
     catch (error) {
         next(error);
@@ -107,3 +108,15 @@ export async function contact(req, res) {
         next(error);
     }
 }
+
+
+// export async function doJoinNow(req, res) {
+//     try {
+//         const customerId = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+//         const membership = await model.buyMembership(membershipId, customerId);
+//         res.redirect('/services');
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }

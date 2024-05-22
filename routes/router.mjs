@@ -24,9 +24,11 @@ router.get('/home', gymChainController.home);
 router.get('/memberships', gymChainController.memberships);
 router.get('/personal_info', gymChainController.personal_info);
 router.get('/payment_info', gymChainController.payment_info);
-router.get('/joinNow', gymChainController.joinNow);
+
 router.get('/contact', gymChainController.contact);
 router.get('/account_page', gymChainController.accountPage);
+
+router.get('/joinNow', gymChainController.joinNow);
 
 
 
