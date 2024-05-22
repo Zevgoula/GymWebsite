@@ -4,7 +4,9 @@ import * as model from '../model/gym-chain-model-sqlite-async.mjs';
 export async function home(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        res.render('home', { session: req.session});
+        const message = req.session.message;
+        req.session.message = null; 
+        res.render('home', { message: message ,session: req.session});
     }
     catch (error) {
         next(error);
@@ -176,7 +178,8 @@ export async function doContact(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         await model.sendMessage(req.session.loggedUserId, req.body.subject, req.body.message_text);
-        res.render('home', { session: req.session , message: 'Message sent successfully!'});
+        req.session.message = "Message sent successfully";
+        res.redirect('/home#contact_form');
     }
     catch (error) {
         next(error);
