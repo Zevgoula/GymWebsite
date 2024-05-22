@@ -4,7 +4,7 @@ import * as userModel from '../model/gym-chain-model-sqlite-async.mjs';
 
 
 export let showLogInForm = function (req, res) {
-    res.render('login', {layout: 'main'});
+    res.render("login", {layout: 'main'});
 
 }
 
@@ -47,11 +47,11 @@ export let doLogin = async function (req, res) {
         console.log("user is", user.username);
         const match = await bcrypt.compare(req.body.password, user.password);
         if (match) {
-            console.log(req.session.originalUrl);
+
             req.session.loggedUserId = user.username;          
-            const redirectTo = req.session.originalUrl || "/home";
+            const redirectTo = req.originalUrl || "/home";
             console.log("redirecting to " + redirectTo);
-            res.redirect("/home");
+            res.redirect(req.session.previousPage);
         }
         else {
             //FIXME πρεπει να λεει οτι ο κωδικος ειναι λαθος

@@ -5,7 +5,7 @@ dotenv.config()
 let gymChainSession
 
 gymChainSession = session({
-    name: 'gymChain-session',
+    name: process.env.SESSION_NAME,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
