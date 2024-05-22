@@ -85,7 +85,9 @@ export async function payment_info(req, res) {
 //Need to implement the following functions
 export async function accountPage(req, res) {
     try {
-        res.render('account_page', {session: req.session });
+        const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
+
+        res.render('account_page', {customerInfo: customerInfo, session: req.session });
     }
     catch (error) {
         next(error);    

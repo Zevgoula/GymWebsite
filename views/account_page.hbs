@@ -1,3 +1,18 @@
-<h1>
-    Account Page
-</h1>
+
+{{#with customerInfo}}
+    <h1>
+        Account Page
+    </h1>
+    <p>
+        Name: {{fname}} {{lname}}
+    </p>
+{{/with}}
+
+{{^customerInfo}}
+    <h1>
+        Account Page
+    </h1>
+    <p>
+        Please log in to view your account information.
+    </p>
+{{/customerInfo}}

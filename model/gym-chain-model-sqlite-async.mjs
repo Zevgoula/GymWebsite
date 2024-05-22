@@ -148,6 +148,17 @@ export let getCustomerIDFromUsername = async function (username) {
     }
 }
 
+export let getCustomerInfo = async function (username) {
+    const stmt = await sql.prepare("SELECT * FROM Customer WHERE username = ?");
+    try {
+        const customerInfo = await stmt.get(username);
+        return customerInfo;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
 //   OLD
 
 // export let getActiveMemberships = async function (username) {
