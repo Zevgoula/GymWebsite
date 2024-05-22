@@ -35,37 +35,29 @@ export let doRegister = async function (req, res) {
 export let doLogin = async function (req, res) {
     //Ελέγχει αν το username και το password είναι σωστά και εκτελεί την
     //συνάρτηση επιστροφής authenticated
-    try {
-            const user = await userModel.getUserByUsername(req.body.username);
-            
-            if (user == undefined || !user.password) {
+    const user = await userModel.getUserByUsername(req.body.username);
+    
+    if (user == undefined || !user.password || !user.username) {
 
-                //FIXME πρεπει να λεει οτι ο χρηστης δεν βρεθηκε
-                console.log("user not found");
-                res.render('login', {message : "user not found"});
-            }
-            else {
-                console.log("user is", user.username);
-                const match = await bcrypt.compare(req.body.password, user.password);
-                if (match) {
-                    //Θέτουμε τη μεταβλητή συνεδρίας "loggedUserId"
-                    req.session.loggedUserId = user.username;
-                    //Αν έχει τιμή η μεταβλητή req.session.originalUrl, αλλιώς όρισέ τη σε "/" 
-                    // res.redirect("/");            
-                    const redirectTo = req.session.originalUrl || "/home";
-                    console.log("redirecting to " + redirectTo);
-                    res.redirect("/home");
-                }
-                else {
-                    //FIXME πρεπει να λεει οτι ο κωδικος ειναι λαθος
-                    console.log("password is wrong");
-                    res.render("login")
-                }
-            }
+        //FIXME πρεπει να λεει οτι ο χρηστης δεν βρεθηκε
+        console.log("user not found");
+        res.render('login', {message : "user not found"});
+    }
+    else {
+        console.log("user is", user.username);
+        const match = await bcrypt.compare(req.body.password, user.password);
+        if (match) {
+            console.log(req.session.originalUrl);
+            req.session.loggedUserId = user.username;          
+            const redirectTo = req.session.originalUrl || "/home";
+            console.log("redirecting to " + redirectTo);
+            res.redirect("/home");
         }
-    catch (error) {
-        console.error('login error: ' + error);
-        res.render('login');
+        else {
+            //FIXME πρεπει να λεει οτι ο κωδικος ειναι λαθος
+            console.log("password is wrong");
+            res.render("login")
+        }
     }
 }
 

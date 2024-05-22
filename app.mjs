@@ -1,7 +1,5 @@
 import express from 'express'
 const app = express()
-const __dirname = path.resolve()
-import path from 'path'
 
 import dotenv from 'dotenv'
 if (process.env.NODE_ENV !== 'production') {
@@ -37,8 +35,19 @@ app.use('/', routes);
 
 app.engine('hbs', exphbs.engine({ 
   extname: '.hbs',
-  defaultLayout: 'main'
+  defaultLayout: 'main',
+  // Custom helper function if_eq
+  helpers: {
+    if_eq: function(a, b, options) {
+      if (a === b) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    }
+  }
 }));
+
 
 app.set('view engine', 'hbs');
 

@@ -1,4 +1,4 @@
-
+// FOR OLD DB
 exports.Anhkei = function (username, gym_id) {
     this.username = username
     this.gym_id = gym_id
