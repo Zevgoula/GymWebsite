@@ -73,7 +73,6 @@ export async function personal_info(req, res, next) {
     catch (error) {
         next(error);
     }
-    
 }
 
 //Only loads the template, no connection to the database
