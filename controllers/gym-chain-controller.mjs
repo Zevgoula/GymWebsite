@@ -172,10 +172,11 @@ export async function about_page(req, res, next) {
 }
 
 //Only loads the template, no connection to the database
-export async function contact(req, res, next) {
+export async function doContact(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        res.render('contact', { session: req.session });
+        await model.sendMessage(req.session.loggedUserId, req.body.subject, req.body.message_text);
+        res.render('home', { session: req.session , message: 'Message sent successfully!'});
     }
     catch (error) {
         next(error);
