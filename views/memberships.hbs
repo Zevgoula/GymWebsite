@@ -61,13 +61,7 @@
                     {{/if_eq}}
                 </div>
                 <div>
-                <button class="anim_button" onclick="loadAnotherFile({{../gym_id}},{{../class_id}},{{this.membership_id}})"><span></span>Select</button>
-                    <script>
-                        function loadAnotherFile(gym_id ,class_id, membership_id) {
-                            // Load the other HTML file here
-                            window.location.href = "/personal_info/"+gym_id+"/"+class_id+"/"+membership_id+"";
-                        }
-                    </script>
+                <button class="anim_button" onclick="window.location.href= '/personal_info/{{../gym_id}}/{{../class_id}}/{{this.membership_id}}'"><span></span>Select</button>
                 </button>
             </footer>
         </div>

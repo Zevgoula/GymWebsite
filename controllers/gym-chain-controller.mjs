@@ -2,9 +2,6 @@ import session from 'express-session';
 import * as model from '../model/gym-chain-model-sqlite-async.mjs';
 
 export async function home(req, res, next) {
-
-    let isAdmin = await model.isAdmin(req.session.loggedUserId);
-    console.log('isAdmin', isAdmin);
     try {
         req.session.previousPage = req.originalUrl;
         res.render('home', { session: req.session});

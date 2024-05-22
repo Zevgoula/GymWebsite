@@ -48,7 +48,8 @@ export let doLogin = async function (req, res) {
         const match = await bcrypt.compare(req.body.password, user.password);
         if (match) {
 
-            req.session.loggedUserId = user.username;          
+            req.session.loggedUserId = user.username;     
+            console.log("redirecting to " + req.session.previousPage);     
             const redirectTo = req.originalUrl || "/home";
             console.log("redirecting to " + redirectTo);
             res.redirect(req.session.previousPage);
