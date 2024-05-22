@@ -53,19 +53,50 @@ export async function about_page(req, res) {
     }
 }
 
-export async function services(req, res) {
+export async function selectGym(req, res) {
     try {
-        res.render('services', { session: req.session });
-        console.log(localStorage.getItem("selectedClub"));
+        const gymInfo = await model.getGymsInfo();
+        // console.log(gymInfo);
+        const club1 = gymInfo[0];
+        const club2 = gymInfo[1];
+        const club3 = gymInfo[2];
+        res.render('joinNow', { club1: club1, club2: club2, club3: club3, session: req.session });
     }
     catch (error) {
         next(error);
     }
 }
 
-export async function memberships(req, res) {
+export async function selectClass(req, res) {
     try {
-        res.render('memberships', { session: req.session });
+        const selectedgymID = req.params.selectedgymID;
+        console.log('selected gym '+selectedgymID);
+
+        const classInfo = await model.getClassesInfo();
+        const class1 = classInfo[0];
+        const class2 = classInfo[1];
+        const class3 = classInfo[2];
+        const class4 = classInfo[3];
+        
+        res.render('services', { gym_id: selectedgymID, class1: class1, class2: class2, class3: class3, class4: class4, session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function selectMembership(req, res) {
+    try {
+        const selectedgymID = req.params.selectedgymID;
+        const selectedclassID = req.params.selectedclassID;
+        console.log('selected class ' + selectedclassID);
+        
+        //Get the membership IDs for the selected class (all classes have 3 memberships)
+        const membershipIDs = await model.getMembershipIDsfromClassID(selectedclassID);
+        const membership1 = membershipIDs[0];
+        const membership2 = membershipIDs[1];
+        const membership3 = membershipIDs[2];
+        res.render('memberships', { gym_id: selectedgymID, class_id: selectedclassID, membership1: membership1, membership2: membership2, membership3: membership3, session: req.session });
     }
     catch (error) {
         next(error);
@@ -74,6 +105,7 @@ export async function memberships(req, res) {
 
 export async function personal_info(req, res) {
     try {
+        console.log(req.params.selectedclassID);
         res.render('personal_info', { session: req.session });
     }
     catch (error) {
@@ -91,14 +123,7 @@ export async function payment_info(req, res) {
     }
 }
 
-export async function joinNow(req, res) {
-    try {
-        res.render('joinNow', { session: req.session });
-    }
-    catch (error) {
-        next(error);
-    }
-}
+
 
 export async function contact(req, res) {
     try {

@@ -44,11 +44,11 @@
                 <p>Monthly payment, free cancelation</p>
             </div>
             <div>
-            <button class="anim_button" onclick="loadAnotherFile()"><span></span>Select</button>
+            <button class="anim_button" onclick="loadAnotherFile({{gym_id}},{{class_id}},{{membership1.membership_id}})"><span></span>Select</button>
                 <script>
-                    function loadAnotherFile() {
+                    function loadAnotherFile(gym_id ,class_id, membership_id) {
                         // Load the other HTML file here
-                        window.location.href = "/personal_info";
+                        window.location.href = "/personal_info/"+gym_id+"/"+class_id+"/"+membership_id+"";
                     }
                 </script>
             </button>
@@ -96,11 +96,11 @@
             <div class="membership-description">
                 <p>One time payment, free cancelation</p>
             </div>
-            <button class="anim_button" onclick="loadAnotherFile()"><span></span>Select</button>
+            <button class="anim_button" onclick="loadAnotherFile({{gym_id}},{{class_id}},{{membership2.membership_id}} )"><span></span>Select</button>
             <script>
-                function loadAnotherFile() {
+                function loadAnotherFile(gym_id ,class_id, membership_id) {
                     // Load the other HTML file here
-                    window.location.href = "/personal_info";
+                    window.location.href = "/personal_info/"+gym_id+"/"+class_id+"/"+membership_id+"";
                 }
             </script>
         </footer>
@@ -147,11 +147,11 @@
             <div class="membership-description">
                 <p>One time payment, free cancelation</p>
             </div>
-            <button class="anim_button" onclick="loadAnotherFile()"><span></span>Select</button>
+            <button class="anim_button" onclick="loadAnotherFile({{gym_id}},{{class_id}},{{membership3.membership_id}})"><span></span>Select</button>
             <script>
-                function loadAnotherFile() {
+                function loadAnotherFile(gym_id ,class_id, membership_id) {
                     // Load the other HTML file here
-                    window.location.href = "/personal_info";
+                    window.location.href = "/personal_info/"+gym_id+"/"+class_id+"/"+membership_id+"";
                 }
             </script>
         </footer>

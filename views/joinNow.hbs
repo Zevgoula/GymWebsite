@@ -1,7 +1,8 @@
 <h1 class="select_club">SELECT YOUR HOME CLUB</h1>
 <div class="row">
+
   <div class="column">
-    <a href="/services" id="athens">
+    <a href="/services/{{club1.gym_id}}" id="athens">
     <div class="cont-img-container">
       <img
         src="/images/gym1.jpg" 
@@ -10,12 +11,15 @@
       </div>
     </a>
     <div class="content">
-      <h3>ATHENS</h3>
-      <p>ERMOU, 41</p>
+      <h3>
+        {{club1.location}}
+      </h3>
+      <p>{{club1.address}}</p>
     </div>
   </div>
+
   <div class="column">
-    <a href="/services" id="patra">
+    <a href="/services/{{club2.gym_id}}" id="patra">
     <div class="cont-img-container">
       <img
         src="/images/gym2.jpg"
@@ -24,12 +28,15 @@
       </div>
     </a>
     <div class="content">
-      <h3>PATRAS</h3>
-      <p>KORINTHOU, 142</p>
+      <h3>
+        {{club2.location}}
+      </h3>
+      <p>{{club2.address}}</p>
     </div>
   </div>
+
   <div class="column">
-    <a href="/services" id="karpenisi">
+    <a href="/services/{{club3.gym_id}}" id="karpenisi">
     <div class="cont-img-container">
       <img
         src="/images/gym3.jpg"
@@ -38,31 +45,37 @@
     </a>
     </div>
     <div class="content">
-      <h3>KARPENISI</h3>
-      <p>ZINOPOULOU, 9</p>
+      <h3>
+        {{club3.location}}
+      </h3>
+      <p>{{club3.address}}</p>
     </div>
   </div>
 </div>
-<script>
 
-    document.getElementById('athens').addEventListener('click', function(event) {
-    const clubId = document.getElementById('athens').id;
+
+
+
+
+{{!-- <script>
+document.querySelectorAll('.column a').forEach(club => {
+  club.addEventListener('click', function(event) {
+    event.preventDefault();
+    const clubId = this.id;
     localStorage.setItem('selectedClub', clubId);
     console.log('Selected club:', clubId);
+
+    fetch('/services', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ selectedClub: clubId })
+    }).then(response => {
+      if (response.ok) {
+        window.location.href = '/services';
+      }
+    }).catch(error => console.error('Error:', error));
+  });
 });
-
-document.getElementById('patra').addEventListener('click', function(event) {
-    const clubId = document.getElementById('patra').id;
-    localStorage.setItem('selectedClub', clubId);
-    console.log('Selected club:', clubId);
-});
-
-document.getElementById('karpenisi').addEventListener('click', function(event) {
-    const clubId = document.getElementById('karpenisi').id;
-    localStorage.setItem('selectedClub', clubId);
-    console.log('Selected club:', clubId);
-});
-
-
-    
-</script>
+</script> --}}

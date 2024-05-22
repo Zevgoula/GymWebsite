@@ -84,21 +84,64 @@ export let isAdmin = async function (username) {
     }
 }
 
-
-
-// //FIXME
-export let getCustomerIDFromUsername = async function (username) {
-    const stmt = await sql.prepare("SELECT customer_id FROM Customer WHERE username = ?");
+export let getGymsInfo = async function () {
+    const stmt = await sql.prepare("SELECT * FROM Gym");
     try {
-        const customerId = await stmt.get(username);
-        return customerId.customer_id;
+        const gyms = await stmt.all();
+        return gyms;
     } 
     catch (err) {
         throw err;
     }
 }
 
+export let getClassesInfo = async function () {
+    const stmt = await sql.prepare("SELECT * FROM Class");
+    try {
+        const classes = await stmt.all();
+        return classes;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
 
+export let getMembershipsInfo = async function () {
+    const stmt = await sql.prepare("SELECT * FROM Membership");
+    try {
+        const memberships = await stmt.all();
+        return memberships;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+//Get the membership IDs for the selected class (all classes have 3 memberships)
+export let getMembershipIDsfromClassID = async function (classId) {
+    const stmt = await sql.prepare("SELECT membership_id FROM INCLUDES WHERE class_id = ?");
+    try {
+        const membershipId = await stmt.all(classId);
+        return membershipId;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+//Get the customer ID from the username
+export let getCustomerIDFromUsername = async function (username) {
+    const stmt = await sql.prepare("SELECT customer_id FROM Customer WHERE username = ?");
+    try {
+        const customerId = await stmt.get(username);
+        return customerId;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+//   OLD
 // export let getActiveMemberships = async function (username) {
 //     const stmt = await sql.prepare("");
 //     try {    
