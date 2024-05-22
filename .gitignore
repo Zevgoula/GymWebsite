@@ -7,3 +7,4 @@ data/schema.jpeg
 data/schema.json
 data/fill_db.sql
 test.mjs
+test_better.mjs
