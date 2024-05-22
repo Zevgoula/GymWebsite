@@ -20,10 +20,10 @@ router.get('/home', gymChainController.home);
 //Gym Benefits
 router.get('/about_classes', gymChainController.about_classes);
 
-//About page(Not implemented)
+//About page (Not implemented)
 router.get('/about_page', gymChainController.about_page);
 
-//Account page(Not implemented)
+//Account page (Not implemented)
 router.get('/account_page', gymChainController.accountPage);
 
 //Select gym

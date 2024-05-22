@@ -104,7 +104,7 @@ export async function about_page(req, res) {
     }
 }
 
-//Only loads the template, no connection to the database (mallon skip)
+//Only loads the template, no connection to the database
 export async function contact(req, res) {
     try {
         res.render('contact', { session: req.session });
