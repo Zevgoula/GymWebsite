@@ -118,11 +118,19 @@ export let getMembershipsInfo = async function () {
 }
 
 //Get the membership IDs for the selected class (all classes have 3 memberships)
-export let getMembershipIDsfromClassID = async function (classId) {
+export let getMembershipsInfofromClassID = async function (classId) {
+    // Get the membership IDs for the selected class
     const stmt = await sql.prepare("SELECT membership_id FROM INCLUDES WHERE class_id = ?");
+    // Get the membership info for each membership ID
+    const stmt2 = await sql.prepare("SELECT * FROM Membership WHERE membership_id = ?");
     try {
-        const membershipId = await stmt.all(classId);
-        return membershipId;
+        const membershipsIDs = await stmt.all(classId);
+        let membershipsInfo = [];
+        for (let i = 0; i < membershipsIDs.length; i++) {
+            const membershipInfo = await stmt2.get(membershipsIDs[i].membership_id);
+            membershipsInfo[i] = membershipInfo;
+        }
+        return membershipsInfo;
     } 
     catch (err) {
         throw err;

@@ -3,50 +3,19 @@
         We offer something for everybody
     </h2>
 </div>
-
 <div class="services">
+    {{#each classes}}
+        <div class="service">
+            <a href="/memberships/{{../gym_id}}/{{this.class_id}}">
+                <h3>
+                    {{name}}
+                </h3>
+            </a>
 
-    <div class="service">
-        <a href="/memberships/{{gym_id}}/{{class4.class_id}}">
-            <h3>
-                WEIGHTLIFTING
-            </h3>
-        </a>
-
-    </div>
-
-    <div class="service">
-        <a href="/memberships/{{gym_id}}/{{class2.class_id}}">
-            <h3>
-                CROSSFIT
-            </h3>
-        </a>
-
-    </div>
-
-    <div class="service">
-        <a href="/memberships/{{gym_id}}/{{class3.class_id}}">
-            <h3>
-                YOGA
-            </h3>
-        </a>
-
-    </div>
-
-    <div class="service">
-        <a href="/memberships/{{gym_id}}/{{class1.class_id}}">
-            <h3>
-                PILATES
-            </h3>
-        </a>
-
-    </div>
-
+        </div>
+    {{/each}}
 </div>
-
-
 <button class="anim_button" onclick="loadAnotherFile()"><span></span>LEARN MORE</button>
-
 <script>
     function loadAnotherFile() {
         // Load the other HTML file here
