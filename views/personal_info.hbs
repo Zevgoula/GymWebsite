@@ -1,4 +1,4 @@
-<form class='personal_form' action="">
+<form class='personal_form' action="/personal_info" method="post">
   <h1>Personal Info</h1>
   <div class="input-box">
     <input onkeydown="return /[a-z]/i.test(event.key)" name="fname" placeholder="First name" required />
@@ -42,10 +42,7 @@
   <div class="remember-forgot">
     <label><input type="checkbox" />Remember me.</label>
   </div>
-  <button type="submit" class="btn" onclick="loadAnotherFile()">Submit</button>
-  <script>
-    function loadAnotherFile() { // Load the other HTML file here
-    window.location.href = "/payment_info"; }
-  </script>
+  <button type="submit" class="btn";>Submit</button>
+  
 
 </form>
