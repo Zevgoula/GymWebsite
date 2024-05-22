@@ -32,10 +32,11 @@ import routes from './routes/router.mjs'
 
 app.use('/', routes);
 
-// Custom helper function if_eq
+
 app.engine('hbs', exphbs.engine({ 
   extname: '.hbs',
   defaultLayout: 'main',
+  // Custom helper function if_eq
   helpers: {
     if_eq: function(a, b, options) {
       if (a === b) {
