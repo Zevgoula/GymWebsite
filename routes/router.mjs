@@ -19,7 +19,6 @@ router.route('/').get((req, res) => {
 router.get('/home', gymChainController.home);
 router.get('/about_classes', gymChainController.about_classes);
 router.get('/about_page', gymChainController.about_page);
-router.get('/contact', gymChainController.contact);
 router.get('/account_page', gymChainController.accountPage);
 
 //Select gym
