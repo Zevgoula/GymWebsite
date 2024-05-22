@@ -31,7 +31,6 @@ export let getUserByUsername = async (username) => {
     
     try {
         const user = await stmt.all(username);
-        console.log('user', user);
         return user[0];
     } 
     catch (err) {
@@ -150,6 +149,7 @@ export let getCustomerIDFromUsername = async function (username) {
 }
 
 //   OLD
+
 // export let getActiveMemberships = async function (username) {
 //     const stmt = await sql.prepare("");
 //     try {    
