@@ -70,7 +70,17 @@ export async function showPersonalInfoForm(req, res, next) {
         const selectedgymID = req.params.selectedgymID;
         const selectedclassID = req.params.selectedclassID;
         const selectedmembershipID = req.params.selectedmembershipID;
-        res.render('personal_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
+
+        const customer_id = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+
+        // console.log('customer id ' + customer_id);
+        const hasThisMembership = await model.checkIfCustomerHasAnyMembershipFromClassID(customer_id, selectedclassID);
+
+        const m_length = await model.getMembershipLengthFromID(selectedmembershipID);
+        // console.log('membership length ' + m_length);
+
+
+        res.render('personal_info', { has: hasThisMembership, gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, length: m_length, session: req.session });
     }
     catch (error) {
         next(error);

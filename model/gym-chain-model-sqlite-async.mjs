@@ -39,7 +39,7 @@ export let getUserByUsername = async (username) => {
 }
 
 //Create a new user
-export let registerUser = async function (fname, lname, username, password) {
+export let registerUser = async function (fname, lname, username, password, email) {
     // ελέγχουμε αν υπάρχει χρήστης με αυτό το username
     const userId = await getUserByUsername(username);
     if (userId != undefined) {
@@ -50,8 +50,8 @@ export let registerUser = async function (fname, lname, username, password) {
             const hashedPassword = await bcrypt.hash(password, 10);
             
             // Add to Customer table
-            const customerStmt = await sql.prepare('INSERT INTO Customer (username, fname, lname) VALUES (?, ?, ?)');
-            await customerStmt.run(username, fname, lname);
+            const customerStmt = await sql.prepare('INSERT INTO Customer (username, fname, lname, email) VALUES (?, ?, ?, ?)');
+            await customerStmt.run(username, fname, lname, email);
             
             // Add to User table
             const stmt = await sql.prepare('INSERT INTO user VALUES (?, ?, "customer")');
@@ -149,8 +149,15 @@ export let getMembershipsInfofromClassID = async function (classId) {
 
 //Get the customer ID from the username
 export let getCustomerIDFromUsername = async function (username) {
+    
     const stmt = await sql.prepare("SELECT customer_id FROM Customer WHERE username = ?");
     try {
+        if (username === 'visitor') {
+            return undefined;
+        }
+        else if (username === undefined) {
+            return undefined;
+        }
         const customerId = await stmt.get(username);
         return customerId.customer_id;
     } 
@@ -237,6 +244,10 @@ export let getActiveMemberships = async function (customerId) {
 
 export let checkIfCustomerHasMembership = async function (customerId, membershipId) {
     const purchaseId = await getPurchaseID(customerId, membershipId);
+    // console.log('Purchase ID: ', purchaseId);
+    if (purchaseId === undefined) {
+        return false;
+    }
     const isActive = await checkIfMembershipIsActive(customerId, membershipId, purchaseId);
     try {
         if (isActive) {
@@ -258,8 +269,8 @@ export let checkIfMembershipIsActive = async function (customerId, membershipId,
         const currentDate = new Date();
 
         const expirationDate = stringToDate(exp_date_obj.exp_date);
-        console.log('Current date: ', currentDate);
-        console.log('Expiration date: ', expirationDate);
+        // console.log('Current date: ', currentDate);
+        // console.log('Expiration date: ', expirationDate);
 
         if (currentDate > expirationDate) {
             return false;
@@ -276,9 +287,32 @@ export let getPurchaseID = async function (customerId, membershipId) {
     const stmt = await sql.prepare("SELECT purchase_id FROM BUYS WHERE customer_id = ? AND membership_id = ?");
     try {
         const purchaseId = await stmt.get(customerId, membershipId);
-        return purchaseId.purchase_id;
+        // console.log('Purchase ID: ', purchaseId);
+        if (purchaseId === undefined) {
+            return undefined;
+        }
+        else{
+            return purchaseId.purchase_id;
+        }
+        
     } 
     catch (err) {
+        throw err;
+    }
+}
+
+export let checkIfCustomerHasAnyMembershipFromClassID = async function (customerId, classId) {
+    try{
+        const membershipsInfo = await getMembershipsInfofromClassID(classId);
+
+        if (await checkIfCustomerHasMembership(customerId, membershipsInfo[0].membership_id) || await checkIfCustomerHasMembership(customerId, membershipsInfo[1].membership_id) || await checkIfCustomerHasMembership(customerId, membershipsInfo[2].membership_id)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    catch(err){
         throw err;
     }
 }
@@ -330,4 +364,15 @@ export let stringToDate = function (dateString) {
     const listDate = dateString.split('-');
     const date = new Date(listDate[2], listDate[1], listDate[0]);
     return date;
+}
+
+export let getMembershipLengthFromID = async function (membershipId) {
+    const stmt = await sql.prepare("SELECT length FROM Membership WHERE membership_id = ?");
+    try {
+        const length = await stmt.get(membershipId);
+        return length.length;
+    } 
+    catch (err) {
+        throw err;
+    }
 }

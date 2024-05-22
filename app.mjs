@@ -54,7 +54,7 @@ app.set('view engine', 'hbs');
 //Debugging middleware
 app.use((err, req, res, next) => {
 
-  console.error('ERROR: ' + err.message + err.stack);
+  console.error('ERROR: ' + err.message + '\n' + err.stack);
 
 })
 
