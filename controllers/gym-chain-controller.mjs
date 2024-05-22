@@ -13,27 +13,9 @@ export async function home(req, res) {
     }
 }
 
-export async function accountPage(req, res) {
-    try {
-        res.render('account_page', {session: req.session });
-    }
-    catch (error) {
-        next(error);    
-    }
-}
-
 export async function about_classes(req, res) {
     try {
         res.render('about_classes', { session: req.session });
-    }
-    catch (error) {
-        next(error);
-    }
-}
-
-export async function about_page(req, res) {
-    try {
-        res.render('about_page', { session: req.session });
     }
     catch (error) {
         next(error);
@@ -78,6 +60,7 @@ export async function selectMembership(req, res) {
     }
 }
 
+//Only loads the template, no connection to the database
 export async function personal_info(req, res) {
     try {
         console.log(req.params.selectedclassID);
@@ -89,6 +72,7 @@ export async function personal_info(req, res) {
     
 }
 
+//Only loads the template, no connection to the database
 export async function payment_info(req, res) {
     try {
         res.render('payment_info', { session: req.session });
@@ -98,8 +82,27 @@ export async function payment_info(req, res) {
     }
 }
 
+//Need to implement the following functions
+export async function accountPage(req, res) {
+    try {
+        res.render('account_page', {session: req.session });
+    }
+    catch (error) {
+        next(error);    
+    }
+}
 
+//Has to be lead somewhere (mallon skip)
+export async function about_page(req, res) {
+    try {
+        res.render('about_page', { session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
+}
 
+//Only loads the template, no connection to the database (mallon skip)
 export async function contact(req, res) {
     try {
         res.render('contact', { session: req.session });
@@ -110,13 +113,3 @@ export async function contact(req, res) {
 }
 
 
-// export async function doJoinNow(req, res) {
-//     try {
-//         const customerId = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-//         const membership = await model.buyMembership(membershipId, customerId);
-//         res.redirect('/services');
-//     }
-//     catch (error) {
-//         next(error);
-//     }
-// }
