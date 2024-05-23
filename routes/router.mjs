@@ -57,7 +57,7 @@ router.get('/book', gymChainController.book);
 router.get('/available_hours', gymChainController.available_hours);
 
 //Extend_membership
-router.get('/extend_membership', gymChainController.extend_membership);
+router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainController.extend_membership);
 
 //Show the login form
 router.route('/login').get(logInController.checkAuthenticated, logInController.showLogInForm);

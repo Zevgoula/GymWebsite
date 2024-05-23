@@ -305,14 +305,19 @@ export let checkIfCustomerHasAnyMembershipFromClassID = async function (customer
     }
 }
 
-export let extendMembership = async function (customerId, membershipId, purchaseId) {
+export let extendMembership = async function (customerId, membershipId) {
 
     try {
+
+        const purchaseId = await getPurchaseIDs(customerId, membershipId);
+        // console.log('Purchase ID: ', purchaseId);
         const exp_date = await getExpDate(customerId, membershipId, purchaseId);
         const oldExpDate = stringToDate(exp_date);
+        // console.log('Old exp date: ', oldExpDate);
         // const expirationDate = stringToDate(exp_date);
-        const membershipInfo = await getMembershipInfofromID(membershipId);
-        const length = membershipInfo.length;
+        const membershipLength = await getMembershipLengthFromID(membershipId);
+        const length = membershipLength;
+        console.log('Membership length: ', length);
         let additional_days = 0;
         if (length === 1) {
             additional_days = 30;
@@ -325,6 +330,7 @@ export let extendMembership = async function (customerId, membershipId, purchase
         }
         oldExpDate.setDate(oldExpDate.getDate() + additional_days);
         const new_exp_date = DateToString(oldExpDate);
+        // console.log('New exp date: ', new_exp_date);
         const stmt2 = await sql.prepare("UPDATE BUYS SET exp_date = ? WHERE customer_id = ? AND membership_id = ? AND purchase_id = ?");
         await stmt2.run(new_exp_date, customerId, membershipId, purchaseId);
     } 
@@ -517,4 +523,17 @@ export let getActiveClassesIDsFromCustomerID = async function (customerId) {
         throw err;
     }
 }
+
+export let getMembershipInfoFromCustomerIDAndClassID = async function (customerID, classID) {
+    const stmt = await sql.prepare("SELECT CLASS.name, BUYS.exp_date, MEMBERSHIP.length, MEMBERSHIP.membership_id FROM MEMBERSHIP JOIN CLASS JOIN INCLUDES JOIN BUYS ON MEMBERSHIP.membership_id = INCLUDES.membership_id AND CLASS.class_id = INCLUDES.class_id AND MEMBERSHIP.membership_id = BUYS.membership_id WHERE customer_id = ? AND CLASS.class_id = ?");
+    try {
+        const info = await stmt.get(customerID, classID);
+        return info;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+
 
