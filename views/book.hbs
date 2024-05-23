@@ -20,88 +20,67 @@
             <h1>MAKE A BOOKING</h1>
         </div>
         <form class="book-form-container" action="/book" method="POST">
-            {{!-- <div class="book-form-container"> --}}
-                <div class="book-upper-container">
-                    <div class="book-upper-title">
-                        <h1>CLASS</h1>
-                    </div>
-                    <div class="book-buttons-container">
-
-                        {{#each classes}}
-                        
-                            <button type='button' name='class_name' class="book-button"><span></span>{{this.name}}</button>
-                            <input type="hidden" name="class_id" value="{{this.name}}">
-                        {{/each}}
-                        
-                    </div>
+            <div class="book-upper-container">
+                <div class="book-upper-title">
+                    <h1>CLASS</h1>
                 </div>
-                <div class="book-upper-container2">
-                    <div class="book-upper-title">
-                        <h1>CLUB</h1>
-                    </div>
-                    <div class="book-buttons-container2">
-
-                        {{#each clubs}}
-                            <button type='button' name='gym_name' class="book-button2"><span></span>{{this.location}}</button>
-                            <input type="hidden" name="gym_id" value="{{this.location}}">
-                        {{/each}}
-                    
-                    </div>
+                <div class="book-buttons-container">
+                    {{#each classes}}
+                        <button type="button" class="book-button" onclick="selectClass('{{this.name}}')"><span></span>{{this.name}}</button>
+                    {{/each}}
                 </div>
-                <div class="book-lower-container">
-                    <h1>SEARCH DATE</h1>
-                    <input name='date_name' type="date" name="date" id="date" />
-                    <button type='submit' class="anim_button"><span></span>SEARCH</button>
+            </div>
+            <div class="book-upper-container2">
+                <div class="book-upper-title">
+                    <h1>CLUB</h1>
                 </div>
-            {{!-- </div> --}}
+                <div class="book-buttons-container2">
+                    {{#each clubs}}
+                        <button type="button" class="book-button2" onclick="selectLocation('{{this.location}}')"><span></span>{{this.location}}</button>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="book-lower-container">
+                <h1>SEARCH DATE</h1>
+                <input type="date" name="date" id="date" required>
+                <button type="submit" class="anim_button"><span></span>SEARCH</button>
+            </div>
+            <input type="hidden" id="selectedClass" name="class_id">
+            <input type="hidden" id="selectedLocation" name="gym_id">
         </form>
     </div>
-    <script>
-        // Function to handle button clicks
-        function handleButtonClick(button, containerClass) {
-            // Get all buttons within the same container
-            const buttons = document.querySelectorAll(containerClass + ' .book-button, ' + containerClass + ' .book-button2');
+</body>
+</html>
 
-            // Remove the 'active' class from all buttons
-            buttons.forEach(btn => btn.classList.remove('active'));
 
-            // Add the 'active' class to the clicked button
-            button.classList.add('active');
-        }
+<script>
+    let selectedClass = null;
+    let selectedLocation = null;
 
-        // Add event listeners to all buttons in the first container
-        document.querySelectorAll('.book-buttons-container .book-button').forEach(button => {
-            button.addEventListener('click', function() {
-                handleButtonClick(button, '.book-buttons-container');
-            });
+    function selectClass(className) {
+        selectedClass = className;
+        // Add active class to the selected button
+        document.querySelectorAll('.book-button').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.textContent.trim() === className) {
+                btn.classList.add('active');
+            }
         });
+        // Set the selected class value in the hidden input
+        document.getElementById('selectedClass').value = className;
+    }
 
-        // Add event listeners to all buttons in the second container
-        document.querySelectorAll('.book-buttons-container2 .book-button2').forEach(button => {
-            button.addEventListener('click', function() {
-                handleButtonClick(button, '.book-buttons-container2');
-            });
+    function selectLocation(location) {
+        selectedLocation = location;
+        // Add active class to the selected button
+        document.querySelectorAll('.book-button2').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.textContent.trim() === location) {
+                btn.classList.add('active');
+            }
         });
-    </script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dateInput = document.getElementById('date');
-        
-        const today = new Date();
-        const maxDate = new Date();
-        maxDate.setDate(today.getDate() + 7);
-
-        const formatDate = (date) => {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        };
-
-        dateInput.min = formatDate(today);
-        dateInput.max = formatDate(maxDate);
-    });
+        // Set the selected location value in the hidden input
+        document.getElementById('selectedLocation').value = location;
+    }
 </script>
-
 
