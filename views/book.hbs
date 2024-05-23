@@ -19,39 +19,42 @@
         <div class="book-title">
             <h1>MAKE A BOOKING</h1>
         </div>
-        <div class="book-form-container">
-            <div class="book-upper-container">
-                <div class="book-upper-title">
-                    <h1>CLASS</h1>
+        <form class="book-form-container" action="/book" method="POST">
+            {{!-- <div class="book-form-container"> --}}
+                <div class="book-upper-container">
+                    <div class="book-upper-title">
+                        <h1>CLASS</h1>
+                    </div>
+                    <div class="book-buttons-container">
+
+                        {{#each classes}}
+                        
+                            <button type='button' name='class_name' class="book-button"><span></span>{{this.name}}</button>
+                            <input type="hidden" name="class_id" value="{{this.name}}">
+                        {{/each}}
+                        
+                    </div>
                 </div>
-                <div class="book-buttons-container">
-                    {{#each classes}}
-                        <button class="book-button"><span></span>{{this.name}}</button>
-                    {{/each}}
-                    {{!-- <button class="book-button"><span></span>YOGA</button>
-                    <button class="book-button"><span></span>PILATES</button>
-                    <button class="book-button"><span></span>CROSSFIT</button> --}}
+                <div class="book-upper-container2">
+                    <div class="book-upper-title">
+                        <h1>CLUB</h1>
+                    </div>
+                    <div class="book-buttons-container2">
+
+                        {{#each clubs}}
+                            <button type='button' name='gym_name' class="book-button2"><span></span>{{this.location}}</button>
+                            <input type="hidden" name="gym_id" value="{{this.location}}">
+                        {{/each}}
+                    
+                    </div>
                 </div>
-            </div>
-            <div class="book-upper-container2">
-                <div class="book-upper-title">
-                    <h1>CLUB</h1>
+                <div class="book-lower-container">
+                    <h1>SEARCH DATE</h1>
+                    <input name='date_name' type="date" name="date" id="date" />
+                    <button type='submit' class="anim_button"><span></span>SEARCH</button>
                 </div>
-                <div class="book-buttons-container2">
-                    {{#each clubs}}
-                        <button class="book-button2"><span></span>{{this.location}}</button>
-                    {{/each}}
-                    {{!-- <button class="book-button2"><span></span>ATHENS</button>
-                    <button class="book-button2"><span></span>PATRAS</button>
-                    <button class="book-button2"><span></span>KARPENISI</button> --}}
-                </div>
-            </div>
-            <div class="book-lower-container">
-                <h1>SEARCH DATE</h1>
-                <input type="date" name="date" id="date" />
-                <button class="anim_button" onclick="window.location.href='/available_hours'"><span></span>SEARCH</button>
-            </div>
-        </div>
+            {{!-- </div> --}}
+        </form>
     </div>
     <script>
         // Function to handle button clicks
@@ -101,5 +104,4 @@
     });
 </script>
 
-</body>
-</html>
+

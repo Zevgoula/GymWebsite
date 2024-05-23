@@ -53,8 +53,10 @@ router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipI
 router.route('/home').post(gymChainController.doContact);
 
 
-//Book
-router.get('/book', gymChainController.book);
+//Show book form
+router.route('/book').get(gymChainController.showBookForm);
+//Post request for book form
+router.route('/book').post(gymChainController.doBookForm);
 
 //Available hours
 router.get('/available_hours', gymChainController.available_hours);

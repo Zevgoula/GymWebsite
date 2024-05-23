@@ -36,14 +36,29 @@ export async function about_classes(req, res, next) {
     }
 }
 
-export async function book(req, res, next) {
+export async function showBookForm(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const classes = await model.getClassesInfoOfCustomer(customerID);
-        console.log('Classes: ', classes);
         const clubs = await model.getGymsInfo();
         res.render('book', { classes: classes, clubs: clubs, session: req.session});
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function doBookForm(req, res, next) {
+    try {
+        req.session.previousPage = req.originalUrl;
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const classID = req.body.class_id;
+        const clubID = req.body.gym_id;
+        const date = req.body.date_name;
+        console.log('customerID: ' + customerID + ' class: ' + classID + ' club: ' + clubID + ' date: ' + date);
+        // await model.bookClass(customerID, classID, clubID, date, time);
+        res.render('available_hours', { session: req.session});
     }
     catch (error) {
         next(error);
