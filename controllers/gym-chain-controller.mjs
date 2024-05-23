@@ -13,6 +13,18 @@ export async function home(req, res, next) {
     }
 }
 
+export async function admin_home(req, res, next) {
+    try {
+        req.session.previousPage = req.originalUrl;
+        const message = req.session.message;
+        req.session.message = null; 
+        res.render('admin_home', { message: message, session: req.session});
+    }
+    catch (error) {
+        next(error);
+    }
+}        
+
 export async function about_classes(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;

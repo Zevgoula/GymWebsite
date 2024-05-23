@@ -1,34 +1,99 @@
-<div class="book-placeholder">
-    <div class="book-title">
-        <h1>MAKE A BOOKING</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form</title>
+    <style>
+        /* Add your existing styles here */
+
+        .book-button.active,
+        .book-button2.active {
+            background-color: #007bff; /* Active background color */
+            color: white; /* Active text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="book-placeholder">
+        <div class="book-title">
+            <h1>MAKE A BOOKING</h1>
+        </div>
+        <div class="book-form-container">
+            <div class="book-upper-container">
+                <div class="book-upper-title">
+                    <h1>CLASS</h1>
+                </div>
+                <div class="book-buttons-container">
+                    <button class="book-button"><span></span>YOGA</button>
+                    <button class="book-button"><span></span>PILATES</button>
+                    <button class="book-button"><span></span>CROSSFIT</button>
+                </div>
+            </div>
+            <div class="book-upper-container2">
+                <div class="book-upper-title">
+                    <h1>CLUB</h1>
+                </div>
+                <div class="book-buttons-container2">
+                    <button class="book-button2"><span></span>ATHENS</button>
+                    <button class="book-button2"><span></span>PATRAS</button>
+                    <button class="book-button2"><span></span>KARPENISI</button>
+                </div>
+            </div>
+            <div class="book-lower-container">
+                <h1>SEARCH DATE</h1>
+                <input type="date" name="date" id="date" />
+                <button class="anim_button" onclick="window.location.href='/available_hours'"><span></span>SEARCH</button>
+            </div>
+        </div>
     </div>
-    <div class="book-form-container">
-        <div class="book-upper-container">
-            <div class="book-upper-title">
-                <h1>CLASS</h1>
-            </div>
-            {{!-- EACH --> analoga me to id_membership pou antistoixei me ton customer (aka to class pou exei dialeksei o customer ) KAI DEN EINAI WEIGHTLIFTING --}}
-            <div class="book-buttons-container">
-                <button class="book-button"><span></span>YOGA</button>
-                <button class="book-button"><span></span>PILATES</button>
-                <button class="book-button"><span></span>CROSSFIT</button>
-            </div>
-        </div>
-        <div class="book-upper-container2">
-            <div class="book-upper-title">
-                <h1>CLUB</h1>
-            </div>
-            {{!-- EACH --> analoga me to id_membership pou antistoixei me ton customer (aka to class pou exei dialeksei o customer ) KAI DEN EINAI WEIGHTLIFTING --}}
-            <div class="book-buttons-container2">
-                <button class="book-button2"><span></span>ATHENS</button>
-                <button class="book-button2"><span></span>PATRAS</button>
-                <button class="book-button2"><span></span>KARPENISI</button>
-            </div>
-        </div>
-        <div class="book-lower-container">
-            <h1>SEARCH DATE</h>
-            <input type="date" name="date" id="date" />
-            <button class="anim_button" onclick="window.location.href='/available_hours'"><span></span>SEARCH</button>
-        </div>
-    </div>
-</div>
+    <script>
+        // Function to handle button clicks
+        function handleButtonClick(button, containerClass) {
+            // Get all buttons within the same container
+            const buttons = document.querySelectorAll(containerClass + ' .book-button, ' + containerClass + ' .book-button2');
+
+            // Remove the 'active' class from all buttons
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Add the 'active' class to the clicked button
+            button.classList.add('active');
+        }
+
+        // Add event listeners to all buttons in the first container
+        document.querySelectorAll('.book-buttons-container .book-button').forEach(button => {
+            button.addEventListener('click', function() {
+                handleButtonClick(button, '.book-buttons-container');
+            });
+        });
+
+        // Add event listeners to all buttons in the second container
+        document.querySelectorAll('.book-buttons-container2 .book-button2').forEach(button => {
+            button.addEventListener('click', function() {
+                handleButtonClick(button, '.book-buttons-container2');
+            });
+        });
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateInput = document.getElementById('date');
+        
+        const today = new Date();
+        const maxDate = new Date();
+        maxDate.setDate(today.getDate() + 7);
+
+        const formatDate = (date) => {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+
+        dateInput.min = formatDate(today);
+        dateInput.max = formatDate(maxDate);
+    });
+</script>
+
+</body>
+</html>

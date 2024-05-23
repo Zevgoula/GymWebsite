@@ -927,9 +927,6 @@ a:hover {
    display: flex;
    flex-direction: column;
    text-align: center;
-   /* justify-content: left;
-   align-items: left;
-   text-align: left; */
 }
 
 .book-upper-title h1{
@@ -1032,6 +1029,12 @@ a:hover {
    justify-content: space-between;
    align-items: center;
    margin: 2% 5%;
+}
+
+.book-lower-container h1{
+   font-size: 3em;
+   color: white;
+   font-weight: bold;
 }
 
 .book-search-button{
