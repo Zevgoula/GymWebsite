@@ -8,3 +8,4 @@ data/schema.json
 data/fill_db.sql
 test.mjs
 test_better.mjs
+gym_chain_new.db

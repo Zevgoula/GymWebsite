@@ -46,7 +46,8 @@ export async function available_hours(req, res, next) {
 export async function extend_membership(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        res.render('extend_membership', { session: req.session});
+        await model.extendMembership(req.params.customerID, req.params.selectedmembershipID);
+        res.render('home', { session: req.session});
     }
     catch (error) {
         next(error);
@@ -98,24 +99,38 @@ export async function selectMembership(req, res, next) {
 //Only loads the template, no connection to the database
 export async function showPersonalInfoForm(req, res, next) {
     try {
+        // Keep track of the previous page
         req.session.previousPage = req.originalUrl;
+        // Get the selected gym, class and membership IDs
         const selectedgymID = req.params.selectedgymID;
         const selectedclassID = req.params.selectedclassID;
         const selectedmembershipID = req.params.selectedmembershipID;
 
+        // Get the customer id from the username
         const customer_id = await model.getCustomerIDFromUsername(req.session.loggedUserId);
 
+        // Get the active classes of the customer
         const activeClasses = await model.getActiveClassesIDsFromCustomerID(customer_id);
-        let hasThisMembershipAndIsActive = false;
+        let m_flag = false;
+        // Check if the selected class is already in the active classes
         for (let i = 0; i < activeClasses.length; i++) {
             if (activeClasses[i].class_id == selectedclassID) {
-                hasThisMembershipAndIsActive = true;
+                m_flag = true;
                 break;
             }
         }
 
-        const m_length = await model.getMembershipLengthFromID(selectedmembershipID);
-        res.render('personal_info', { has: hasThisMembershipAndIsActive, gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, length: m_length, session: req.session });
+        // Get name and expiration date of the membership that the customer already has
+        const m_info = await model.getMembershipInfoFromCustomerIDAndClassID(customer_id, selectedclassID);
+
+        // Render the correct page based on the flag
+        if (m_flag) {
+            res.render('extend_membership', { m_info: m_info, customerID: customer_id, session: req.session });
+        }
+        else{
+            res.render('personal_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
+
+        }
     }
     catch (error) {
         next(error);
@@ -189,7 +204,7 @@ export async function accountPage(req, res, next) {
         const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
         const activeMemberships = await model.getAllActiveMembershipsFromCustomerID(customerInfo.customer_id);
         const inactiveMemberships = await model.getAllInactiveMembershipsFromCustomerID(customerInfo.customer_id);
-        console.log('Active memberships: ', activeMemberships);
+        // console.log('Active memberships: ', activeMemberships);
 
         let active_names = [];
         for (let i = 0; i < activeMemberships.length; i++) {
