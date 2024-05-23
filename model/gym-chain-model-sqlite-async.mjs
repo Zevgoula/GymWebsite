@@ -365,15 +365,15 @@ export let getMembershipLengthFromID = async function (membershipId) {
     }
 }
 
-export let sendMessage = async function (username, subject, message_text) {
-    const stmt = await sql.prepare("INSERT INTO Message (customer_id, subject, message_text) VALUES (?, ?, ?)");
+export let sendMessage = async function (username, email, subject, message_text) {
+    const stmt = await sql.prepare("INSERT INTO Message (customer_id, email, subject, message_text) VALUES (?, ?, ?, ?)");
     try {
         const customerId = await getCustomerIDFromUsername(username);
         if (customerId === undefined) {
-            await stmt.run(null, subject, message_text);
+            await stmt.run(null, email, subject, message_text);
         }
         else {
-            await stmt.run(customerId, subject, message_text);
+            await stmt.run(customerId, email, subject, message_text);
         }
     } 
     catch (err) {

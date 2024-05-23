@@ -847,3 +847,12 @@ a:hover {
    background-image: linear-gradient(180deg,  rgba(50, 50, 50, 0.2), rgba(50, 50, 50, 0.2)), url(/images/pilates.png);
 }
 
+.input-box #message{
+   height: 80%;
+   width: 90%;
+   padding-bottom: 5%;
+   resize: none;
+   border-radius: 5px;
+}
+
+

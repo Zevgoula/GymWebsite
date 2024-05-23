@@ -207,7 +207,7 @@ export async function about_page(req, res, next) {
 export async function doContact(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        await model.sendMessage(req.session.loggedUserId, req.body.subject, req.body.message_text);
+        await model.sendMessage(req.session.loggedUserId, req.body.email, req.body.subject, req.body.message_text);
         req.session.message = "Message sent successfully";
         res.redirect('/home/#contact_form');
     }
