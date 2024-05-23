@@ -6,6 +6,7 @@ export async function home(req, res, next) {
         req.session.previousPage = req.originalUrl;
         const message = req.session.message;
         req.session.message = null; 
+        console.log(req.body.b1);
         res.render('home', { message: message, session: req.session});
     }
     catch (error) {
@@ -134,10 +135,11 @@ export async function showPersonalInfoForm(req, res, next) {
 
         // Get name and expiration date of the membership that the customer already has
         const m_info = await model.getMembershipInfoFromCustomerIDAndClassID(customer_id, selectedclassID);
+        const selectedMembershipLength = await model.getMembershipLengthFromID(selectedmembershipID);
 
         // Render the correct page based on the flag
         if (m_flag) {
-            res.render('extend_membership', { m_info: m_info, customerID: customer_id, session: req.session });
+            res.render('extend_membership', { m_info: m_info, length: selectedMembershipLength, customerID: customer_id, session: req.session });
         }
         else{
             res.render('personal_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
