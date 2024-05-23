@@ -4,7 +4,7 @@
         <p>JOIN US AND GET FIT WITH OUR TRAINERS</p>
         <div>
             {{#if userId}}
-                <button class="anim_button" onclick="window.location.href='/joinNow'"><span></span>JOIN NOW</button>
+                <button class="anim_button" onclick="window.location.href='/joinNow'"><span></span>BUY MEMBERSHIP</button>
             {{else}}
                 <button class="anim_button" onclick="window.location.href='/login'"><span></span>JOIN NOW</button>
             {{/if}}
@@ -13,25 +13,28 @@
     </div>
     
     <div class="about" id="contact_form">
-        <form class='personal_form' action="/home" method="post">
+        <form  action="/home" method="post">
             <h1>Contact</h1>
             <div class="input-box">
-                <input type ="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
+                <input type="email" name='email' placeholder="Email" required>
             </div>
+            
             <div class="input-box">
-                <input type="number" placeholder="Phone" required>
-                <input type="address" placeholder="Address" required>
+                <input  type="text" name='subject' placeholder="Subject" required></input>
             </div>
+
             <div class="input-box">
-                <input  type="text" placeholder="Subject" required></input>
+                <textarea id='message' type="text" name='message_text' placeholder="Message" required></textarea>
             </div>
-            {{!-- <div class="input-box"> --}}
-                <textarea placeholder="Message" required></textarea>
-            {{!-- </div> --}}
-            <button type="submit" class="btn">Submit</button>
+
+            <button type="submit" class="btn" >Submit</button>
         </form>
     </div>
+    {{#if message}}
+        <div class="message">
+            <p style="color:aliceblue">{{message}}</p>
+        </div>
+    {{/if}}
     
     {{> footer}}
 

@@ -1,18 +1,70 @@
 
 {{#with customerInfo}}
-    <h1>
+    <h1 style="color: white">
         Account Page
     </h1>
-    <p>
+    <p style="color: white">
         Name: {{fname}} {{lname}}
     </p>
+    <p style="color: white">
+        Email: {{email}}
+    </p>
+    <p style="color: white">
+        Phone: {{phone}}
+    </p>
+    <p style="color: white">
+        Address: {{address}}
+    </p>
+    <p style="color: white">
+        City: {{city}}
+    </p>
+    <p style="color: white">
+        State: {{state}}
+    </p>
+    <p style="color: white">
+        Zip code: {{zip_code}}
+    </p>
 {{/with}}
+{{#if active_memberships}}
+    <h1 style="color: white">
+            Active memberships
+    </h1>
+    {{#each active_memberships}}
+        
+        <p style="color: white">
+            Type: {{this.name}}
+        </p>
+        <p style="color: white">
+            Start Date: {{this.start_date}}
+        </p>
+        <p style="color: white">
+            End Date: {{this.exp_date}}
+        </p>
+    {{/each}}
+{{/if}}
+{{#if inactive_memberships}}
+    <h1 style="color: white">
+            Inactive memberships
+    </h1>
+    {{#each inactive_memberships}}
+        
+        <p style="color: white">
+            Type: {{this.name}}
+        </p>
+        <p style="color: white">
+            Start Date: {{this.start_date}}
+        </p>
+        <p style="color: white">
+            End Date: {{this.exp_date}}
+        </p>
+    {{/each}}
+{{/if}}
 
 {{^customerInfo}}
-    <h1>
+    <h1 style="color: white">
         Account Page
     </h1>
-    <p>
+    <p style="color: white">
         Please log in to view your account information.
     </p>
 {{/customerInfo}}

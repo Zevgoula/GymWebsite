@@ -15,7 +15,7 @@ export let showRegisterForm = function (req, res) {
 
 export let doRegister = async function (req, res) {
     try {
-        const registrationResult = await userModel.registerUser(req.body.fname, req.body.lname, req.body.username, req.body.password);
+        const registrationResult = await userModel.registerUser(req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.email);
         if (registrationResult.message) {
             //FIXME πρεπει να λεει οτι υπαρχει ηδη χρηστης με αυτο το ονομα
             console.log("user already exists");
@@ -57,7 +57,7 @@ export let doLogin = async function (req, res) {
         else {
             //FIXME πρεπει να λεει οτι ο κωδικος ειναι λαθος
             console.log("password is wrong");
-            res.render("login")
+            res.render("login", {message : "password is wrong"})
         }
     }
 }

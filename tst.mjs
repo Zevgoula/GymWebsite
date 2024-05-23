@@ -54,5 +54,5 @@ export let getCustomerIDFromUsername = async function (username) {
 }
 
 
-const a = await getCustomerIDFromUsername('papi');
+const a = new Date();
 console.log(a);

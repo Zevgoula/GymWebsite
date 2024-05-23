@@ -1,48 +1,69 @@
-<form class='personal_form' action="/personal_info" method="post">
-  <h1>Personal Info</h1>
-  <div class="input-box">
-    <input onkeydown="return /[a-z]/i.test(event.key)" name="fname" placeholder="First name" required />
-    <input
-      type="text"
-      placeholder="Adress"
-      required;
-      style="margin-left: 120px;"
-    />
-  </div>
-  <div class="input-box">
-    <input onkeydown="return /[a-z]/i.test(event.key)" name="lname" placeholder="Last name" required />
-    <input
-      type="text"
-      placeholder="City"
-      required;
-      style="margin-left: 120px;"
-    />
-  </div>
-  <div class="input-box">
-    <input type="email" name="email" placeholder="Email" required />
-    <input
-      onkeydown="return /[a-z]/i.test(event.key)"
-      placeholder="State"
-      required;
-      style="margin-left: 120px;"
-    />
 
-  </div>
-  <div class="input-box">
-    <input type="text" name="phone_number" inputmode="numeric" placeholder="Phone number" required />
-    <input
-      type="text" inputmode="numeric"
-      placeholder="Zip Code"
-      required;
-      style="margin-left: 120px;"
-    />
 
-  </div>
+{{#unless has}}
+  <form class='personal_form' action="/personal_info/{{gym_id}}/{{class_id}}/{{membership_id}}" method="post">
+    <h1>Personal Info</h1>
+    <div class="input-box">
+      <input onkeydown="return /[a-z]/i.test(event.key)" name="fname" placeholder="First name" required />
+      <input
+        type="text"
+        placeholder="Adress"
+        required;
+        style="margin-left: 120px;"
+        name="address"
+      />
+    </div>
+    <div class="input-box">
+      <input onkeydown="return /[a-z]/i.test(event.key)" name="lname" placeholder="Last name" required />
+      <input
+        type="text"
+        placeholder="City"
+        required;
+        style="margin-left: 120px;"
+        name="city"
+      />
+    </div>
+    <div class="input-box">
+      <input type="email" name="email" placeholder="Email" required />
+      <input
+        onkeydown="return /[a-z]/i.test(event.key)"
+        placeholder="State"
+        required;
+        style="margin-left: 120px;"
+        name="state"
+      />
 
-  <div class="remember-forgot">
-    <label><input type="checkbox" />Remember me.</label>
-  </div>
-  <button type="submit" class="btn";>Submit</button>
-  
+    </div>
+    <div class="input-box">
+      <input type="text" name="phone_number" inputmode="numeric" placeholder="Phone number" required />
+      <input
+        type="text" inputmode="numeric"
+        placeholder="Zip Code"
+        required;
+        style="margin-left: 120px;"
+        name="zip_code"
+      />
 
-</form>
+    </div>
+
+    <div class="remember-forgot">
+      <label><input type="checkbox" />Remember me.</label>
+    </div>
+    <button type="submit" class="btn";>Submit</button>
+    
+
+  </form>
+{{else}}
+  <div class="personal_form">
+    <h1 style="color: white">You already have this type of membership</h1>
+    {{#if_eq length 1}}
+      <p style="color: white">Would you like to extend this for a month</p>
+    {{/if_eq}}
+    {{#if_eq length 2}}
+      <p style="color: white">Would you like to extend this for 6 months</p>
+    {{/if_eq}}
+    {{#if_eq length 3}}
+      <p style="color: white">Would you like to extend this for a year</p>
+    {{/if_eq}}
+  </div>
+{{/unless}}
