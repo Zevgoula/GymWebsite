@@ -4,15 +4,15 @@
     </div>
     <div class="extend-membership-form-container">
 
-        {{#if_eq m_info.length 1}}
+        {{#if_eq length 1}}
             <div class="anim_button" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND MEMBERSHIP FOR ANOTHER MONTH<span></span></div>
         {{/if_eq}}
 
-        {{#if_eq m_info.length 2}}
+        {{#if_eq length 2}}
             <div class="anim_button" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND MEMBERSHIP FOR ANOTHER 6 MONTHS<span></span></div>
         {{/if_eq}}
 
-        {{#if_eq m_info.length 3}}
+        {{#if_eq length 3}}
             <div class="anim_button" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND MEMBERSHIP FOR ANOTHER 12 MONTHS<span></span></div>
         {{/if_eq}}
         
