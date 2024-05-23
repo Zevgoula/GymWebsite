@@ -43,6 +43,14 @@ router.get('/personal_info/:selectedgymID/:selectedclassID/:selectedmembershipID
 router.get('/payment_info', gymChainController.payment_info);
 //post request for payment info
 
+//Book
+router.get('/book', gymChainController.book);
+
+//Available hours
+router.get('/available_hours', gymChainController.available_hours);
+
+//Extend_membership
+router.get('/extend_membership', gymChainController.extend_membership);
 
 //Show the login form
 router.route('/login').get(logInController.checkAuthenticated, logInController.showLogInForm);
@@ -56,6 +64,8 @@ router.route('/logout').get(logInController.doLogout);
 router.route('/createAccount').get(logInController.checkAuthenticated, logInController.showRegisterForm);
 //Register the user
 router.post('/createAccount', logInController.doRegister);
+
+
 
 
 

@@ -21,6 +21,36 @@ export async function about_classes(req, res, next) {
     }
 }
 
+export async function book(req, res, next) {
+    try {
+        req.session.previousPage = req.originalUrl;
+        res.render('book', { session: req.session});
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function available_hours(req, res, next) {
+    try {
+        req.session.previousPage = req.originalUrl;
+        res.render('available_hours', { session: req.session});
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function extend_membership(req, res, next) {
+    try {
+        req.session.previousPage = req.originalUrl;
+        res.render('extend_membership', { session: req.session});
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
 export async function selectGym(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;

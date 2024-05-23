@@ -847,3 +847,255 @@ a:hover {
    background-image: linear-gradient(180deg,  rgba(50, 50, 50, 0.2), rgba(50, 50, 50, 0.2)), url(/images/pilates.png);
 }
 
+.book-placeholder{
+   width: 80vw;
+   height: auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding-top: 100px;
+}
+
+.book-title{
+   height: auto;
+   width: 80vw;
+   text-align: left;
+   color: white;
+   font-size: 3em;
+   padding-top: 20px;
+}
+
+.book-form-container{
+   background: transparent;
+   border: 2px solid rgba(225, 225, 225, 0.3);
+   backdrop-filter: blur(10px);
+   color: #fff;
+   border-radius: 15px;
+   margin-top: 50px;
+   padding-bottom: 50px;
+   width: 80%;
+   height: 40%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+.book-upper-container{
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   margin: 2% 5%;
+  
+}
+
+.book-upper-container2{
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   margin: 2% 5%;
+  
+}
+
+.book-upper-title{
+   width: 20%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+   /* justify-content: left;
+   align-items: left;
+   text-align: left; */
+}
+
+.book-upper-title h1{
+   font-size: 3em;
+   color: white;
+   font-weight: bold;
+
+}
+.book-buttons-container{
+   width: 50%;
+   /* height: 10vh; */
+   display: flex;
+   align-items: center;
+   padding: 2% 6%;
+}
+
+.book-buttons-container2{
+   width: 50%;
+   /* height: 10vh; */
+   display: flex;
+   align-items: center;
+   padding: 2% 6%;
+}
+
+.book-button{
+   width: 150px;
+   padding: 15px 0;
+   text-align: center;
+   margin: 20px 10px;
+   border-radius: 25px;
+   font-weight: bold;
+   border: 2px solid #474545;
+   background: transparent;
+   color: #fff;
+   cursor: pointer;
+   position: relative;
+   overflow: hidden;
+}
+
+.book-button span{
+   background: #474545;
+   height: 100%;
+   width: 0;
+   border-radius: 25px;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: -1;
+   transition: 0.5s;
+}
+
+.book-button:hover span{
+   width: 100%;
+}
+
+.book-button:focus{
+   background-color: #474545;
+}
+
+.book-button2{
+   width: 150px;
+   padding: 15px 0;
+   text-align: center;
+   margin: 20px 10px;
+   border-radius: 25px;
+   font-weight: bold;
+   border: 2px solid #474545;
+   background: transparent;
+   color: #fff;
+   cursor: pointer;
+   position: relative;
+   overflow: hidden;
+}
+
+.book-button2 span{
+   background: #474545;
+   height: 100%;
+   width: 0;
+   border-radius: 25px;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: -1;
+   transition: 0.5s;
+}
+
+.book-button2:hover span{
+   width: 100%;
+}
+
+.book-button2:focus{
+   background-color: #474545;
+}
+
+.book-lower-container{
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   margin: 2% 5%;
+}
+
+.book-search-button{
+   width: 150px;
+   padding: 15px 0;
+   text-align: center;
+   margin: 20px 10px;
+   border-radius: 25px;
+   font-weight: bold;
+   border: 2px solid #474545;
+   background: transparent;
+   color: #fff;
+   cursor: pointer;
+   position: relative;
+   overflow: hidden;
+}
+
+.book-search-button span{
+   background: #474545;
+   height: 100%;
+   width: 0;
+   border-radius: 25px;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: -1;
+   transition: 0.5s;
+}
+
+.book-search-button:hover span{
+   width: 100%;
+}
+
+.available-hours-placeholder{
+   width: 80vw;
+   height: auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding-top: 100px;
+}
+
+.available-hours-title{
+   height: auto;
+   width: 80vw;
+   text-align: left;
+   color: white;
+   font-size: 3em;
+   padding-top: 20px;
+}
+
+.extend-membership-placeholder{
+   width: 80vw;
+   height: auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding-top: 100px;
+}
+
+.extend-membership-title{
+   height: auto;
+   width: 80vw;
+   text-align: left;
+   color: white;
+   font-size: 3em;
+   padding-top: 20px;
+}
+
+.extend-membership-form-container{
+   background: transparent;
+   border: 2px solid rgba(225, 225, 225, 0.3);
+   backdrop-filter: blur(10px);
+   color: #fff;
+   border-radius: 15px;
+   margin-top: 50px;
+   padding-bottom: 50px;
+   width: 80%;
+   height: 40%;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
