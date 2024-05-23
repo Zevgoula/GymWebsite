@@ -75,14 +75,17 @@ export async function showPersonalInfoForm(req, res, next) {
 
         const customer_id = await model.getCustomerIDFromUsername(req.session.loggedUserId);
 
-        // console.log('customer id ' + customer_id);
-        const hasThisMembership = await model.checkIfCustomerHasAnyMembershipFromClassID(customer_id, selectedclassID);
+        const activeClasses = await model.getActiveClassesIDsFromCustomerID(customer_id);
+        let hasThisMembershipAndIsActive = false;
+        for (let i = 0; i < activeClasses.length; i++) {
+            if (activeClasses[i].class_id == selectedclassID) {
+                hasThisMembershipAndIsActive = true;
+                break;
+            }
+        }
 
         const m_length = await model.getMembershipLengthFromID(selectedmembershipID);
-        // console.log('membership length ' + m_length);
-
-
-        res.render('personal_info', { has: hasThisMembership, gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, length: m_length, session: req.session });
+        res.render('personal_info', { has: hasThisMembershipAndIsActive, gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, length: m_length, session: req.session });
     }
     catch (error) {
         next(error);
@@ -154,22 +157,35 @@ export async function accountPage(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
-        const activeMemberships = await model.getActiveMemberships(customerInfo.customer_id);
-        // console.log('Active memberships: ', activeMemberships);
-        let name = [];
+        const activeMemberships = await model.getAllActiveMembershipsFromCustomerID(customerInfo.customer_id);
+        const inactiveMemberships = await model.getAllInactiveMembershipsFromCustomerID(customerInfo.customer_id);
+        console.log('Active memberships: ', activeMemberships);
+
+        let active_names = [];
         for (let i = 0; i < activeMemberships.length; i++) {
-            name.push(await model.getClassNameFromMembershipID(activeMemberships[i].membership_id));
+            active_names.push(await model.getClassNameFromMembershipID(activeMemberships[i].membership_id));
         }
-        const combined = activeMemberships.map((item, i) => {
+        const active_combined = activeMemberships.map((item, i) => {
             return {
                 ...item,
-                name: name[i]
+                name: active_names[i]
             }
         });
 
-        console.log('Combined: ', combined);
+        let inactive_names = [];
+        for (let i = 0; i < inactiveMemberships.length; i++) {
+            inactive_names.push(await model.getClassNameFromMembershipID(inactiveMemberships[i].membership_id));
+        }
+        const inactive_combined = inactiveMemberships.map((item, i) => {
+            return {
+                ...item,
+                name: inactive_names[i]
+            }
+        });
 
-        res.render('account_page', {customerInfo: customerInfo, session: req.session, memberships: combined});
+        // console.log('Combined: ', combined);
+
+        res.render('account_page', {customerInfo: customerInfo, session: req.session, active_memberships: active_combined, inactive_memberships: inactive_combined});
     }
     catch (error) {
         next(error);    

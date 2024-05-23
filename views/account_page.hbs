@@ -25,11 +25,11 @@
         Zip code: {{zip_code}}
     </p>
 {{/with}}
-{{#if memberships}}
+{{#if active_memberships}}
     <h1 style="color: white">
             Active memberships
     </h1>
-    {{#each memberships}}
+    {{#each active_memberships}}
         
         <p style="color: white">
             Type: {{this.name}}
@@ -38,7 +38,24 @@
             Start Date: {{this.start_date}}
         </p>
         <p style="color: white">
-            End Date: {{this.end_date}}
+            End Date: {{this.exp_date}}
+        </p>
+    {{/each}}
+{{/if}}
+{{#if inactive_memberships}}
+    <h1 style="color: white">
+            Inactive memberships
+    </h1>
+    {{#each inactive_memberships}}
+        
+        <p style="color: white">
+            Type: {{this.name}}
+        </p>
+        <p style="color: white">
+            Start Date: {{this.start_date}}
+        </p>
+        <p style="color: white">
+            End Date: {{this.exp_date}}
         </p>
     {{/each}}
 {{/if}}

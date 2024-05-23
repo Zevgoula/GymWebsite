@@ -120,6 +120,7 @@ export let getMembershipInfofromID = async function (membershipId) {
     const stmt = await sql.prepare("SELECT * FROM Membership WHERE membership_id = ?");
     try {
         const membership = await stmt.get(membershipId);
+
         return membership;
     }
     catch (err) {
@@ -200,7 +201,7 @@ export let addPaymentInfo = async function (username, ccn, cvv,  exp_date) {
 export let buyMembership = async function (customerId, membershipId) {
     const membershipInfo = await getMembershipInfofromID(membershipId);
     const current_date = new Date();
-    const start_date = current_date.getDate() + "-" + current_date.getMonth() + "-" + current_date.getFullYear();
+    const start_date = current_date.toISOString().split('T')[0];
 
     let additional_days = 0;
     if (membershipInfo.length === 1) {
@@ -214,7 +215,7 @@ export let buyMembership = async function (customerId, membershipId) {
     }
 
     current_date.setDate(current_date.getDate() + additional_days);
-    const exp_date = current_date.getDate() + '-' + current_date.getMonth() + '-' + current_date.getFullYear();
+    const exp_date = current_date.toISOString().split('T')[0];
     
     const stmt = await sql.prepare("INSERT INTO BUYS (membership_id, customer_id, start_date, exp_date) VALUES (?, ?, ?, ?)");
     try {
@@ -225,40 +226,18 @@ export let buyMembership = async function (customerId, membershipId) {
     }
 }
 
-export let getActiveMemberships = async function (customerId) {
-    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ?");
-    try {
-        const memberships = await stmt.all(customerId);
-        let activeMemberships = [];
-        for (let i = 0; i < memberships.length; i++) {
-            if (await checkIfMembershipIsActive(customerId, memberships[i].membership_id, memberships[i].purchase_id)) {
-                activeMemberships.push(memberships[i]);
-            }
-        }
-        return activeMemberships;
-    } 
-    catch (err) {
-        throw err;
-    }
-}
-
 export let checkIfCustomerHasMembership = async function (customerId, membershipId) {
-    const purchaseId = await getPurchaseID(customerId, membershipId);
+    const purchaseId = await getPurchaseIDs(customerId, membershipId);
     // console.log('Purchase ID: ', purchaseId);
     if (purchaseId === undefined) {
         return false;
     }
-    const isActive = await checkIfMembershipIsActive(customerId, membershipId, purchaseId);
-    try {
-        if (isActive) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    } 
-    catch (err) {
-        throw err;
+    else{
+        for (let i = 0; i < purchaseId.length; i++) {
+            if (await checkIfMembershipIsActive(customerId, membershipId, purchaseId[i].purchase_id)) {
+                return true;
+            }
+        }               
     }
 }
 
@@ -283,18 +262,19 @@ export let checkIfMembershipIsActive = async function (customerId, membershipId,
     }
 }
 
-export let getPurchaseID = async function (customerId, membershipId) {
+export let getPurchaseIDs = async function (customerId, membershipId) {
     const stmt = await sql.prepare("SELECT purchase_id FROM BUYS WHERE customer_id = ? AND membership_id = ?");
     try {
-        const purchaseId = await stmt.get(customerId, membershipId);
-        // console.log('Purchase ID: ', purchaseId);
-        if (purchaseId === undefined) {
+        const purchaseId = await stmt.all(customerId, membershipId);
+        if (purchaseId.length === 0) {
             return undefined;
         }
-        else{
-            return purchaseId.purchase_id;
+        else if (purchaseId.length === 1) {
+            return purchaseId[0].purchase_id;
         }
-        
+        else {
+            return purchaseId;
+        }
     } 
     catch (err) {
         throw err;
@@ -304,6 +284,14 @@ export let getPurchaseID = async function (customerId, membershipId) {
 export let checkIfCustomerHasAnyMembershipFromClassID = async function (customerId, classId) {
     try{
         const membershipsInfo = await getMembershipsInfofromClassID(classId);
+        // console.log('Memberships Info: ', membershipsInfo);
+        // const a  = await checkIfCustomerHasMembership(customerId, membershipsInfo[0].membership_id);
+        // const b = await checkIfCustomerHasMembership(customerId, membershipsInfo[1].membership_id);
+        // const c = await checkIfCustomerHasMembership(customerId, membershipsInfo[2].membership_id);
+
+        // console.log('a: ', a);
+        // console.log('b: ', b);
+        // console.log('c: ', c);
 
         if (await checkIfCustomerHasMembership(customerId, membershipsInfo[0].membership_id) || await checkIfCustomerHasMembership(customerId, membershipsInfo[1].membership_id) || await checkIfCustomerHasMembership(customerId, membershipsInfo[2].membership_id)) {
             return true;
@@ -357,12 +345,12 @@ export let getExpDate = async function (customerId, membershipId, purchaseId) {
 }
 
 export let DateToString = function (date) {
-    return date.getDate() + '-' + date.getMonth() + '-' + date.getFullYear();
+    return date.toISOString().split('T')[0];
 }
 
 export let stringToDate = function (dateString) {
     const listDate = dateString.split('-');
-    const date = new Date(listDate[2], listDate[1], listDate[0]);
+    const date = new Date(listDate[0], listDate[1]-1, listDate[2]);
     return date;
 }
 
@@ -404,7 +392,6 @@ export let getMessages = async function () {
     }
 }
 
-
 export let getClassNameFromMembershipID = async function (membershipId) {
     const stmt = await sql.prepare("SELECT class_id FROM INCLUDES WHERE membership_id = ?");
     const stmt2 = await sql.prepare("SELECT name FROM Class WHERE class_id = ?");
@@ -420,3 +407,114 @@ export let getClassNameFromMembershipID = async function (membershipId) {
         throw err;
     }
 }
+
+export let getClassIDFromMembershipID = async function (membershipId) {
+    const stmt = await sql.prepare("SELECT class_id FROM INCLUDES WHERE membership_id = ?");
+    try {
+        const classId_obj = await stmt.get(membershipId);
+        return classId_obj.class_id;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+//OLD
+// export let getActiveMemberships = async function (customerId) {
+//     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ?");
+//     try {
+//         const memberships = await stmt.all(customerId);
+//         let activeMemberships = [];
+//         for (let i = 0; i < memberships.length; i++) {
+//             if (await checkIfMembershipIsActive(customerId, memberships[i].membership_id, memberships[i].purchase_id)) {
+//                 activeMemberships.push(memberships[i]);
+//             }
+//         }
+//         return activeMemberships;
+//     } 
+//     catch (err) {
+//         throw err;
+//     }
+// }
+
+// export let getInactiveMemberships = async function (customerId) {
+//     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ?");
+//     try {
+//         const memberships = await stmt.all(customerId);
+//         let inactiveMemberships = [];
+//         for (let i = 0; i < memberships.length; i++) {
+//             if (!await checkIfMembershipIsActive(customerId, memberships[i].membership_id, memberships[i].purchase_id)) {
+//                 inactiveMemberships.push(memberships[i]);
+//             }
+//         }
+//         return inactiveMemberships;
+//     }
+//     catch (err) {
+//         throw err;
+//     }
+// }
+
+// export let getAllMemberships = async function (customerId) {
+//     const active_memberships = await getActiveMemberships(customerId);
+//     const inactive_memberships = await getInactiveMemberships(customerId);
+//     const combined = active_memberships.concat(inactive_memberships);
+//     return combined;
+// }
+
+
+//NEW
+export let getAllActiveMemberships = async function () {
+    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE exp_date > date('now')");
+    try {
+        const memberships = await stmt.all();
+        return memberships;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getAllActiveMembershipsFromCustomerID = async function (customerId) {
+    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ? AND exp_date > date('now')");
+    try {
+        const memberships = await stmt.all(customerId);
+        return memberships;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getAllInactiveMemberships = async function () {
+    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE exp_date < date('now')");
+    try {
+        const memberships = await stmt.all();
+        return memberships;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getAllInactiveMembershipsFromCustomerID = async function (customerId) {
+    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ? AND exp_date < date('now')");
+    try {
+        const memberships = await stmt.all(customerId);
+        return memberships;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getActiveClassesIDsFromCustomerID = async function (customerId) {
+    const stmt  = await sql.prepare("SELECT INCLUDES.class_id FROM BUYS INNER JOIN INCLUDES ON BUYS.membership_id=INCLUDES.membership_id WHERE customer_id = ? and BUYS.exp_date > date('now')");
+    try {
+        const classes = await stmt.all(customerId);
+        return classes;
+    } 
+    catch (err) {
+        throw err;
+    }
+}
+
