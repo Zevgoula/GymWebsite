@@ -53,8 +53,8 @@ export async function doBookForm(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const classID = req.body.selected_class_id;
-        const clubID = req.body.selected_club_id;
+        const classID = req.body.class_id;
+        const clubID = req.body.gym_id;
         const date = req.body.date_name;
         console.log('customerID: ' + customerID + ' class: ' + classID + ' club: ' + clubID + ' date: ' + date);
         // await model.bookClass(customerID, classID, clubID, date, time);
