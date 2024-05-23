@@ -39,7 +39,11 @@ export async function about_classes(req, res, next) {
 export async function book(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        res.render('book', { session: req.session});
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const classes = await model.getClassesInfoOfCustomer(customerID);
+        console.log('Classes: ', classes);
+        const clubs = await model.getGymsInfo();
+        res.render('book', { classes: classes, clubs: clubs, session: req.session});
     }
     catch (error) {
         next(error);

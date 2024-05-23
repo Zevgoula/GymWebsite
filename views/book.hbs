@@ -25,9 +25,12 @@
                     <h1>CLASS</h1>
                 </div>
                 <div class="book-buttons-container">
-                    <button class="book-button"><span></span>YOGA</button>
+                    {{#each classes}}
+                        <button class="book-button"><span></span>{{this.name}}</button>
+                    {{/each}}
+                    {{!-- <button class="book-button"><span></span>YOGA</button>
                     <button class="book-button"><span></span>PILATES</button>
-                    <button class="book-button"><span></span>CROSSFIT</button>
+                    <button class="book-button"><span></span>CROSSFIT</button> --}}
                 </div>
             </div>
             <div class="book-upper-container2">
@@ -35,9 +38,12 @@
                     <h1>CLUB</h1>
                 </div>
                 <div class="book-buttons-container2">
-                    <button class="book-button2"><span></span>ATHENS</button>
+                    {{#each clubs}}
+                        <button class="book-button2"><span></span>{{this.location}}</button>
+                    {{/each}}
+                    {{!-- <button class="book-button2"><span></span>ATHENS</button>
                     <button class="book-button2"><span></span>PATRAS</button>
-                    <button class="book-button2"><span></span>KARPENISI</button>
+                    <button class="book-button2"><span></span>KARPENISI</button> --}}
                 </div>
             </div>
             <div class="book-lower-container">

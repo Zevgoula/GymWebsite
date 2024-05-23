@@ -581,12 +581,12 @@ export let bookSession = async function (customerId, sessionId) {
     }
 }
 
-export let getClassIDsofCustomer = async function (customerId) {
+export let getClassesInfoOfCustomer = async function (customerId) {
     //Only the active classes
-    const stmt = await sql.prepare("SELECT INCLUDES.class_id FROM BUYS JOIN INCLUDES ON BUYS.membership_id = INCLUDES.membership_id WHERE BUYS.exp_date > date('now') AND customer_id = ?");
+    const stmt = await sql.prepare("SELECT INCLUDES.class_id , CLASS.name FROM BUYS JOIN INCLUDES JOIN CLASS ON BUYS.membership_id = INCLUDES.membership_id AND INCLUDES.class_id = CLASS.class_id WHERE BUYS.exp_date > date('now') AND customer_id = ? AND CLASS.name != 'WEIGHTLIFTING'");
     try {
-        const classIDs = await stmt.all(customerId);
-        return classIDs;
+        const classesInfo = await stmt.all(customerId);
+        return classesInfo;
     }
     catch (err) {
         throw err;
