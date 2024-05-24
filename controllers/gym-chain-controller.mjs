@@ -6,7 +6,6 @@ export async function home(req, res, next) {
         req.session.previousPage = req.originalUrl;
         const message = req.session.message;
         req.session.message = null; 
-        console.log(req.body.b1);
         res.render('home', { message: message, session: req.session});
     }
     catch (error) {
@@ -53,14 +52,13 @@ export async function doBookForm(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const className = req.body.class_id
-        
         const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
         const classDate = req.body.date_name;
         const dayName = model.getdayNamefromDate(classDate);
         const capitalDayName = dayName.toUpperCase();
         const classID = await model.getClassIDFromName(className);
         const hours = await model.getTimesFromClassClubDay(classID, classLocation, dayName);
-
+        //NEEDS CHECK TO SEE IF SESSIONID IS FULL OR THE CUSTOMER ALREADY HAS THIS SESSION BOOKED
         res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
     }
     catch (error) {
@@ -72,14 +70,15 @@ export async function showTimesForm(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const className = req.body.class_id;
+        const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
         const classDate = req.body.date_name;
-        const classLocation = req.body.gym_id;
-
-        console.log('class: ' + className + ' date: ' + classDate + ' location: ' + classLocation);
+        const dayName = model.getdayNamefromDate(classDate);
+        const capitalDayName = dayName.toUpperCase();
+        console.log('1class: ' + className + ' date: ' + classDate + ' location: ' + classLocation);
         const classID = await model.getClassIDFromName(className);
         const hours = await model.getTimesFromClassClubDay(classID, className, classDate);
 
-        res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, hours: hours, session: req.session});
+        res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
     }
     catch (error) {
         next(error);
@@ -89,14 +88,13 @@ export async function showTimesForm(req, res, next) {
 export async function doTimesForm(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        const classDate = req.body.date_name;
-        const classTime = req.body.time_name;
-        const classLocation = req.body.gym_id;
-        console.log('class: ' + classLocation + ' date: ' + classDate + ' time: ' + classTime);
+        const classDate = req.params.classDate;
+        const classLocation = req.params.classLocation;
+        const classTime = req.body.time;
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const sessionID = await model.getSessionIDfromLocationDayTime(classLocation, classDate, classTime);
-        console.log('customerID: ' + customerID + ' sessionID: ' + sessionID);
-        // await model.bookClass(customerID, sessionID);
+        //NEEDS CHECK TO SEE IF SESSIONID IS FULL OR THE CUSTOMER ALREADY HAS THIS SESSION BOOKED
+        await model.bookSession(customerID, sessionID);
         res.render('home', { session: req.session});
     }
     catch (error) {
@@ -224,6 +222,7 @@ export async function doPersonalInfo(req, res, next) {
         const city = req.body.city;
         const state = req.body.state;
         const zip_code = req.body.zip_code;
+        console.log('here1')
         await model.updatePersonalInfo(req.session.loggedUserId, phone_number, address, city, state, zip_code);
 
         const selectedgymID = req.params.selectedgymID;
@@ -246,7 +245,7 @@ export async function doPaymentInfo(req, res, next) {
         const cvv = req.body.cvv;
         // await model.addPaymentInfo(req.session.loggedUserId, ccn, cvv, exp_date);
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        
+        console.log('here')
         const selectedmembershipID = req.params.selectedmembershipID;
         console.log('selected membership ' + selectedmembershipID);
 

@@ -560,9 +560,10 @@ export let getBookings = async function (customerId) {
 }
 
 export let getSessionIDfromLocationDayTime = async function (location, day, time) {
+    const dayName = getdayNamefromDate(day);
     const stmt = await sql.prepare("SELECT session_id FROM SESSION WHERE location = ? AND day = ? AND time = ?");
     try {
-        const sessionID = await stmt.get(location, day, time);
+        const sessionID = await stmt.get(location, dayName, time);
         return sessionID.session_id;
     }
     catch (err) {
