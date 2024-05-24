@@ -8,6 +8,9 @@
         <div class="schedule-cell">Friday</div>
         <div class="schedule-cell">Saturday</div>
     </div>
+    
+
+
     {{!-- For each timeslot --}}
     {{#each timeSlots}}
         <div class="schedule-row">
@@ -23,9 +26,13 @@
                         {{!-- if schedule.time == timeSlots.time --}}
                             {{#if_eq this.time ../../this}}
                             {{!-- Display schedule.name --}}
-                                <button type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
-                                    {{this.name}}
-                                </button>
+                                {{#if ../../../view}}
+                                        {{this.name}}
+                                {{else}}
+                                    <button type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
+                                        {{this.name}}
+                                    </button>
+                                {{/if}}
                             {{/if_eq}}
                         {{/if_eq}}
                     {{/each}}
@@ -33,6 +40,8 @@
             {{/each}}
         </div>
     {{/each}}
+
+
 </div>
 <div class="submit-button">
     <button type="submit" id="submit-button" class="anim_button"><span></span>CREATE SCHEDULE</button>

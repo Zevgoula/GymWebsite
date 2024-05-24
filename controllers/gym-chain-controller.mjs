@@ -6,7 +6,11 @@ export async function home(req, res, next) {
         req.session.previousPage = req.originalUrl;
         const message = req.session.message;
         req.session.message = null; 
-        res.render('home', { message: message, session: req.session});
+
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+        // console.log(homeGym);
+        res.render('home', { homeGym:homeGym, message: message, session: req.session});
     }
     catch (error) {
         next(error);
@@ -28,7 +32,9 @@ export async function admin_home(req, res, next) {
 export async function about_classes(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        res.render('about_classes', { session: req.session });
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('about_classes', { homeGym: homeGym, session: req.session });
     }
     catch (error) {
         next(error);
@@ -41,7 +47,8 @@ export async function showBookForm(req, res, next) {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const classes = await model.getClassesInfoOfCustomer(customerID);
         const clubs = await model.getGymsInfo();
-        res.render('book', { classes: classes, clubs: clubs, session: req.session});
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('book', { homeGym:homeGym, classes: classes, clubs: clubs, session: req.session});
     }
     catch (error) {
         next(error);
@@ -66,24 +73,24 @@ export async function doBookForm(req, res, next) {
     }
 }
 
-export async function showTimesForm(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const className = req.body.class_id;
-        const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-        const classDate = req.body.date_name;
-        const dayName = model.getdayNamefromDate(classDate);
-        const capitalDayName = dayName.toUpperCase();
-        console.log('1class: ' + className + ' date: ' + classDate + ' location: ' + classLocation);
-        const classID = await model.getClassIDFromName(className);
-        const hours = await model.getTimesFromClassClubDay(classID, className, classDate);
+// export async function showTimesForm(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const className = req.body.class_id;
+//         const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+//         const classDate = req.body.date_name;
+//         const dayName = model.getdayNamefromDate(classDate);
+//         const capitalDayName = dayName.toUpperCase();
+//         console.log('1class: ' + className + ' date: ' + classDate + ' location: ' + classLocation);
+//         const classID = await model.getClassIDFromName(className);
+//         const hours = await model.getTimesFromClassClubDay(classID, className, classDate);
 
-        res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
-    }
-    catch (error) {
-        next(error);
-    }
-}
+//         res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
 
 export async function doTimesForm(req, res, next) {
     try {
@@ -198,18 +205,18 @@ export async function showPersonalInfoForm(req, res, next) {
 }
 
 //Only loads the template, no connection to the database
-export async function showPaymentInfoForm(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const selectedgymID = req.params.selectedgymID;
-        const selectedclassID = req.params.selectedclassID;
-        const selectedmembershipID = req.params.selectedmembershipID;
-        res.render('payment_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
-    }
-    catch (error) {
-        next(error);
-    }
-}
+// export async function showPaymentInfoForm(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const selectedgymID = req.params.selectedgymID;
+//         const selectedclassID = req.params.selectedclassID;
+//         const selectedmembershipID = req.params.selectedmembershipID;
+//         res.render('payment_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
 
 export async function doPersonalInfo(req, res, next) {
     try {
@@ -222,7 +229,6 @@ export async function doPersonalInfo(req, res, next) {
         const city = req.body.city;
         const state = req.body.state;
         const zip_code = req.body.zip_code;
-        console.log('here1')
         await model.updatePersonalInfo(req.session.loggedUserId, phone_number, address, city, state, zip_code);
 
         const selectedgymID = req.params.selectedgymID;
@@ -247,8 +253,10 @@ export async function doPaymentInfo(req, res, next) {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         console.log('here')
         const selectedmembershipID = req.params.selectedmembershipID;
+        const selectedgymID = req.params.selectedgymID;
         console.log('selected membership ' + selectedmembershipID);
 
+        await model.setHomeGym(customerID, selectedgymID);
         await model.buyMembership(customerID, selectedmembershipID);
         console.log('Membership bought');
         res.redirect('/home');
@@ -257,9 +265,8 @@ export async function doPaymentInfo(req, res, next) {
         next(error);
     }
 }
-
-//Need to implement the following functions
-export async function accountPage(req, res, next) {
+// NEEDS BETTER CSS
+export async function showAccountPage(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
@@ -290,8 +297,9 @@ export async function accountPage(req, res, next) {
         });
 
         // console.log('Combined: ', combined);
-
-        res.render('account_page', {customerInfo: customerInfo, session: req.session, active_memberships: active_combined, inactive_memberships: inactive_combined});
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('account_page', {homeGym:homeGym, customerInfo: customerInfo, session: req.session, active_memberships: active_combined, inactive_memberships: inactive_combined});
     }
     catch (error) {
         next(error);    
@@ -325,16 +333,75 @@ export async function doContact(req, res, next) {
 export async function showSchedule(req, res, next) {
     try {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, 'Patra');
-        const timeSlots = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+        const homeGym = await model.getHomeGym(customerID);
+        // Setting every letter to lowercase and then capitalizing the first letter of each word
+        let homeGymName = homeGym.location;
+        homeGymName = homeGymName.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+        const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, homeGymName);
+        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        
+        // const groupedData = schedule.reduce((acc, curr) => {
+        //     const time = curr.time;
+        //     const day = curr.day;
+        //     if (!acc[time]) {
+        //         acc[time] = {};
+        //     }
+        //     if (!acc[time][day]) {
+        //         acc[time][day] = [];
+        //     }
+        //     acc[time][day].push(curr);
+        //     return acc;
+        // }, {});
+        
+        // // Convert the grouped data into an array format suitable for Handlebars
+        // const timeSlots = Object.keys(groupedData);
+        // const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        
+        // const preparedData = timeSlots.map(time => ({
+        //     time,
+        //     days: days.map(day => ({
+        //         day,
+        //         classes: groupedData[time][day] || []
+        //     }))
+        // }));
+        
 
-        res.render('schedule', { timeSlots: timeSlots, days: days, schedule: schedule, session: req.session });
-        console.log(schedule);
-    } catch (error) {
+        
+        
+        res.render('schedule', { homeGym:homeGym, view: false, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        // res.render('schedule', { schedule: preparedData, session: req.session });
+    }
+    catch (error) {
         next(error);
     }
 }
 
+export async function viewSchedule(req, res, next) {
+    try {
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const schedule = await model.getBookings(customerID);
+        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; 
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('schedule', { homeGym:homeGym, view: true, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function deleteMembership(req, res, next) {
+    try {
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        await model.deleteMembership(customerID, req.params.membershipID);
+        // console.log(req.params.membershipID);
+        // console.log('Membership deleted');
+        res.redirect('/account_page');
+    }
+    catch (error) {
+        next(error);
+    }
+}
 
 

@@ -65,7 +65,7 @@ export let registerUser = async function (fname, lname, username, password, emai
     }
 }
 
-//Check if the user is an admin
+//Check if the user is an admin OLD
 export let isAdmin = async function (username) {
     if (username === undefined) {
         console.log('user is visitor');
@@ -281,6 +281,7 @@ export let getPurchaseIDs = async function (customerId, membershipId) {
     }
 }
 
+//OLD
 export let checkIfCustomerHasAnyMembershipFromClassID = async function (customerId, classId) {
     try{
         const membershipsInfo = await getMembershipsInfofromClassID(classId);
@@ -535,6 +536,7 @@ export let getMembershipInfoFromCustomerIDAndClassID = async function (customerI
     }
 }
 
+//OLD
 export let getSchedule = async function (location, className) {
     const stmt = await sql.prepare("SELECT REPRESENTS.session_id, SESSION.day, SESSION.time, REPRESENTS.class_id, CLASS.name, SESSION.location FROM SESSION JOIN REPRESENTS JOIN CLASS ON SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id WHERE location = ? and name = ?");
     
@@ -644,3 +646,40 @@ export let getCustomerScheduleFromCustomerIDAndLocation = async function (custom
         throw err;
     }
 }
+
+export let setHomeGym = async function (customerId, gymId) {
+    const stmt = await sql.prepare("INSERT INTO BELONGS (customer_id, gym_id) VALUES (?, ?)");
+    try {
+        await stmt.run(customerId, gymId);
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getHomeGym = async function (customerId) {
+    const stmt = await sql.prepare("SELECT BELONGS.gym_id, GYM.location FROM BELONGS JOIN GYM ON BELONGS.gym_id = GYM.gym_id WHERE customer_id = ?");
+    try {
+        const gym = await stmt.get(customerId);
+        if (gym === undefined) {
+            return undefined;
+        }
+        else {
+            return gym;
+        }
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let deleteMembership = async function (customerId, membershipId) {
+    const stmt = await sql.prepare("DELETE FROM BUYS WHERE customer_id = ? AND membership_id = ? AND exp_date > date('now')");
+    try {
+        await stmt.run(customerId, membershipId);
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
