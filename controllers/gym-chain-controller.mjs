@@ -56,6 +56,7 @@ export async function doBookForm(req, res, next) {
         const className = req.body.class_id;
         // const clubID = req.body.gym_id;
         const clubID = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+        console.log('clubID: ' + clubID);
         const date = req.body.date_name;
         console.log('customerID: ' + customerID + 'ClassName: '+ className + 'club: '  + clubID + ' dayName: ' + date);
         const dayName = model.getdayNamefromDate(date);
