@@ -1207,3 +1207,24 @@ a:hover {
    background-color: #f1f1f1;
    cursor: pointer;
 }
+
+.selected {
+   background-color: #007bff; /* Change to the color you prefer */
+   color: #fff; /* Change to the color of the text when selected */
+}
+
+.schedule-button {
+   /* Styles for schedule buttons */
+   background-color: #bdbdbd;
+   color: #000000;
+   border: 1px solid #cccccc;
+   /* Add any other styles you want */
+}
+
+.submit-button {
+   width: 50%;
+   /* height: 10vh; */
+   display: flex;
+   align-items: center;
+   
+}

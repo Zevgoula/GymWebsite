@@ -45,7 +45,15 @@ app.engine('hbs', exphbs.engine({
       } else {
         return options.inverse(this);
       }
-    }
+    },
+    eq: function (a, b) {
+      return a === b;
+    },
+    and: function (a, b) {
+        return a && b;
+  }
+
+
   }
 }));
 

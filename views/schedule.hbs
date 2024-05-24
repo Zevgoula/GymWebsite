@@ -23,7 +23,9 @@
                         {{!-- if schedule.time == timeSlots.time --}}
                             {{#if_eq this.time ../../this}}
                             {{!-- Display schedule.name --}}
-                                {{this.name}}
+                                <button type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
+                                    {{this.name}}
+                                </button>
                             {{/if_eq}}
                         {{/if_eq}}
                     {{/each}}
@@ -32,3 +34,90 @@
         </div>
     {{/each}}
 </div>
+<div class="submit-button">
+    <button type="submit" id="submit-button" class="anim_button"><span></span>CREATE SCHEDULE</button>
+</div>
+
+<script>
+// Store selected button IDs for each date and name combination
+const selectedButtons = {};
+let selectedSessionIds = [];
+
+// Select all buttons
+const buttons = document.querySelectorAll('.schedule-cell button');
+
+// Add click event listener to each button
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Get the clicked button's ID, date, and name
+        const buttonId = this.getAttribute('id');
+        const [sessionId, buttonDate, buttonTime, buttonName] = buttonId.split('_');
+
+        // Check if there's a selected button for the same date and name
+        const prevSelectedButtonId = selectedButtons[buttonDate + '_' + buttonName];
+        // Check if there's a selected button for the same date and time
+        const prevSelectedButtonAtSameTimeId = selectedButtons[buttonDate + '_' + buttonTime];
+
+        // Deselect the previously selected button for the same date and name (if any)
+        if (prevSelectedButtonId && prevSelectedButtonId !== buttonId) {
+            const prevSelectedButton = document.getElementById(prevSelectedButtonId);
+            if (prevSelectedButton) {
+                prevSelectedButton.classList.remove('selected');
+                const prevSessionId = prevSelectedButtonId.split('_')[0];
+                const index = selectedSessionIds.indexOf(prevSessionId);
+                if (index > -1) {
+                    selectedSessionIds.splice(index, 1);
+                }
+            }
+        }
+
+        // Deselect the previously selected button for the same date and time (if any)
+        if (prevSelectedButtonAtSameTimeId && prevSelectedButtonAtSameTimeId !== buttonId) {
+            const prevSelectedButtonAtSameTime = document.getElementById(prevSelectedButtonAtSameTimeId);
+            if (prevSelectedButtonAtSameTime) {
+                prevSelectedButtonAtSameTime.classList.remove('selected');
+                const prevSessionId = prevSelectedButtonAtSameTimeId.split('_')[0];
+                const index = selectedSessionIds.indexOf(prevSessionId);
+                if (index > -1) {
+                    selectedSessionIds.splice(index, 1);
+                }
+            }
+        }
+
+        // Select the clicked button
+        this.classList.add('selected');
+
+        // Update the selected button for the same date and name
+        selectedButtons[buttonDate + '_' + buttonName] = buttonId;
+        // Update the selected button for the same date and time
+        selectedButtons[buttonDate + '_' + buttonTime] = buttonId;
+
+        // Add the session ID to the list of selected session IDs if not already present
+        if (!selectedSessionIds.includes(sessionId)) {
+            selectedSessionIds.push(sessionId);
+        }
+
+        console.log("Selected session IDs:", selectedSessionIds);
+    });
+});
+
+// Function to return the list of selected session IDs
+function getSelectedSessionIds() {
+    return selectedSessionIds;
+}
+
+// Select the submit button
+const submitButton = document.getElementById('submit-button');
+
+// Add click event listener to the submit button
+submitButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default form submission if necessary
+    // Retrieve the list of selected session IDs
+    const selectedIds = getSelectedSessionIds();
+
+    // Do something with the selected session IDs, such as submitting them to a server or displaying them to the user
+    console.log("Selected session IDs on submit:", selectedIds);
+    // Add your code to handle the selected session IDs here...
+});
+
+</script>

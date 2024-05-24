@@ -323,26 +323,18 @@ export async function doContact(req, res, next) {
 }
 
 export async function showSchedule(req, res, next) {
-    try{
-        
+    try {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, 'Patra');
-        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; // Add all time slots
+        const timeSlots = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-        // const templateData = {
-        //     timeSlots: ["09:00", "10:00", "11:00", "18:00", "19:00", "20:00"], // Add all required time slots
-        //     days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        //     schedule: schedule
-        // };
-
-        res.render('schedule', { timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        res.render('schedule', { timeSlots: timeSlots, days: days, schedule: schedule, session: req.session });
         console.log(schedule);
-    }
-    catch (error) {
+    } catch (error) {
         next(error);
     }
-    
 }
+
 
 
