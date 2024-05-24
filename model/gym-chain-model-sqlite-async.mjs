@@ -65,7 +65,7 @@ export let registerUser = async function (fname, lname, username, password, emai
     }
 }
 
-//Check if the user is an admin
+//Check if the user is an admin OLD
 export let isAdmin = async function (username) {
     if (username === undefined) {
         console.log('user is visitor');
@@ -281,6 +281,7 @@ export let getPurchaseIDs = async function (customerId, membershipId) {
     }
 }
 
+//OLD
 export let checkIfCustomerHasAnyMembershipFromClassID = async function (customerId, classId) {
     try{
         const membershipsInfo = await getMembershipsInfofromClassID(classId);
@@ -535,6 +536,7 @@ export let getMembershipInfoFromCustomerIDAndClassID = async function (customerI
     }
 }
 
+//OLD
 export let getSchedule = async function (location, className) {
     const stmt = await sql.prepare("SELECT REPRESENTS.session_id, SESSION.day, SESSION.time, REPRESENTS.class_id, CLASS.name, SESSION.location FROM SESSION JOIN REPRESENTS JOIN CLASS ON SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id WHERE location = ? and name = ?");
     

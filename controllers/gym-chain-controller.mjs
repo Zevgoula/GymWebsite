@@ -368,7 +368,7 @@ export async function showSchedule(req, res, next) {
 
         
 
-        res.render('schedule', { timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        res.render('schedule', { view: false, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
         // res.render('schedule', { schedule: preparedData, session: req.session });
         console.log(schedule);
     }
@@ -376,6 +376,19 @@ export async function showSchedule(req, res, next) {
         next(error);
     }
     
+}
+
+export async function viewSchedule(req, res, next) {
+    try {
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const schedule = await model.getBookings(customerID);
+        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; 
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        res.render('schedule', { view: true, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
 }
 
 
