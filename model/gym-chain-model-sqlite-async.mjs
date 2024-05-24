@@ -548,7 +548,6 @@ export let getSchedule = async function (location, className) {
 
 }
 
-
 export let getBookings = async function (customerId) {
     const stmt = await sql.prepare("SELECT CLASS.name, SESSION.location, SESSION.session_id, SESSION.day, SESSION.time, BOOKS.customer_id FROM BOOKS JOIN SESSION JOIN CLASS JOIN REPRESENTS ON SESSION.session_id = BOOKS.session_id AND CLASS.class_id = REPRESENTS.class_id AND REPRESENTS.session_id = SESSION.session_id WHERE BOOKS.customer_id = ?");
     try {
@@ -614,6 +613,26 @@ export let getAvailableHoursFromCustomerID = async function (customerId) {
         throw err;
     }
 }
+
+export let getdayNamefromDate = function (date) {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const day = new Date(date).getDay();
+    return days[day];
+}
+
+export let getTimesFromClassClubDay = async function (classId, location, day) {
+    const stmt = await sql.prepare("SELECT SESSION.time FROM SESSION JOIN REPRESENTS ON SESSION.session_id = REPRESENTS.session_id WHERE REPRESENTS.class_id = ? AND SESSION.location = ? AND SESSION.day = ?");
+    try {
+        const times = await stmt.all(classId, location, day);
+        return times;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+
+
 
 
 export let getTimesFromClassClubDay = async function (classId, location, day) {
