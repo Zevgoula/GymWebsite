@@ -29,11 +29,10 @@
                                 {{#if ../../../view}}
                                         {{this.name}}
                                 {{else}}
-                                    <button>
+                                    <button type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
                                         {{this.name}}
                                     </button>
                                 {{/if}}
-                                
                             {{/if_eq}}
                         {{/if_eq}}
                     {{/each}}
@@ -44,3 +43,42 @@
 
 
 </div>
+
+
+
+<script>
+    // Store selected button IDs for each date and name combination
+const selectedButtons = {};
+
+// Select all buttons
+const buttons = document.querySelectorAll('.schedule-cell button');
+
+// Add click event listener to each button
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Get the clicked button's ID, date, and name
+        const buttonId = this.getAttribute('id');
+        const [_, buttonDate, buttonTime, buttonName] = buttonId.split('_');
+        console.log(buttonId, buttonDate, buttonTime, buttonName);
+        // Check if there's a selected button for the same date and name
+        const prevSelectedButtonId = selectedButtons[buttonDate + '_' + buttonName];
+    
+        // Deselect the previously selected button (if any)
+        if (prevSelectedButtonId) {
+            const prevSelectedButton = document.getElementById(prevSelectedButtonId);
+            if (prevSelectedButton) {
+                prevSelectedButton.classList.remove('selected');
+            }
+        }
+
+        // Select the clicked button
+        this.classList.add('selected');
+
+        // Update the selected button for the same date and name
+        selectedButtons[buttonDate + '_' + buttonName] = buttonId;
+
+        // Rest of your event handling logic here...
+    });
+});
+
+</script>

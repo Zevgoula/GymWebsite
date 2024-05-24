@@ -45,7 +45,7 @@ router.route('/personal_info/:selectedgymID/:selectedclassID/:selectedmembership
 
 
 //Show payment info form
-router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipID').get(gymChainController.showPaymentInfoForm);
+// router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipID').get(gymChainController.showPaymentInfoForm);
 //Post request for payment info
 router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipID').post(gymChainController.doPaymentInfo);
 

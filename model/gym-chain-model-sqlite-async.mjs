@@ -658,17 +658,18 @@ export let setHomeGym = async function (customerId, gymId) {
 }
 
 export let getHomeGym = async function (customerId) {
-    const stmt = await sql.prepare("SELECT gym_id FROM BELONGS WHERE customer_id = ?");
+    const stmt = await sql.prepare("SELECT BELONGS.gym_id, GYM.location FROM BELONGS JOIN GYM ON BELONGS.gym_id = GYM.gym_id WHERE customer_id = ?");
     try {
-        const gymId = await stmt.get(customerId);
-        if (gymId === undefined) {
+        const gym = await stmt.get(customerId);
+        if (gym === undefined) {
             return undefined;
         }
         else {
-            return gymId.gym_id;
+            return gym;
         }
     }
     catch (err) {
         throw err;
     }
 }
+

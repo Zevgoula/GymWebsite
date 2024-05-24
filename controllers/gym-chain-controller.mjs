@@ -9,7 +9,7 @@ export async function home(req, res, next) {
 
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
-
+        // console.log(homeGym);
         res.render('home', { homeGym:homeGym, message: message, session: req.session});
     }
     catch (error) {
@@ -205,18 +205,18 @@ export async function showPersonalInfoForm(req, res, next) {
 }
 
 //Only loads the template, no connection to the database
-export async function showPaymentInfoForm(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const selectedgymID = req.params.selectedgymID;
-        const selectedclassID = req.params.selectedclassID;
-        const selectedmembershipID = req.params.selectedmembershipID;
-        res.render('payment_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
-    }
-    catch (error) {
-        next(error);
-    }
-}
+// export async function showPaymentInfoForm(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const selectedgymID = req.params.selectedgymID;
+//         const selectedclassID = req.params.selectedclassID;
+//         const selectedmembershipID = req.params.selectedmembershipID;
+//         res.render('payment_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
 
 export async function doPersonalInfo(req, res, next) {
     try {
@@ -229,7 +229,6 @@ export async function doPersonalInfo(req, res, next) {
         const city = req.body.city;
         const state = req.body.state;
         const zip_code = req.body.zip_code;
-        console.log('here1')
         await model.updatePersonalInfo(req.session.loggedUserId, phone_number, address, city, state, zip_code);
 
         const selectedgymID = req.params.selectedgymID;
@@ -266,8 +265,7 @@ export async function doPaymentInfo(req, res, next) {
         next(error);
     }
 }
-
-//Need to implement the following functions
+// NEEDS BETTER CSS
 export async function accountPage(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
@@ -336,7 +334,11 @@ export async function showSchedule(req, res, next) {
     try{
         
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, 'Patra');
+        const homeGym = await model.getHomeGym(customerID);
+        // Setting every letter to lowercase and then capitalizing the first letter of each word
+        let homeGymName = homeGym.location;
+        homeGymName = homeGymName.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+        const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, homeGymName);
         const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         
@@ -367,10 +369,9 @@ export async function showSchedule(req, res, next) {
         
 
         
-
-        res.render('schedule', { view: false, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        
+        res.render('schedule', { homeGym:homeGym, view: false, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
         // res.render('schedule', { schedule: preparedData, session: req.session });
-        console.log(schedule);
     }
     catch (error) {
         next(error);
@@ -384,7 +385,8 @@ export async function viewSchedule(req, res, next) {
         const schedule = await model.getBookings(customerID);
         const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        res.render('schedule', { view: true, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('schedule', { homeGym:homeGym, view: true, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
     }
     catch (error) {
         next(error);

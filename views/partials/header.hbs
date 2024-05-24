@@ -5,15 +5,19 @@
     </a>
     <ul>
         {{#if userId}}
+            
             {{#if homeGym}}
-                <li><a href="/services/{{homeGym}}">Buy Membership</a></li>
+                {{#with homeGym}}
+                    <li><a href="/services/{{gym_id}}">Buy Membership</a></li>
+                {{/with}}
             {{else}}
                 <li><a href="/joinNow">Buy Membership</a></li>
             {{/if}}
+            
         {{else}}
             <li><a href="/login">Join Now</a></li>
         {{/if}}
-        <li><a href="/about_classes">Gym Benefits</a></li>
+        <li><a href="/about_classes">Gym Services</a></li>
         {{!-- Needs to be removed or changed to something elese /memberships doesn't exist anymore --}}
         {{!-- <li><a href="/memberships">Memberships</a></li> --}}
         <li><a href="/home/#contact_form">Contact</a></li>
@@ -25,6 +29,8 @@
         {{/if}}
         {{#if userId}}
             <li><a href="/book">Book</a></li>
+            <li><a href="/schedule">Book A Schedule</a></li>
+            <li><a href="/customer_schedule">View Schedule</a></li>
         {{/if}}
 
     </ul>
