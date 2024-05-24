@@ -636,9 +636,3 @@ export let getClassIDFromName = async function (name) {
         throw err;
     }
 }
-
-export let getdayNamefromDate = function (date) {
-    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const day = new Date(date).getDay();
-    return days[day];
-}
