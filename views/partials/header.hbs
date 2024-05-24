@@ -5,7 +5,11 @@
     </a>
     <ul>
         {{#if userId}}
-            <li><a href="/joinNow">Buy Membership</a></li>
+            {{#if homeGym}}
+                <li><a href="/services/{{homeGym}}">Buy Membership</a></li>
+            {{else}}
+                <li><a href="/joinNow">Buy Membership</a></li>
+            {{/if}}
         {{else}}
             <li><a href="/login">Join Now</a></li>
         {{/if}}

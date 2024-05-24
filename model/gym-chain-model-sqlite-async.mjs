@@ -644,3 +644,29 @@ export let getCustomerScheduleFromCustomerIDAndLocation = async function (custom
         throw err;
     }
 }
+
+export let setHomeGym = async function (customerId, gymId) {
+    const stmt = await sql.prepare("INSERT INTO BELONGS (customer_id, gym_id) VALUES (?, ?)");
+    try {
+        await stmt.run(customerId, gymId);
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getHomeGym = async function (customerId) {
+    const stmt = await sql.prepare("SELECT gym_id FROM BELONGS WHERE customer_id = ?");
+    try {
+        const gymId = await stmt.get(customerId);
+        if (gymId === undefined) {
+            return undefined;
+        }
+        else {
+            return gymId.gym_id;
+        }
+    }
+    catch (err) {
+        throw err;
+    }
+}

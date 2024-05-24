@@ -6,7 +6,11 @@ export async function home(req, res, next) {
         req.session.previousPage = req.originalUrl;
         const message = req.session.message;
         req.session.message = null; 
-        res.render('home', { message: message, session: req.session});
+
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+
+        res.render('home', { homeGym:homeGym, message: message, session: req.session});
     }
     catch (error) {
         next(error);
@@ -28,7 +32,9 @@ export async function admin_home(req, res, next) {
 export async function about_classes(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        res.render('about_classes', { session: req.session });
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('about_classes', { homeGym: homeGym, session: req.session });
     }
     catch (error) {
         next(error);
@@ -41,7 +47,8 @@ export async function showBookForm(req, res, next) {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const classes = await model.getClassesInfoOfCustomer(customerID);
         const clubs = await model.getGymsInfo();
-        res.render('book', { classes: classes, clubs: clubs, session: req.session});
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('book', { homeGym:homeGym, classes: classes, clubs: clubs, session: req.session});
     }
     catch (error) {
         next(error);
@@ -247,8 +254,10 @@ export async function doPaymentInfo(req, res, next) {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         console.log('here')
         const selectedmembershipID = req.params.selectedmembershipID;
+        const selectedgymID = req.params.selectedgymID;
         console.log('selected membership ' + selectedmembershipID);
 
+        await model.setHomeGym(customerID, selectedgymID);
         await model.buyMembership(customerID, selectedmembershipID);
         console.log('Membership bought');
         res.redirect('/home');
@@ -290,8 +299,9 @@ export async function accountPage(req, res, next) {
         });
 
         // console.log('Combined: ', combined);
-
-        res.render('account_page', {customerInfo: customerInfo, session: req.session, active_memberships: active_combined, inactive_memberships: inactive_combined});
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('account_page', {homeGym:homeGym, customerInfo: customerInfo, session: req.session, active_memberships: active_combined, inactive_memberships: inactive_combined});
     }
     catch (error) {
         next(error);    
@@ -327,16 +337,39 @@ export async function showSchedule(req, res, next) {
         
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, 'Patra');
-        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; // Add all time slots
+        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        
+        // const groupedData = schedule.reduce((acc, curr) => {
+        //     const time = curr.time;
+        //     const day = curr.day;
+        //     if (!acc[time]) {
+        //         acc[time] = {};
+        //     }
+        //     if (!acc[time][day]) {
+        //         acc[time][day] = [];
+        //     }
+        //     acc[time][day].push(curr);
+        //     return acc;
+        // }, {});
+        
+        // // Convert the grouped data into an array format suitable for Handlebars
+        // const timeSlots = Object.keys(groupedData);
+        // const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        
+        // const preparedData = timeSlots.map(time => ({
+        //     time,
+        //     days: days.map(day => ({
+        //         day,
+        //         classes: groupedData[time][day] || []
+        //     }))
+        // }));
+        
 
-        // const templateData = {
-        //     timeSlots: ["09:00", "10:00", "11:00", "18:00", "19:00", "20:00"], // Add all required time slots
-        //     days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        //     schedule: schedule
-        // };
+        
 
         res.render('schedule', { timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        // res.render('schedule', { schedule: preparedData, session: req.session });
         console.log(schedule);
     }
     catch (error) {
