@@ -1,0 +1,174 @@
+<div class="schedule-container">
+
+    <div class="schedule-header">
+        <div class="schedule-cell"></div>
+        <div class="schedule-cell">Monday</div>
+        <div class="schedule-cell">Tuesday</div>
+        <div class="schedule-cell">Wednesday</div>
+        <div class="schedule-cell">Thursday</div>
+        <div class="schedule-cell">Friday</div>
+        <div class="schedule-cell">Saturday</div>
+    </div>
+    {{#each schedule}}
+        <div class="schedule-row">
+            {{#if_eq time '09:00'}}
+                
+                    
+                <div class="schedule-cell">9:00 - 10:00</div>
+                <div class="schedule-cell"> 
+                    {{#if_eq day 'Monday'}}
+                        {{this.name}}
+                    {{/if_eq}}
+                </div>
+                <div class="schedule-cell">
+                    {{#if_eq day 'Tuesday'}}
+                        {{this.name}}
+                    {{/if_eq}}
+                </div>
+                <div class="schedule-cell">
+                    {{#if_eq day 'Wednesday'}}
+                        {{this.name}}
+                    {{/if_eq}}
+                </div>
+                <div class="schedule-cell">
+                    {{#if_eq day 'Thursday'}}
+                        {{this.name}}
+                    {{/if_eq}}
+                </div>
+                <div class="schedule-cell">
+                    {{#if_eq day 'Friday'}}
+                        {{this.name}}
+                    {{/if_eq}}
+                </div>
+                <div class="schedule-cell">
+                    {{#if_eq day 'Saturday'}}
+                        {{this.name}}
+                    {{/if_eq}}
+                </div>
+                    
+                
+            {{/if_eq}}
+        </div>
+
+        {{!-- <div class="schedule-row">
+            <div class="schedule-cell">10:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">11:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">12:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">13:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">14:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">15:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">16:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">17:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">18:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">19:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">20:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div>
+
+        <div class="schedule-row">
+            <div class="schedule-cell">21:00</div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell"></div>
+        </div> --}}
+
+{{/each}}
+</div>

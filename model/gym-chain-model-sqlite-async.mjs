@@ -560,9 +560,10 @@ export let getBookings = async function (customerId) {
 }
 
 export let getSessionIDfromLocationDayTime = async function (location, day, time) {
+    const dayName = getdayNamefromDate(day);
     const stmt = await sql.prepare("SELECT session_id FROM SESSION WHERE location = ? AND day = ? AND time = ?");
     try {
-        const sessionID = await stmt.get(location, day, time);
+        const sessionID = await stmt.get(location, dayName, time);
         return sessionID.session_id;
     }
     catch (err) {
@@ -586,17 +587,6 @@ export let getClassesInfoOfCustomer = async function (customerId) {
     try {
         const classesInfo = await stmt.all(customerId);
         return classesInfo;
-    }
-    catch (err) {
-        throw err;
-    }
-}
-
-export let getCustomerSchedule = async function (customerId) {
-    const stmt = await sql.prepare("SELECT CLASS.name, SESSION.location, SESSION.time, SESSION.day FROM BOOKS JOIN SESSION JOIN REPRESENTS JOIN CLASS ON BOOKS.session_id = SESSION.session_id AND SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id WHERE BOOKS.customer_id = ?");
-    try {
-        const schedule = await stmt.all(customerId);
-        return schedule;
     }
     catch (err) {
         throw err;
@@ -637,6 +627,24 @@ export let getClassIDFromName = async function (name) {
     try {
         const classId = await stmt.get(name);
         return classId.class_id;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getdayNamefromDate = function (date) {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const day = new Date(date).getDay();
+    return days[day];
+}
+
+export let getCustomerScheduleFromCustomerIDAndLocation = async function (customerId, location) {
+    const stmt = await sql.prepare ("SELECT SESSION.session_id, CUSTOMER.customer_id, SESSION.day, SESSION.time, CLASS.name, SESSION.location FROM CUSTOMER JOIN SESSION JOIN CLASS JOIN REPRESENTS JOIN BUYS JOIN INCLUDES ON CUSTOMER.customer_id = BUYS.customer_id AND INCLUDES.membership_id = BUYS.membership_id AND CLASS.class_id = REPRESENTS.class_id AND SESSION.session_id = REPRESENTS.session_id AND INCLUDES.class_id = REPRESENTS.class_id WHERE CUSTOMER.customer_id = ? AND SESSION.location = ? AND BUYS.exp_date > date('now')");
+    try {
+
+        const schedule = await stmt.all(customerId, location);
+        return schedule;
     }
     catch (err) {
         throw err;

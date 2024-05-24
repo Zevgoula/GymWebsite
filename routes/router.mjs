@@ -59,12 +59,15 @@ router.route('/book').get(gymChainController.showBookForm);
 router.route('/book').post(gymChainController.doBookForm);
 
 //Available hours
-router.route('/available_hours').get(gymChainController.showTimesForm);
+router.route('/available_hours/:classDate/:classLocation').get(gymChainController.showTimesForm);
 //Post request for available hours form
-router.route('/available_hours').post(gymChainController.doTimesForm);
+router.route('/available_hours/:classDate/:classLocation').post(gymChainController.doTimesForm);
 
 //Extend_membership
 router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainController.extend_membership);
+
+//Schedule
+router.get('/schedule', gymChainController.showSchedule);
 
 //Show the login form
 router.route('/login').get(logInController.checkAuthenticated, logInController.showLogInForm);
