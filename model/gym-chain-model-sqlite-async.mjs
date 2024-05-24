@@ -675,8 +675,20 @@ export let getHomeGym = async function (customerId) {
 
 export let deleteMembership = async function (customerId, membershipId) {
     const stmt = await sql.prepare("DELETE FROM BUYS WHERE customer_id = ? AND membership_id = ? AND exp_date > date('now')");
+    const stmt2 = await sql.prepare("DELETE FROM BOOKS WHERE customer_id = ? AND session_id IN (SELECT session_id FROM REPRESENTS WHERE class_id IN (SELECT class_id FROM INCLUDES WHERE membership_id = ?))");
     try {
         await stmt.run(customerId, membershipId);
+        await stmt2.run(customerId, membershipId);
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let clearSchedule = async function (customerId) {
+    const stmt = await sql.prepare("DELETE FROM BOOKS WHERE customer_id = ?");
+    try {
+        await stmt.run(customerId);
     }
     catch (err) {
         throw err;

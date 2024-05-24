@@ -241,7 +241,7 @@ textarea{
 }
 
 /* Forms */
-form{
+.form-container{
    background: transparent;
    border: 2px solid rgba(225, 225, 225, 0.4);
    backdrop-filter: blur(10px);
@@ -255,7 +255,7 @@ form{
    padding: 10px 10px 10px 10px;
 }
 
-form h1{
+.form-container h1{
    font-size: 3.6em;
    text-align: center;
 }
@@ -1227,4 +1227,12 @@ a:hover {
    display: flex;
    align-items: center;
    
+}
+
+.calendar-form{
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
 }

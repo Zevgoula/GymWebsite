@@ -41,37 +41,37 @@ export async function about_classes(req, res, next) {
     }
 }
 
-export async function showBookForm(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const classes = await model.getClassesInfoOfCustomer(customerID);
-        const clubs = await model.getGymsInfo();
-        const homeGym = await model.getHomeGym(customerID);
-        res.render('book', { homeGym:homeGym, classes: classes, clubs: clubs, session: req.session});
-    }
-    catch (error) {
-        next(error);
-    }
-}
+// export async function showBookForm(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+//         const classes = await model.getClassesInfoOfCustomer(customerID);
+//         const clubs = await model.getGymsInfo();
+//         const homeGym = await model.getHomeGym(customerID);
+//         res.render('book', { homeGym:homeGym, classes: classes, clubs: clubs, session: req.session});
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
 
-export async function doBookForm(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const className = req.body.class_id
-        const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-        const classDate = req.body.date_name;
-        const dayName = model.getdayNamefromDate(classDate);
-        const capitalDayName = dayName.toUpperCase();
-        const classID = await model.getClassIDFromName(className);
-        const hours = await model.getTimesFromClassClubDay(classID, classLocation, dayName);
-        //NEEDS CHECK TO SEE IF SESSIONID IS FULL OR THE CUSTOMER ALREADY HAS THIS SESSION BOOKED
-        res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
-    }
-    catch (error) {
-        next(error);
-    }
-}
+// export async function doBookForm(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const className = req.body.class_id
+//         const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+//         const classDate = req.body.date_name;
+//         const dayName = model.getdayNamefromDate(classDate);
+//         const capitalDayName = dayName.toUpperCase();
+//         const classID = await model.getClassIDFromName(className);
+//         const hours = await model.getTimesFromClassClubDay(classID, classLocation, dayName);
+//         //NEEDS CHECK TO SEE IF SESSIONID IS FULL OR THE CUSTOMER ALREADY HAS THIS SESSION BOOKED
+//         res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
 
 // export async function showTimesForm(req, res, next) {
 //     try {
@@ -92,22 +92,22 @@ export async function doBookForm(req, res, next) {
 //     }
 // }
 
-export async function doTimesForm(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const classDate = req.params.classDate;
-        const classLocation = req.params.classLocation;
-        const classTime = req.body.time;
-        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const sessionID = await model.getSessionIDfromLocationDayTime(classLocation, classDate, classTime);
-        //NEEDS CHECK TO SEE IF SESSIONID IS FULL OR THE CUSTOMER ALREADY HAS THIS SESSION BOOKED
-        await model.bookSession(customerID, sessionID);
-        res.render('home', { session: req.session});
-    }
-    catch (error) {
-        next(error);
-    }
-}
+// export async function doTimesForm(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const classDate = req.params.classDate;
+//         const classLocation = req.params.classLocation;
+//         const classTime = req.body.time;
+//         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+//         const sessionID = await model.getSessionIDfromLocationDayTime(classLocation, classDate, classTime);
+//         //NEEDS CHECK TO SEE IF SESSIONID IS FULL OR THE CUSTOMER ALREADY HAS THIS SESSION BOOKED
+//         await model.bookSession(customerID, sessionID);
+//         res.render('home', { session: req.session});
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
 
 export async function extend_membership(req, res, next) {
     try {
@@ -255,8 +255,12 @@ export async function doPaymentInfo(req, res, next) {
         const selectedmembershipID = req.params.selectedmembershipID;
         const selectedgymID = req.params.selectedgymID;
         console.log('selected membership ' + selectedmembershipID);
-
-        await model.setHomeGym(customerID, selectedgymID);
+        const homeGym = await model.getHomeGym(customerID);
+        if (!homeGym)
+            {
+                await model.setHomeGym(customerID, selectedgymID);
+            }
+            
         await model.buyMembership(customerID, selectedmembershipID);
         console.log('Membership bought');
         res.redirect('/home');
@@ -330,47 +334,39 @@ export async function doContact(req, res, next) {
     }
 }
 
-export async function showSchedule(req, res, next) {
+export async function showBookSchedule(req, res, next) {
     try {
+        
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
+        
         // Setting every letter to lowercase and then capitalizing the first letter of each word
         let homeGymName = homeGym.location;
         homeGymName = homeGymName.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+        await model.clearSchedule(customerID);
         const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, homeGymName);
-        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; 
+        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        
-        // const groupedData = schedule.reduce((acc, curr) => {
-        //     const time = curr.time;
-        //     const day = curr.day;
-        //     if (!acc[time]) {
-        //         acc[time] = {};
-        //     }
-        //     if (!acc[time][day]) {
-        //         acc[time][day] = [];
-        //     }
-        //     acc[time][day].push(curr);
-        //     return acc;
-        // }, {});
-        
-        // // Convert the grouped data into an array format suitable for Handlebars
-        // const timeSlots = Object.keys(groupedData);
-        // const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        
-        // const preparedData = timeSlots.map(time => ({
-        //     time,
-        //     days: days.map(day => ({
-        //         day,
-        //         classes: groupedData[time][day] || []
-        //     }))
-        // }));
-        
-
         
         
         res.render('schedule', { homeGym:homeGym, view: false, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
-        // res.render('schedule', { schedule: preparedData, session: req.session });
+
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function doBookSchedule(req, res, next) {
+    try {
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const sessionIDs = req.body.sessionIDs.split(',');
+        for (let i = 0; i < sessionIDs.length; i++) {
+            
+            await model.bookSession(customerID, parseInt(sessionIDs[i]));
+            console.log('session id: ' + parseInt(sessionIDs[i]));
+        }
+        res.redirect('/customer_schedule');
     }
     catch (error) {
         next(error);
@@ -381,7 +377,7 @@ export async function viewSchedule(req, res, next) {
     try {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const schedule = await model.getBookings(customerID);
-        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00']; 
+        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const homeGym = await model.getHomeGym(customerID);
         res.render('schedule', { homeGym:homeGym, view: true, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });

@@ -1,52 +1,60 @@
-<div class="schedule-container">
-    <div class="schedule-header">
-        <div class="schedule-cell"></div>
-        <div class="schedule-cell">Monday</div>
-        <div class="schedule-cell">Tuesday</div>
-        <div class="schedule-cell">Wednesday</div>
-        <div class="schedule-cell">Thursday</div>
-        <div class="schedule-cell">Friday</div>
-        <div class="schedule-cell">Saturday</div>
-    </div>
-    
-
-
-    {{!-- For each timeslot --}}
-    {{#each timeSlots}}
-        <div class="schedule-row">
-            {{!-- Display every timeslot --}}
-            <div class="schedule-cell">{{this}}</div>
-            {{!-- For each day --}}
-            {{#each ../days}}
-                <div class="schedule-cell">
-                    {{!-- For each object in schedule --}}
-                    {{#each ../../schedule}}
-                    {{!-- if schedule.day == days.day --}}
-                        {{#if_eq this.day ../this}}
-                        {{!-- if schedule.time == timeSlots.time --}}
-                            {{#if_eq this.time ../../this}}
-                            {{!-- Display schedule.name --}}
-                                {{#if ../../../view}}
-                                        {{this.name}}
-                                {{else}}
-                                    <button type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
-                                        {{this.name}}
-                                    </button>
-                                {{/if}}
-                            {{/if_eq}}
-                        {{/if_eq}}
-                    {{/each}}
-                </div>
-            {{/each}}
+<form class='calendar-form' action="/schedule" method="post">
+    <div class="schedule-container">
+        <div class="schedule-header">
+            <div class="schedule-cell"></div>
+            <div class="schedule-cell">Monday</div>
+            <div class="schedule-cell">Tuesday</div>
+            <div class="schedule-cell">Wednesday</div>
+            <div class="schedule-cell">Thursday</div>
+            <div class="schedule-cell">Friday</div>
+            <div class="schedule-cell">Saturday</div>
         </div>
-    {{/each}}
+        
 
 
-</div>
-<div class="submit-button">
-    <button type="submit" id="submit-button" class="anim_button"><span></span>CREATE SCHEDULE</button>
-</div>
+        {{!-- For each timeslot --}}
+        {{#each timeSlots}}
+            <div class="schedule-row">
+                {{!-- Display every timeslot --}}
+                <div class="schedule-cell">{{this}}</div>
+                {{!-- For each day --}}
+                {{#each ../days}}
+                    <div class="schedule-cell">
+                        {{!-- For each object in schedule --}}
+                        {{#each ../../schedule}}
+                        {{!-- if schedule.day == days.day --}}
+                            {{#if_eq this.day ../this}}
+                            {{!-- if schedule.time == timeSlots.time --}}
+                                {{#if_eq this.time ../../this}}
+                                {{!-- Display schedule.name --}}
+                                    {{#if ../../../view}}
+                                            {{this.name}}
+                                    {{else}}
+                                        <button type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
+                                            {{this.name}}
+                                        </button>
+                                    {{/if}}
+                                {{/if_eq}}
+                            {{/if_eq}}
+                        {{/each}}
+                    </div>
+                {{/each}}
+            </div>
+        {{/each}}
 
+
+    </div>
+    {{#if view}}
+        <div class="submit-button">
+            <button type="button" id="submit-button" class="anim_button" onclick="window.location.href='/schedule'"><span></span>CREATE NEW SCHEDULE</button>
+        </div>
+    {{else}}
+        <div class="submit-button">
+            <button type="submit" id="submit-button" class="anim_button"><span></span>CREATE SCHEDULE</button>
+        </div>
+    {{/if}}
+    <input type="hidden" id="selectedSessionIDs" name="sessionIDs" value=""></input>
+</form>
 <script>
 // Store selected button IDs for each date and name combination
 const selectedButtons = {};
@@ -107,26 +115,10 @@ buttons.forEach(button => {
         }
 
         console.log("Selected session IDs:", selectedSessionIds);
+        document.getElementById('selectedSessionIDs').value = selectedSessionIds;
     });
 });
 
-// Function to return the list of selected session IDs
-function getSelectedSessionIds() {
-    return selectedSessionIds;
-}
 
-// Select the submit button
-const submitButton = document.getElementById('submit-button');
-
-// Add click event listener to the submit button
-submitButton.addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default form submission if necessary
-    // Retrieve the list of selected session IDs
-    const selectedIds = getSelectedSessionIds();
-
-    // Do something with the selected session IDs, such as submitting them to a server or displaying them to the user
-    console.log("Selected session IDs on submit:", selectedIds);
-    // Add your code to handle the selected session IDs here...
-});
 
 </script>

@@ -4,7 +4,13 @@
         <p>JOIN US AND GET FIT WITH OUR TRAINERS</p>
         <div>
             {{#if userId}}
-                <button  class="anim_button" onclick="window.location.href='/joinNow'"><span></span>BUY MEMBERSHIP</button>
+                {{#if homeGym}}
+                    {{#with homeGym}}
+                        <button  class="anim_button" onclick="window.location.href='/services/{{gym_id}}'"><span></span>BUY MEMBERSHIP</button>
+                    {{/with}}
+                {{else}}
+                    <button  class="anim_button" onclick="window.location.href='/joinNow'"><span></span>BUY MEMBERSHIP</button>
+                {{/if}}
             {{else}}
                 <button name='b1' class="anim_button" onclick="window.location.href='/login'"><span></span>JOIN NOW</button>
             {{/if}}
@@ -13,7 +19,7 @@
     </div>
     
     <div class="about" id="contact_form">
-        <form  action="/home" method="post">
+        <form class='form-container' action="/home" method="post">
             <h1>Contact</h1>
             <div class="input-box">
                 <input type="email" name='email' placeholder="Email" required>
