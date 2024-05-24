@@ -1120,3 +1120,45 @@ a:hover {
    flex-direction: column;
    align-items: center;
 }
+
+
+
+/* SCHEDULE */
+.schedule-container {
+   display: grid;
+   grid-template-columns: repeat(7, 1fr);
+   grid-auto-rows: minmax(50px, auto);
+   border: 1px solid #ddd;
+   background-color: white;
+   width: 80%;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-header {
+   display: contents;
+}
+
+.schedule-row {
+   display: contents;
+}
+
+.schedule-cell {
+   border: 1px solid #ddd;
+   padding: 10px;
+   text-align: center;
+   font-size: 14px;
+}
+
+.schedule-cell:first-child {
+   background-color: #f9f9f9;
+   font-weight: bold;
+}
+
+.schedule-cell:not(:first-child) {
+   background-color: #fff;
+}
+
+.schedule-cell:not(:first-child):hover {
+   background-color: #f1f1f1;
+   cursor: pointer;
+}

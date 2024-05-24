@@ -66,6 +66,9 @@ router.route('/available_hours/:classDate/:classLocation').post(gymChainControll
 //Extend_membership
 router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainController.extend_membership);
 
+//Schedule
+router.get('/schedule', gymChainController.showSchedule);
+
 //Show the login form
 router.route('/login').get(logInController.checkAuthenticated, logInController.showLogInForm);
 //Login the user

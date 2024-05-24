@@ -593,17 +593,6 @@ export let getClassesInfoOfCustomer = async function (customerId) {
     }
 }
 
-export let getCustomerSchedule = async function (customerId) {
-    const stmt = await sql.prepare("SELECT CLASS.name, SESSION.location, SESSION.time, SESSION.day FROM BOOKS JOIN SESSION JOIN REPRESENTS JOIN CLASS ON BOOKS.session_id = SESSION.session_id AND SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id WHERE BOOKS.customer_id = ?");
-    try {
-        const schedule = await stmt.all(customerId);
-        return schedule;
-    }
-    catch (err) {
-        throw err;
-    }
-}
-
 export let getAvailableHoursFromCustomerID = async function (customerId) {
     const stmt = await sql.prepare("SELECT A.session_id, A.name, A.day, A.time, A.class_id, A.location FROM (SELECT REPRESENTS.session_id, SESSION.day, SESSION.time, REPRESENTS.class_id, CLASS.name, SESSION.location FROM SESSION JOIN REPRESENTS JOIN CLASS ON SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id) AS A JOIN (SELECT INCLUDES.class_id FROM BUYS JOIN INCLUDES ON BUYS.membership_id = INCLUDES.membership_id WHERE BUYS.exp_date > date('now') AND customer_id = ?) AS B ON A.class_id = B.class_id");
     try {
@@ -632,6 +621,24 @@ export let getClassIDFromName = async function (name) {
     try {
         const classId = await stmt.get(name);
         return classId.class_id;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getdayNamefromDate = function (date) {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const day = new Date(date).getDay();
+    return days[day];
+}
+
+export let getCustomerScheduleFromCustomerIDAndLocation = async function (customerId, location) {
+    const stmt = await sql.prepare ("SELECT SESSION.session_id, CUSTOMER.customer_id, SESSION.day, SESSION.time, CLASS.name, SESSION.location FROM CUSTOMER JOIN SESSION JOIN CLASS JOIN REPRESENTS JOIN BUYS JOIN INCLUDES ON CUSTOMER.customer_id = BUYS.customer_id AND INCLUDES.membership_id = BUYS.membership_id AND CLASS.class_id = REPRESENTS.class_id AND SESSION.session_id = REPRESENTS.session_id AND INCLUDES.class_id = REPRESENTS.class_id WHERE CUSTOMER.customer_id = ? AND SESSION.location = ? AND BUYS.exp_date > date('now')");
+    try {
+
+        const schedule = await stmt.all(customerId, location);
+        return schedule;
     }
     catch (err) {
         throw err;

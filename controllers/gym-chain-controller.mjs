@@ -322,4 +322,18 @@ export async function doContact(req, res, next) {
     }
 }
 
+export async function showSchedule(req, res, next) {
+    try{
+        
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, 'Patra');
+        res.render('schedule', { schedule: schedule, session: req.session });
+        console.log(schedule);
+    }
+    catch (error) {
+        next(error);
+    }
+    
+}
+
 
