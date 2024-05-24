@@ -73,24 +73,24 @@ export async function doBookForm(req, res, next) {
     }
 }
 
-export async function showTimesForm(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const className = req.body.class_id;
-        const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-        const classDate = req.body.date_name;
-        const dayName = model.getdayNamefromDate(classDate);
-        const capitalDayName = dayName.toUpperCase();
-        console.log('1class: ' + className + ' date: ' + classDate + ' location: ' + classLocation);
-        const classID = await model.getClassIDFromName(className);
-        const hours = await model.getTimesFromClassClubDay(classID, className, classDate);
+// export async function showTimesForm(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const className = req.body.class_id;
+//         const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+//         const classDate = req.body.date_name;
+//         const dayName = model.getdayNamefromDate(classDate);
+//         const capitalDayName = dayName.toUpperCase();
+//         console.log('1class: ' + className + ' date: ' + classDate + ' location: ' + classLocation);
+//         const classID = await model.getClassIDFromName(className);
+//         const hours = await model.getTimesFromClassClubDay(classID, className, classDate);
 
-        res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
-    }
-    catch (error) {
-        next(error);
-    }
-}
+//         res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
 
 export async function doTimesForm(req, res, next) {
     try {
@@ -266,7 +266,7 @@ export async function doPaymentInfo(req, res, next) {
     }
 }
 // NEEDS BETTER CSS
-export async function accountPage(req, res, next) {
+export async function showAccountPage(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
@@ -387,6 +387,19 @@ export async function viewSchedule(req, res, next) {
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const homeGym = await model.getHomeGym(customerID);
         res.render('schedule', { homeGym:homeGym, view: true, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function deleteMembership(req, res, next) {
+    try {
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        await model.deleteMembership(customerID, req.params.membershipID);
+        // console.log(req.params.membershipID);
+        // console.log('Membership deleted');
+        res.redirect('/account_page');
     }
     catch (error) {
         next(error);

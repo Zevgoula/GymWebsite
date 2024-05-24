@@ -1,13 +1,3 @@
-.
-
-
-
-
-
-
-
-
-
 {{#with customerInfo}}
     <h1 style="color: white">
         Account Page
@@ -49,6 +39,7 @@
         <p style="color: white">
             End Date: {{this.exp_date}}
         </p>
+        <button onclick="window.location.href='/acount_page/{{this.membership_id}}'">Delete Membership</button>
     {{/each}}
 {{/if}}
 {{#if inactive_memberships}}

@@ -26,8 +26,11 @@ router.get('/about_classes', gymChainController.about_classes);
 //About page (Not implemented)
 router.get('/about_page', gymChainController.about_page);
 
-//Account page (Not implemented)
-router.get('/account_page', gymChainController.accountPage);
+//Account page 
+router.get('/account_page', gymChainController.showAccountPage);
+
+//Delete Membership
+router.get('/acount_page/:membershipID', gymChainController.deleteMembership);
 
 //Select gym
 router.get('/joinNow', gymChainController.selectGym);
@@ -59,7 +62,7 @@ router.route('/book').get(gymChainController.showBookForm);
 router.route('/book').post(gymChainController.doBookForm);
 
 //Available hours
-router.route('/available_hours/:classDate/:classLocation').get(gymChainController.showTimesForm);
+// router.route('/available_hours/:classDate/:classLocation').get(gymChainController.showTimesForm);
 //Post request for available hours form
 router.route('/available_hours/:classDate/:classLocation').post(gymChainController.doTimesForm);
 

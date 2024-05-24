@@ -673,3 +673,13 @@ export let getHomeGym = async function (customerId) {
     }
 }
 
+export let deleteMembership = async function (customerId, membershipId) {
+    const stmt = await sql.prepare("DELETE FROM BUYS WHERE customer_id = ? AND membership_id = ? AND exp_date > date('now')");
+    try {
+        await stmt.run(customerId, membershipId);
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
