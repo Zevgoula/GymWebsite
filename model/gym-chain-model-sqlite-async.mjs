@@ -616,5 +616,30 @@ export let getAvailableHoursFromCustomerID = async function (customerId) {
 }
 
 
+export let getTimesFromClassClubDay = async function (classId, location, day) {
+    const stmt = await sql.prepare("SELECT SESSION.time FROM SESSION JOIN REPRESENTS ON SESSION.session_id = REPRESENTS.session_id WHERE REPRESENTS.class_id = ? AND SESSION.location = ? AND SESSION.day = ?");
+    try {
+        const times = await stmt.all(classId, location, day);
+        return times;
+    }
+    catch (err) {
+        throw err;
+    }
+}
 
+export let getClassIDFromName = async function (name) {
+    const stmt = await sql.prepare("SELECT class_id FROM CLASS WHERE name = ?");
+    try {
+        const classId = await stmt.get(name);
+        return classId.class_id;
+    }
+    catch (err) {
+        throw err;
+    }
+}
 
+export let getdayNamefromDate = function (date) {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const day = new Date(date).getDay();
+    return days[day];
+}
