@@ -1,26 +1,33 @@
 <div class="available-hours-placeholder">
-    <div class="available-hours-title">
-        <h1>AVAILABLE HOURS FOR {{className}} IN {{classLocation}}</h1>
-    </div>
-    <form class="book-form-container" action="/available_hours" method="POST">
-        <div class="available-hours-container">
-            <div class="available-hours-upper-container">
-                <div class="available-hours-upper-title">
-                    <h1>ON {{ClassDate}}</h1>
-                </div>
-                <div class="available-hours-buttons-container">
-                    {{#each hours}}
-                    <button type="button" class="available-hours-button"
-                        onclick="selectHour('{{this.time}}')"><span></span>{{this.time}}</button>
-                    {{/each}}
-                </div>
-            </div>
-            <div class="available-hours-lower-container">
-                <button type="submit" class="anim_button"><span></span>BOOK</button>
-            </div>
-            <input type="hidden" id="selectedHour" name="time">
+    {{#if hours}}
+        <div class="available-hours-title">
+            <h1>AVAILABLE HOURS FOR {{className}} IN {{classLocation}}</h1>
         </div>
-    </form>
+    
+        <form class="book-form-container" action="/available_hours" method="POST">
+            <div class="available-hours-container">
+                <div class="available-hours-upper-container">
+                    <div class="available-hours-upper-title">
+                        <h1>ON {{ClassDate}}</h1>
+                    </div>
+                    <div class="available-hours-buttons-container">
+                        {{#each hours}}
+                        <button type="button" class="available-hours-button"
+                            onclick="selectHour('{{this.time}}')"><span></span>{{this.time}}</button>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="available-hours-lower-container">
+                    <button type="submit" class="anim_button"><span></span>BOOK</button>
+                </div>
+                <input type="hidden" id="selectedHour" name="time">
+            </div>
+        </form>
+    {{else}}
+        <div class="available-hours-title">
+            <h1>NO AVAILABLE HOURS FOR {{className}} ON {{dayName}}</h1>
+        </div>
+    {{/if}}
 </div>
 
 

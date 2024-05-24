@@ -52,21 +52,16 @@ export async function showBookForm(req, res, next) {
 export async function doBookForm(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const className = req.body.class_id;
-        // const clubID = req.body.gym_id;
-        const clubID = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-        const date = req.body.date_name;
-        console.log('customerID: ' + customerID + 'ClassName: '+ className + 'club: '  + clubID + ' dayName: ' + date);
-        const dayName = model.getdayNamefromDate(date);
-        console.log('dayName: ' + dayName);
-        const classID = await model.getClassIDFromName(className);
-        console.log('classID: ' + classID);
-        const hours = await model.getTimesFromClassClubDay(classID, clubID, dayName);
-        console.log('hours: ' + hours);
+        const className = req.body.class_id
         
-        // await model.bookClass(customerID, classID, clubID, date, time);
-        res.render('available_hours', { className: className, classLocation: clubID, classDate: date, hours: hours, session: req.session});
+        const classLocation = req.body.gym_id.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+        const classDate = req.body.date_name;
+        const dayName = model.getdayNamefromDate(classDate);
+        const capitalDayName = dayName.toUpperCase();
+        const classID = await model.getClassIDFromName(className);
+        const hours = await model.getTimesFromClassClubDay(classID, classLocation, dayName);
+
+        res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, dayName: capitalDayName, hours: hours, session: req.session});
     }
     catch (error) {
         next(error);
@@ -78,11 +73,12 @@ export async function showTimesForm(req, res, next) {
         req.session.previousPage = req.originalUrl;
         const className = req.body.class_id;
         const classDate = req.body.date_name;
-        console.log('class: ' + className + ' date: ' + classDate);
         const classLocation = req.body.gym_id;
+
+        console.log('class: ' + className + ' date: ' + classDate + ' location: ' + classLocation);
         const classID = await model.getClassIDFromName(className);
         const hours = await model.getTimesFromClassClubDay(classID, className, classDate);
-        console.log('classID: ' + classID + ' className: ' + className + ' classDate: ' + classDate + ' hours: ' + hours)
+
         res.render('available_hours', { className: className, classLocation: classLocation, classDate: classDate, hours: hours, session: req.session});
     }
     catch (error) {
@@ -96,6 +92,7 @@ export async function doTimesForm(req, res, next) {
         const classDate = req.body.date_name;
         const classTime = req.body.time_name;
         const classLocation = req.body.gym_id;
+        console.log('class: ' + classLocation + ' date: ' + classDate + ' time: ' + classTime);
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const sessionID = await model.getSessionIDfromLocationDayTime(classLocation, classDate, classTime);
         console.log('customerID: ' + customerID + ' sessionID: ' + sessionID);
@@ -106,6 +103,7 @@ export async function doTimesForm(req, res, next) {
         next(error);
     }
 }
+
 export async function extend_membership(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
