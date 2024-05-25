@@ -374,7 +374,6 @@ textarea{
 .service{
    color: white;
    border-radius: 25px;
-   background-color: rgba(58, 58, 58, 0.5);
    padding-top: 50px;
    width: 20%;
    height: 388px;
@@ -384,13 +383,16 @@ textarea{
    justify-content: center; 
    align-items: center;
    text-align: center;
+   opacity: 1; /* Set initial opacity to match container */
+   filter: brightness(0.7);
 
 }
 
-.service img:hover {
+.service:hover {
+   transition: .5s ease;
    opacity: 1; /* Optional: Adjust opacity */
-   filter: brightness(1); /* Increase brightness on hover */
-   border-radius: 15px;
+   filter: brightness(1.1); /* Increase brightness on hover */
+   border-radius: 25px;
 }
 
 .service:nth-child(1){
@@ -422,18 +424,26 @@ textarea{
 }
 
 .service a {
+   position: absolute; /* Add this */
+   top: 0; /* Add this */
+   left: 0; /* Add this */
+   width: 100%; /* Ensure it takes the full width */
+   height: 100%; /* Ensure it takes the full height */
    color: #ffffff;
    text-decoration: none;
+   display: flex; /* Use flex to center content */
+   justify-content: center; /* Center horizontally */
+   align-items: center; /* Center vertically */
 }
 
 
 .service a h3{
-   margin-top: 45%;
+   /* margin-top: 50%; */
    color: #fff;
    font-size: 2rem;
    line-height: 1.2;
    font-weight: 700;
-   letter-spacing: -.1rem;;
+   letter-spacing: .1rem;;
 }
 
 /* About Page */
