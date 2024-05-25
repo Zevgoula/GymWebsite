@@ -118,7 +118,7 @@ export async function extendMembership(req, res, next) {
         const message = 'Membership extended successfully';
         console.log(message);
         req.session.message = message;
-        res.redirect('/messsage');
+        res.redirect('/message');
     }
     catch (error) {
         next(error);

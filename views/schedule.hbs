@@ -28,11 +28,15 @@
                                 {{#if_eq this.time ../../this}}
                                 {{!-- Display schedule.name --}}
                                     {{#if ../../../view}}
+                                    
                                             {{this.name}}
+                                        
                                     {{else}}
+
                                         <button type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
                                             {{this.name}}
                                         </button>
+
                                     {{/if}}
                                 {{/if_eq}}
                             {{/if_eq}}
