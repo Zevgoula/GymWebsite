@@ -45,7 +45,30 @@
                             {{#if_eq this.time ../../this}}
                             {{!-- Display schedule.name --}}
                                 
-                                {{this.name}}
+                                    {{#if_eq this.name "PILATES"}}
+
+                                        <div style="background-color:#658864">
+                                            {{this.name}}
+                                        </div>
+                                        
+
+                                    {{/if_eq}}
+
+                                    {{#if_eq this.name "CROSSFIT"}}
+
+                                        <div style="background-color:#B7B78A">
+                                            {{this.name}}
+                                        </div>
+
+                                    {{/if_eq}}
+
+                                    {{#if_eq this.name "YOGA"}}
+
+                                        <div style="background-color:#DDDDDD">
+                                            {{this.name}}
+                                        </div>
+
+                                    {{/if_eq}}
                                 
                             {{/if_eq}}
                         {{/if_eq}}

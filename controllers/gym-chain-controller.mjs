@@ -111,11 +111,14 @@ export async function about_classes(req, res, next) {
 //     }
 // }
 
-export async function extend_membership(req, res, next) {
+export async function extendMembership(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         await model.extendMembership(req.params.customerID, req.params.selectedmembershipID);
-        res.redirect('/home');
+        const message = 'Membership extended successfully';
+        console.log(message);
+        req.session.message = message;
+        res.redirect('/message');
     }
     catch (error) {
         next(error);
@@ -289,8 +292,10 @@ export async function doPaymentInfo(req, res, next) {
         
             
         await model.buyMembership(customerID, selectedmembershipID);
-        console.log('Membership bought');
-        res.redirect('/home');
+        const message = 'Membership bought successfully';
+        console.log(message);
+        req.session.message = message;
+        res.redirect('/message');
     }
     catch (error) {
         next(error);
@@ -385,7 +390,9 @@ export async function showBookSchedule(req, res, next) {
             res.render('schedule', { message: message, homeGym:homeGym, view: false, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
         }
         else {
-            req.session.message = 'You have to buy a membership first';
+            const message = 'You have no memberships. Please buy a membership to create a schedule.';
+            console.log(message);
+            req.session.message = message;
             res.redirect('/message');
         }
         
