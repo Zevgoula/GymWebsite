@@ -507,7 +507,7 @@ export let getClassIDFromMembershipID = async function (membershipID) {
 }
 
 export let getAllActiveMembershipsFromCustomerID = async function (customerID) {
-    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ? AND exp_date > date('now')");
+    const stmt = await sql.prepare("SELECT BUYS.membership_id, BUYS.customer_id, BUYS.purchase_id, BUYS.start_date, BUYS.exp_date, CLASS.class_id, CLASS.name FROM BUYS JOIN CLASS JOIN INCLUDES ON CLASS.class_id = INCLUDES.class_id and BUYS.membership_id = INCLUDES.membership_id WHERE customer_id = ? AND exp_date > date('now')");
     try {
         const memberships = await stmt.all(customerID);
         if (memberships.length === 0) {
@@ -534,7 +534,7 @@ export let getAllInactiveMemberships = async function () {
 }
 
 export let getAllInactiveMembershipsFromCustomerID = async function (customerID) {
-    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ? AND exp_date < date('now')");
+    const stmt = await sql.prepare("SELECT BUYS.membership_id, BUYS.customer_id, BUYS.purchase_id, BUYS.start_date, BUYS.exp_date, CLASS.class_id, CLASS.name FROM BUYS JOIN CLASS JOIN INCLUDES ON CLASS.class_id = INCLUDES.class_id and BUYS.membership_id = INCLUDES.membership_id WHERE customer_id = ? AND exp_date < date('now')");
     try {
         const memberships = await stmt.all(customerID);
         if (memberships.length === 0) {
