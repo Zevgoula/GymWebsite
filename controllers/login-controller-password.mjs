@@ -38,7 +38,7 @@ export let doLogin = async function (req, res) {
     
     if (user == undefined || !user.password || !user.username) {
 
-        //FIXME πρεπει να λεει οτι ο χρηστης δεν βρεθηκε
+        
         console.log("user not found");
         res.render('login', {message : "user not found"});
     }
@@ -54,7 +54,7 @@ export let doLogin = async function (req, res) {
             res.redirect(req.session.previousPage);
         }
         else {
-            //FIXME πρεπει να λεει οτι ο κωδικος ειναι λαθος
+            
             console.log("password is wrong");
             res.render("login", {message : "password is wrong"})
         }

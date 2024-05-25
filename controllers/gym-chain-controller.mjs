@@ -9,9 +9,9 @@ export async function home(req, res, next) {
 
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
-        const onlyWeightlinfting = await model.checkIfUserHasWeightligtingOnly(customerID);
+        const onlyWeightlifting = await model.checkIfUserHasWeightligtingOnly(customerID);
         // console.log(homeGym);
-        res.render('home', { onlyWeightlinfting: onlyWeightlinfting, homeGym:homeGym, message: message, session: req.session});
+        res.render('home', { onlyWeightlifting: onlyWeightlifting, homeGym:homeGym, message: message, session: req.session});
     }
     catch (error) {
         next(error);
@@ -35,8 +35,8 @@ export async function about_classes(req, res, next) {
         req.session.previousPage = req.originalUrl;
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
-        const onlyWeightlinfting = await model.checkIfUserHasWeightligtingOnly(customerID);
-        res.render('about_classes', { onlyWeightlinfting: onlyWeightlinfting, homeGym: homeGym, session: req.session });
+        const onlyWeightlifting = await model.checkIfUserHasWeightligtingOnly(customerID);
+        res.render('about_classes', { onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, session: req.session });
     }
     catch (error) {
         next(error);
@@ -126,8 +126,8 @@ export async function selectGym(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const gymInfo = await model.getGymsInfo();
-        const onlyWeightlinfting = await model.checkIfUserHasWeightligtingOnly(customerID);
-        res.render('joinNow', { onlyWeightlinfting: onlyWeightlinfting, gyms: gymInfo, session: req.session });
+        const onlyWeightlifting = await model.checkIfUserHasWeightligtingOnly(customerID);
+        res.render('joinNow', { onlyWeightlifting: onlyWeightlifting, gyms: gymInfo, session: req.session });
     }
     catch (error) {
         next(error);
@@ -142,10 +142,10 @@ export async function selectClass(req, res, next) {
 
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
-        const onlyWeightlinfting = await model.checkIfUserHasWeightligtingOnly(customerID);
+        const onlyWeightlifting = await model.checkIfUserHasWeightligtingOnly(customerID);
 
         const classInfo = await model.getClassesInfo();
-        res.render('services', { onlyWeightlinfting: onlyWeightlinfting, homeGym: homeGym, gym: selectedgym, classes: classInfo, session: req.session });
+        res.render('services', { onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, gym: selectedgym, classes: classInfo, session: req.session });
     }
     catch (error) {
         next(error);
@@ -165,9 +165,9 @@ export async function selectMembership(req, res, next) {
 
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
-        const onlyWeightlinfting = await model.checkIfUserHasWeightligtingOnly(customerID);
+        const onlyWeightlifting = await model.checkIfUserHasWeightligtingOnly(customerID);
         
-        res.render('memberships', { onlyWeightlinfting: onlyWeightlinfting, homeGym:homeGym, gym: selectedgym, class: selectedclass, membershipsInfo: membershipsInfo, session: req.session });
+        res.render('memberships', { onlyWeightlifting: onlyWeightlifting, homeGym:homeGym, gym: selectedgym, class: selectedclass, membershipsInfo: membershipsInfo, session: req.session });
     }
     catch (error) {
         next(error);
@@ -187,7 +187,7 @@ export async function showPersonalInfoForm(req, res, next) {
 
         // Get the customer id from the username
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const onlyWeightlinfting = await model.checkIfUserHasWeightligtingOnly(customerID);
+        const onlyWeightlifting = await model.checkIfUserHasWeightligtingOnly(customerID);
 
         // Get the active classes of the customer
         const activeClasses = await model.getActiveClassesIDsFromCustomerID(customerID);
@@ -210,10 +210,10 @@ export async function showPersonalInfoForm(req, res, next) {
 
         // Render the correct page based on the flag
         if (m_flag) {
-            res.render('extend_membership', { onlyWeightlinfting: onlyWeightlinfting, homeGym: homeGym, m_info: m_info, length: selectedMembershipLength, customerID: customerID, session: req.session });
+            res.render('extend_membership', { onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, m_info: m_info, length: selectedMembershipLength, customerID: customerID, session: req.session });
         }
         else{
-            res.render('personal_info', { onlyWeightlinfting: onlyWeightlinfting, homeGym: homeGym, gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
+            res.render('personal_info', { onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
 
         }
     }
@@ -255,9 +255,9 @@ export async function doPersonalInfo(req, res, next) {
 
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
-        const onlyWeightlinfting = await model.checkIfUserHasWeightligtingOnly(customerID);
+        const onlyWeightlifting = await model.checkIfUserHasWeightligtingOnly(customerID);
 
-        res.render('payment_info', { onlyWeightlinfting: onlyWeightlinfting, homeGym: homeGym, gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
+        res.render('payment_info', { onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
     }
     catch (error) {
         next(error);
@@ -293,7 +293,7 @@ export async function doPaymentInfo(req, res, next) {
         next(error);
     }
 }
-// NEEDS BETTER CSS
+
 export async function showAccountPage(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
@@ -330,8 +330,8 @@ export async function showAccountPage(req, res, next) {
         // console.log('Combined: ', combined);
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
-        const onlyWeightlinfting = await model.checkIfUserHasWeightligtingOnly(customerID);
-        res.render('account_page', {onlyWeightlinfting: onlyWeightlinfting, homeGym:homeGym, customerInfo: customerInfo, session: req.session, active_memberships: active_combined, inactive_memberships: inactive_combined});
+        const onlyWeightlifting = await model.checkIfUserHasWeightligtingOnly(customerID);
+        res.render('account_page', {onlyWeightlifting: onlyWeightlifting, homeGym:homeGym, customerInfo: customerInfo, session: req.session, active_memberships: active_combined, inactive_memberships: inactive_combined});
     }
     catch (error) {
         next(error);    
