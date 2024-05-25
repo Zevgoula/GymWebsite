@@ -23,7 +23,16 @@
         <li><a href="/home/#contact_form">Contact</a></li>
         {{#if userId}}
             <li><a href="/logout">Logout</a></li>
-            <li><a href="/account_page">Account</a></li>
+            {{!-- <li><a href="/account_page">Account</a></li>  this works-old --}}
+            {{!-- CHANGES FOR DROPDOWN --}}
+            <li><a href="#">Account &dtrif;</a>
+                <ul class="dropdown">
+                    <li><a class = "dropdow-element" href="/account_page">Account</a></li>
+                    <li><a class = "dropdow-element" href="/customer_schedule">View Your Schedule</a></li>
+                    <li><a class = "dropdow-element" href="/customer_profile">Profile</a></li>
+                    <li><a class = "dropdow-element" href="/customer_settings">Settings</a></li>
+                </ul>
+            </li>
         {{else}}
             <li><a href="/login">Login</a></li>
         {{/if}}
