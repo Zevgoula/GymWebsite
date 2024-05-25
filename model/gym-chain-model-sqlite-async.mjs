@@ -83,6 +83,7 @@ export let isAdmin = async function (username) {
     }
 }
 
+//Get all the information of the gyms
 export let getGymsInfo = async function () {
     const stmt = await sql.prepare("SELECT * FROM Gym");
     try {
@@ -94,6 +95,7 @@ export let getGymsInfo = async function () {
     }
 }
 
+//Get all the information of the classes
 export let getClassesInfo = async function () {
     const stmt = await sql.prepare("SELECT * FROM Class");
     try {
@@ -105,6 +107,7 @@ export let getClassesInfo = async function () {
     }
 }
 
+//Get all the information of the memberships
 export let getMembershipsInfo = async function () {
     const stmt = await sql.prepare("SELECT * FROM Membership");
     try {
@@ -116,6 +119,7 @@ export let getMembershipsInfo = async function () {
     }
 }
 
+//Get the information of the membership with the given ID
 export let getMembershipInfofromID = async function (membershipId) {
     const stmt = await sql.prepare("SELECT * FROM Membership WHERE membership_id = ?");
     try {
@@ -167,6 +171,7 @@ export let getCustomerIDFromUsername = async function (username) {
     }
 }
 
+//Get the information of the customer with the given username
 export let getCustomerInfo = async function (username) {
     const stmt = await sql.prepare("SELECT * FROM Customer WHERE username = ?");
     try {
@@ -178,6 +183,7 @@ export let getCustomerInfo = async function (username) {
     }
 }
 
+//Update the personal information of the customer
 export let updatePersonalInfo = async function (username, phone_number, address, city, state, zip_code) {
     const stmt = await sql.prepare("UPDATE Customer SET phone_number = ?, address = ?, city = ?, state = ?, zip_code = ? WHERE username = ?");
     try {
@@ -188,6 +194,7 @@ export let updatePersonalInfo = async function (username, phone_number, address,
     }
 }
 
+//Add a new payment information(NOT USED ANYWHERE FOR NOW)
 export let addPaymentInfo = async function (username, ccn, cvv,  exp_date) {
     const stmt = await sql.prepare("INSERT INTO Payment_info (username, ccn, cvv, exp_date) VALUES (?, ?, ?, ?)");
     try {
@@ -198,6 +205,7 @@ export let addPaymentInfo = async function (username, ccn, cvv,  exp_date) {
     }
 }
 
+//Buy a membership
 export let buyMembership = async function (customerId, membershipId) {
     const membershipInfo = await getMembershipInfofromID(membershipId);
     const current_date = new Date();
@@ -225,6 +233,7 @@ export let buyMembership = async function (customerId, membershipId) {
         throw err;
     }
 }
+
 
 export let checkIfCustomerHasMembership = async function (customerId, membershipId) {
     const purchaseId = await getPurchaseIDs(customerId, membershipId);
