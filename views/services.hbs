@@ -6,20 +6,14 @@
 <div class="services">
     {{#each classes}}
         <div class="service">
-            <a href="/memberships/{{../gym_id}}/{{this.class_id}}">
+            <a href="/memberships/{{../gym.location}}/{{this.name}}">
                 <h3>
-                    {{name}}
+                    {{this.name}}
                 </h3>
             </a>
 
         </div>
     {{/each}}
 </div>
-<button class="anim_button" onclick="loadAnotherFile()"><span></span>LEARN MORE</button>
-<script>
-    function loadAnotherFile() {
-        // Load the other HTML file here
-        window.location.href = "/about_classes";
-    }
-</script>
-</button>
+<button class="anim_button" onclick="window.location.href = '/about_classes'"><span></span>LEARN MORE</button>
+

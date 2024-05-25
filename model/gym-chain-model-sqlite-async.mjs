@@ -241,26 +241,26 @@ export let checkIfCustomerHasMembership = async function (customerId, membership
     }
 }
 
-export let checkIfMembershipIsActive = async function (customerId, membershipId, purchaseId) {
-    const stmt = await sql.prepare("SELECT exp_date FROM BUYS WHERE customer_id = ? AND membership_id = ? AND purchase_id = ?");
-    try {
-        const exp_date_obj = await stmt.get(customerId, membershipId, purchaseId);
-        const currentDate = new Date();
+// export let checkIfMembershipIsActive = async function (customerId, membershipId, purchaseId) {
+//     const stmt = await sql.prepare("SELECT exp_date FROM BUYS WHERE customer_id = ? AND membership_id = ? AND purchase_id = ?");
+//     try {
+//         const exp_date_obj = await stmt.get(customerId, membershipId, purchaseId);
+//         const currentDate = new Date();
 
-        const expirationDate = stringToDate(exp_date_obj.exp_date);
-        // console.log('Current date: ', currentDate);
-        // console.log('Expiration date: ', expirationDate);
+//         const expirationDate = stringToDate(exp_date_obj.exp_date);
+//         // console.log('Current date: ', currentDate);
+//         // console.log('Expiration date: ', expirationDate);
 
-        if (currentDate > expirationDate) {
-            return false;
-        } else {
-            return true;
-}
-    } 
-    catch (err) {
-        throw err;
-    }
-}
+//         if (currentDate > expirationDate) {
+//             return false;
+//         } else {
+//             return true;
+// }
+//     } 
+//     catch (err) {
+//         throw err;
+//     }
+// }
 
 export let getPurchaseIDs = async function (customerId, membershipId) {
     const stmt = await sql.prepare("SELECT purchase_id FROM BUYS WHERE customer_id = ? AND membership_id = ?");
@@ -700,6 +700,39 @@ export let clearSchedule = async function (customerId) {
     const stmt = await sql.prepare("DELETE FROM BOOKS WHERE customer_id = ?");
     try {
         await stmt.run(customerId);
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getGymFromLocation = async function (location) {
+    const stmt = await sql.prepare("SELECT * FROM GYM WHERE location = ?");
+    try {
+        const gym = await stmt.get(location);
+        return gym;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getClassFromName = async function (name) {
+    const stmt = await sql.prepare("SELECT * FROM CLASS WHERE name = ?");
+    try {
+        const classInfo = await stmt.get(name);
+        return classInfo;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
+export let getMembership = async function (membershipId) {
+    const stmt = await sql.prepare("SELECT * FROM MEMBERSHIP WHERE membership_id = ?");
+    try {
+        const membership = await stmt.get(membershipId);
+        return membership;
     }
     catch (err) {
         throw err;
