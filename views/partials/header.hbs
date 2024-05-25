@@ -18,8 +18,17 @@
             <li><a href="/login">Join Now</a></li>
         {{/if}}
         <li><a href="/about_classes">Gym Services</a></li>
-        {{!-- Needs to be removed or changed to something elese /memberships doesn't exist anymore --}}
-        {{!-- <li><a href="/memberships">Memberships</a></li> --}}
+        {{#if userId}}
+            {{#if homeGym}}
+                {{#with homeGym}}
+                    <li><a href="/gymLab_schedule/{{location}}">Gym Lab Schedule</a></li>
+                {{/with}}
+            {{else}}
+                <li><a href="/gymLab_schedule/ATHENS">Gym Lab Schedule</a></li>
+            {{/if}}
+        {{else}}
+            <li><a href="/gymLab_schedule/ATHENS">Gym Lab Schedule</a></li>
+        {{/if}}
         <li><a href="/home/#contact_form">Contact</a></li>
         {{#if userId}}
             <li><a href="/logout">Logout</a></li>
@@ -27,6 +36,7 @@
         {{else}}
             <li><a href="/login">Login</a></li>
         {{/if}}
+        
         {{#if userId}}
             {{#unless onlyWeightlifting}}
                 <li><a href="/customer_schedule">View Your Schedule</a></li>

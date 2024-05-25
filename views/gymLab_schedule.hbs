@@ -1,0 +1,58 @@
+
+
+{{#unless userId}}
+    <button type="button" onclick="window.location.href='/gymLab_schedule/ATHENS'"><span></span>ATHENS</button>
+    <button type="button" onclick="window.location.href='/gymLab_schedule/PATRA'"><span></span>PATRA</button>
+    <button type="button" onclick="window.location.href='/gymLab_schedule/KARPENISI'"><span></span>KARPENISI</button>
+
+{{else}}
+    {{#if homeGym}}
+        <h1 style="color:aliceblue">{{homeGym.location}} SCHEDULE</h1>
+    {{else}}
+        <button type="button" onclick="window.location.href='/gymLab_schedule/ATHENS'"><span></span>ATHENS</button>
+        <button type="button" onclick="window.location.href='/gymLab_schedule/PATRA'"><span></span>PATRA</button>
+        <button type="button" onclick="window.location.href='/gymLab_schedule/KARPENISI'"><span></span>KARPENISI</button>
+    {{/if}}
+{{/unless}}
+
+
+
+<div class="schedule-container">
+
+    <div class="schedule-header">
+        <div class="schedule-cell"></div>
+        <div class="schedule-cell">Monday</div>
+        <div class="schedule-cell">Tuesday</div>
+        <div class="schedule-cell">Wednesday</div>
+        <div class="schedule-cell">Thursday</div>
+        <div class="schedule-cell">Friday</div>
+        <div class="schedule-cell">Saturday</div>
+    </div>
+
+    {{!-- For each timeslot --}}
+    {{#each timeSlots}}
+        <div class="schedule-row">
+            {{!-- Display every timeslot --}}
+            <div class="schedule-cell">{{this}}</div>
+            {{!-- For each day --}}
+            {{#each ../days}}
+                <div class="schedule-cell">
+                    {{!-- For each object in schedule --}}
+                    {{#each ../../schedule}}
+                    {{!-- if schedule.day == days.day --}}
+                        {{#if_eq this.day ../this}}
+                        {{!-- if schedule.time == timeSlots.time --}}
+                            {{#if_eq this.time ../../this}}
+                            {{!-- Display schedule.name --}}
+                                
+                                {{this.name}}
+                                
+                            {{/if_eq}}
+                        {{/if_eq}}
+                    {{/each}}
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
+
+</div>

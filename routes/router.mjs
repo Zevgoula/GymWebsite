@@ -76,6 +76,9 @@ router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainCon
 router.route('/schedule').get(gymChainController.showBookSchedule);
 router.route('/schedule').post(gymChainController.doBookSchedule);
 
+//General Schedule
+router.route('/gymLab_schedule/:selectedgym').get(gymChainController.showGeneralSchedule);
+
 //Customer Schedule
 router.get('/customer_schedule', gymChainController.viewSchedule);
 

@@ -126,6 +126,7 @@ export async function selectGym(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const gymInfo = await model.getGymsInfo();
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
         res.render('joinNow', { onlyWeightlifting: onlyWeightlifting, gyms: gymInfo, session: req.session });
     }
@@ -142,6 +143,11 @@ export async function selectClass(req, res, next) {
 
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
+        if (!homeGym)
+            {
+                const gym_obj = await model.getGymFromLocation(selectedgym.location);
+                await model.setHomeGym(customerID, gym_obj.gym_id);
+            }
         const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
 
         const classInfo = await model.getClassesInfo();
@@ -278,12 +284,7 @@ export async function doPaymentInfo(req, res, next) {
         const selectedgym = req.params.selectedgym;
 
         console.log('selected membership ' + selectedmembershipID);
-        const homeGym = await model.getHomeGym(customerID);
-        if (!homeGym)
-            {
-                const gym_obj = await model.getGymFromLocation(selectedgym);
-                await model.setHomeGym(customerID, gym_obj.gym_id);
-            }
+        
             
         await model.buyMembership(customerID, selectedmembershipID);
         console.log('Membership bought');
@@ -457,6 +458,33 @@ export async function showMessage(req, res, next) {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
         res.render('message', {homeGym: homeGym,  message: message, session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function showGeneralSchedule(req, res, next) {
+    try {
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+
+        let schedule;
+        if (homeGym == undefined) {
+            let location = req.params.selectedgym;
+            location = location.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+
+            schedule = await model.getSchedule(location);
+        }
+        else {
+            let location = homeGym.location;
+            location = location.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+            schedule = await model.getSchedule(location);
+        }
+        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
+        res.render('gymLab_schedule', {onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
     }
     catch (error) {
         next(error);

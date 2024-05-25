@@ -547,11 +547,11 @@ export let getMembershipInfoFromCustomerIDAndClassID = async function (customerI
 }
 
 //OLD
-export let getSchedule = async function (location, className) {
-    const stmt = await sql.prepare("SELECT REPRESENTS.session_id, SESSION.day, SESSION.time, REPRESENTS.class_id, CLASS.name, SESSION.location FROM SESSION JOIN REPRESENTS JOIN CLASS ON SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id WHERE location = ? and name = ?");
+export let getSchedule = async function (location) {
+    const stmt = await sql.prepare("SELECT REPRESENTS.session_id, SESSION.day, SESSION.time, REPRESENTS.class_id, CLASS.name, SESSION.location FROM SESSION JOIN REPRESENTS JOIN CLASS ON SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id WHERE location = ?");
     
     try {
-        const schedule = await stmt.all(location, className);
+        const schedule = await stmt.all(location);
         return schedule;
     }
     catch (err) {
