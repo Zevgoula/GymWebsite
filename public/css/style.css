@@ -43,7 +43,7 @@ body{
    display: flex;
    align-items: center;
    justify-content: space-between;
-   padding: 2% 6%;
+   padding: 2% 10%;
 }
 
  .logo{
@@ -100,7 +100,9 @@ body{
    min-width: 250%;
    text-align: left;
    padding-top: 20%;
+   background-color: #2c2c2ccc;
    box-shadow: 0px 3px 5px -1px #ffffff;
+   border-radius: 15px;
 }
 
 .header_navbar ul li ul li {
