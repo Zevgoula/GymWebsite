@@ -17,10 +17,10 @@ router.route('/').get((req, res) => {
 router.get('/home', gymChainController.home);
 
 //Admin home
-router.get('/admin_home', gymChainController.admin_home);
+router.get('/admin_home', gymChainController.adminHome);
 
 //Gym Benefits
-router.get('/about_classes', gymChainController.about_classes);
+router.get('/about_classes', gymChainController.showGymServices);
 
 //About page (Not implemented)
 router.get('/about_page', gymChainController.showAboutPage);

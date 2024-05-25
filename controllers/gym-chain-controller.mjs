@@ -18,7 +18,7 @@ export async function home(req, res, next) {
     }
 }
 
-export async function admin_home(req, res, next) {
+export async function adminHome(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const message = req.session.message;
@@ -30,7 +30,7 @@ export async function admin_home(req, res, next) {
     }
 }        
 
-export async function about_classes(req, res, next) {
+export async function showGymServices(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
