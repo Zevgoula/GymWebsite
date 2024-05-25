@@ -188,6 +188,7 @@ export async function showPersonalInfoForm(req, res, next) {
         // Get the selected gym, class and membership IDs
         const selectedgym = req.params.selectedgym;
         const selectedclass = req.params.selectedclass;
+
         const selectedmembershipID = req.params.selectedmembershipID;
         console.log('selected membership ' + selectedmembershipID);
 
@@ -198,16 +199,17 @@ export async function showPersonalInfoForm(req, res, next) {
         // Get the active classes of the customer
         const activeClasses = await model.getActiveClassesIDsFromCustomerID(customerID);
         let m_flag = false;
+        const class_obj = await model.getClassFromName(selectedclass);
         // Check if the selected class is already in the active classes
         for (let i = 0; i < activeClasses.length; i++) {
-            if (activeClasses[i].class_id == selectedclass) {
+            if (activeClasses[i].class_id == class_obj.class_id) {
                 m_flag = true;
                 break;
             }
         }
 
         // Get name and expiration date of the membership that the customer already has
-        const class_obj = await model.getClassFromName(selectedclass);
+        
         const m_info = await model.getMembershipInfoFromCustomerIDAndClassID(customerID, class_obj.class_id);
         const selectedMembershipLength = await model.getMembershipLengthFromID(selectedmembershipID);
 
