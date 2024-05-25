@@ -490,7 +490,7 @@ export async function showGeneralSchedule(req, res, next) {
         const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
-        res.render('gymLab_schedule', {onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        res.render('gymLab_schedule', {selectGym: req.params.selectedgym, monlyWeightlifting: onlyWeightlifting, homeGym: homeGym, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
     }
     catch (error) {
         next(error);
