@@ -485,7 +485,12 @@ export let getAllActiveMembershipsFromCustomerID = async function (customerId) {
     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ? AND exp_date > date('now')");
     try {
         const memberships = await stmt.all(customerId);
-        return memberships;
+        if (memberships.length === 0) {
+            return undefined;
+        }
+        else {
+            return memberships;
+        }
     } 
     catch (err) {
         throw err;
@@ -507,7 +512,12 @@ export let getAllInactiveMembershipsFromCustomerID = async function (customerId)
     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ? AND exp_date < date('now')");
     try {
         const memberships = await stmt.all(customerId);
-        return memberships;
+        if (memberships.length === 0) {
+            return undefined;
+        }
+        else {
+            return memberships;
+        }
     } 
     catch (err) {
         throw err;

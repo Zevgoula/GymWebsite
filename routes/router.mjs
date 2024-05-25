@@ -24,7 +24,7 @@ router.get('/admin_home', gymChainController.admin_home);
 router.get('/about_classes', gymChainController.about_classes);
 
 //About page (Not implemented)
-router.get('/about_page', gymChainController.about_page);
+router.get('/about_page', gymChainController.showAboutPage);
 
 //Account page 
 router.get('/account_page', gymChainController.showAccountPage);

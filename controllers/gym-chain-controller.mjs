@@ -158,8 +158,11 @@ export async function selectMembership(req, res, next) {
         //Get the membership Information for the selected class (all classes have 3 memberships)
         const class_obj = await model.getClassFromName(selectedclass);
         const membershipsInfo = await model.getMembershipsInfofromClassID(class_obj.class_id);
+
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
         
-        res.render('memberships', { gym: selectedgym, class: selectedclass, membershipsInfo: membershipsInfo, session: req.session });
+        res.render('memberships', { homeGym:homeGym, gym: selectedgym, class: selectedclass, membershipsInfo: membershipsInfo, session: req.session });
     }
     catch (error) {
         next(error);
@@ -177,10 +180,10 @@ export async function showPersonalInfoForm(req, res, next) {
         const selectedmembershipID = req.params.selectedmembershipID;
 
         // Get the customer id from the username
-        const customer_id = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
 
         // Get the active classes of the customer
-        const activeClasses = await model.getActiveClassesIDsFromCustomerID(customer_id);
+        const activeClasses = await model.getActiveClassesIDsFromCustomerID(customerID);
         let m_flag = false;
         // Check if the selected class is already in the active classes
         for (let i = 0; i < activeClasses.length; i++) {
@@ -192,15 +195,18 @@ export async function showPersonalInfoForm(req, res, next) {
 
         // Get name and expiration date of the membership that the customer already has
         const class_obj = await model.getClassFromName(selectedclass);
-        const m_info = await model.getMembershipInfoFromCustomerIDAndClassID(customer_id, class_obj.class_id);
+        const m_info = await model.getMembershipInfoFromCustomerIDAndClassID(customerID, class_obj.class_id);
         const selectedMembershipLength = await model.getMembershipLengthFromID(selectedmembershipID);
+
+        
+        const homeGym = await model.getHomeGym(customerID);
 
         // Render the correct page based on the flag
         if (m_flag) {
-            res.render('extend_membership', { m_info: m_info, length: selectedMembershipLength, customerID: customer_id, session: req.session });
+            res.render('extend_membership', { homeGym: homeGym, m_info: m_info, length: selectedMembershipLength, customerID: customerID, session: req.session });
         }
         else{
-            res.render('personal_info', { gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
+            res.render('personal_info', { homeGym: homeGym, gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
 
         }
     }
@@ -240,7 +246,10 @@ export async function doPersonalInfo(req, res, next) {
         const selectedclass = req.params.selectedclass;
         const selectedmembershipID = req.params.selectedmembershipID;
 
-        res.render('payment_info', { gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+
+        res.render('payment_info', { homeGym: homeGym, gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
     }
     catch (error) {
         next(error);
@@ -283,30 +292,34 @@ export async function showAccountPage(req, res, next) {
         const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
         const activeMemberships = await model.getAllActiveMembershipsFromCustomerID(customerInfo.customer_id);
         const inactiveMemberships = await model.getAllInactiveMembershipsFromCustomerID(customerInfo.customer_id);
-        // console.log('Active memberships: ', activeMemberships);
+        console.log('Active memberships: ', activeMemberships);
 
         let active_names = [];
-        for (let i = 0; i < activeMemberships.length; i++) {
-            active_names.push(await model.getClassNameFromMembershipID(activeMemberships[i].membership_id));
-        }
-        const active_combined = activeMemberships.map((item, i) => {
-            return {
-                ...item,
-                name: active_names[i]
+        let active_combined;
+        if (activeMemberships != undefined){
+            for (let i = 0; i < activeMemberships.length; i++) {
+                active_names.push(await model.getClassNameFromMembershipID(activeMemberships[i].membership_id));
             }
-        });
-
+             active_combined = activeMemberships.map((item, i) => {
+                return {
+                    ...item,
+                    name: active_names[i]
+                }
+            });
+        }
         let inactive_names = [];
-        for (let i = 0; i < inactiveMemberships.length; i++) {
-            inactive_names.push(await model.getClassNameFromMembershipID(inactiveMemberships[i].membership_id));
-        }
-        const inactive_combined = inactiveMemberships.map((item, i) => {
-            return {
-                ...item,
-                name: inactive_names[i]
+        let inactive_combined;
+        if (inactiveMemberships != undefined){
+            for (let i = 0; i < inactiveMemberships.length; i++) {
+                inactive_names.push(await model.getClassNameFromMembershipID(inactiveMemberships[i].membership_id));
             }
-        });
-
+            const inactive_combined = inactiveMemberships.map((item, i) => {
+                return {
+                    ...item,
+                    name: inactive_names[i]
+                }
+            });
+        }
         // console.log('Combined: ', combined);
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
@@ -318,7 +331,7 @@ export async function showAccountPage(req, res, next) {
 }
 
 //Has to be lead somewhere (mallon skip)
-export async function about_page(req, res, next) {
+export async function showAboutPage(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
         res.render('about_page', { session: req.session });
@@ -328,7 +341,6 @@ export async function about_page(req, res, next) {
     }
 }
 
-//Only loads the template, no connection to the database
 export async function doContact(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
@@ -347,8 +359,10 @@ export async function showBookSchedule(req, res, next) {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
         const memberships = await model.getAllActiveMembershipsFromCustomerID(customerID);
+        // console.log('memberships: ' + memberships[0].membership_id);
+        console.log('Type of memberships: ' + typeof memberships);
 
-        if (!memberships) {
+        if (memberships) {
             // Setting every letter to lowercase and then capitalizing the first letter of each word
             let homeGymName = homeGym.location;
             homeGymName = homeGymName.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
@@ -378,17 +392,21 @@ export async function doBookSchedule(req, res, next) {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const sessionIDs = req.body.sessionIDs.split(',');
         console.log('sessionIDs: ' + sessionIDs);
-        if (sessionIDs) {
+        if (sessionIDs == null || sessionIDs == '') {
             req.session.message = 'You have to select at least one session';
             res.redirect('/schedule');
 
         }
-        for (let i = 0; i < sessionIDs.length; i++) {
+        else {
+            for (let i = 0; i < sessionIDs.length; i++) {
             
-            await model.bookSession(customerID, parseInt(sessionIDs[i]));
-            console.log('session id: ' + parseInt(sessionIDs[i]));
+                await model.bookSession(customerID, parseInt(sessionIDs[i]));
+                console.log('session id: ' + parseInt(sessionIDs[i]));
+                res.redirect('/customer_schedule');
+            }
+            
         }
-        res.redirect('/customer_schedule');
+        
     }
     catch (error) {
         next(error);
@@ -402,7 +420,8 @@ export async function viewSchedule(req, res, next) {
         const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const homeGym = await model.getHomeGym(customerID);
-        res.render('schedule', { homeGym:homeGym, view: true, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        const memberships = await model.getAllActiveMembershipsFromCustomerID(customerID);
+        res.render('schedule', { memberships: memberships, homeGym:homeGym, view: true, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
     }
     catch (error) {
         next(error);
@@ -426,7 +445,9 @@ export async function showMessage(req, res, next) {
     try {
         const message = req.session.message;
         req.session.message = null;
-        res.render('message', { message: message, session: req.session });
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+        res.render('message', {homeGym: homeGym,  message: message, session: req.session });
     }
     catch (error) {
         next(error);
