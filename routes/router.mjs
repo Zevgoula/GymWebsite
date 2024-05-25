@@ -13,17 +13,33 @@ router.route('/').get((req, res) => {
     res.redirect('/home') 
 });
 
-//Home page
-router.get('/home', gymChainController.home);
 
-//Admin home
-router.get('/admin_home', gymChainController.adminHome);
+// //Show book form
+// router.route('/book').get(gymChainController.showBookForm);
+// //Post request for book form
+// router.route('/book').post(gymChainController.doBookForm);
 
-//Gym Benefits
-router.get('/about_classes', gymChainController.showGymServices);
+//Available hours
+// router.route('/available_hours/:classDate/:classLocation').get(gymChainController.showTimesForm);
+//Post request for available hours form
+// router.route('/available_hours/:classDate/:classLocation').post(gymChainController.doTimesForm);
 
 //About page (Not implemented)
-router.get('/about_page', gymChainController.showAboutPage);
+// router.get('/about_page', gymChainController.showAboutPage);
+
+//Admin home
+// router.get('/admin_home', gymChainController.adminHome);
+
+//Show payment info form
+// router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipID').get(gymChainController.showPaymentInfoForm);
+
+//Home page
+router.get('/home', gymChainController.home);
+//Post request for contact form
+router.route('/home').post(gymChainController.doContact);
+
+//Gym Services
+router.get('/about_classes', gymChainController.showGymServices);
 
 //Account page 
 router.get('/account_page', gymChainController.showAccountPage);
@@ -44,29 +60,12 @@ router.route('/memberships/:selectedgym/:selectedclass').get(gymChainController.
 router.route('/personal_info/:selectedgym/:selectedclass/:selectedmembershipID').get(gymChainController.showPersonalInfoForm);
 //Post request for personal info
 router.route('/personal_info/:selectedgym/:selectedclass/:selectedmembershipID').post(gymChainController.doPersonalInfo);
-
-
-//Show payment info form
-// router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipID').get(gymChainController.showPaymentInfoForm);
 //Post request for payment info
 router.route('/payment_info/:selectedgym/:selectedclass/:selectedmembershipID').post(gymChainController.doPaymentInfo);
 
-//Post request for contact form
-router.route('/home').post(gymChainController.doContact);
 
 //Show message
 router.route('/message').get(gymChainController.showMessage);
-
-
-// //Show book form
-// router.route('/book').get(gymChainController.showBookForm);
-// //Post request for book form
-// router.route('/book').post(gymChainController.doBookForm);
-
-//Available hours
-// router.route('/available_hours/:classDate/:classLocation').get(gymChainController.showTimesForm);
-//Post request for available hours form
-// router.route('/available_hours/:classDate/:classLocation').post(gymChainController.doTimesForm);
 
 //Extend_membership
 router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainController.extendMembership);
@@ -74,10 +73,8 @@ router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainCon
 //Booking Schedule
 router.route('/schedule').get(gymChainController.showBookSchedule);
 router.route('/schedule').post(gymChainController.doBookSchedule);
-
 //General Schedule
 router.route('/gymLab_schedule/:selectedgym').get(gymChainController.showGeneralSchedule);
-
 //Customer Schedule
 router.get('/customer_schedule', gymChainController.viewSchedule);
 

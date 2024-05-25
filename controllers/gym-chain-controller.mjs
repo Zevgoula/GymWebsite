@@ -1,47 +1,32 @@
 import session from 'express-session';
 import * as model from '../model/gym-chain-model-sqlite-async.mjs';
 
-export async function home(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const message = req.session.message;
-        req.session.message = null; 
 
-        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const homeGym = await model.getHomeGym(customerID);
-        const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
-        // console.log(homeGym);
-        res.render('home', { onlyWeightlifting: onlyWeightlifting, homeGym:homeGym, message: message, session: req.session});
-    }
-    catch (error) {
-        next(error);
-    }
-}
 
-export async function adminHome(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const message = req.session.message;
-        req.session.message = null; 
-        res.render('admin_home', { message: message, session: req.session});
-    }
-    catch (error) {
-        next(error);
-    }
-}        
 
-export async function showGymServices(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        const homeGym = await model.getHomeGym(customerID);
-        const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
-        res.render('about_classes', { onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, session: req.session });
-    }
-    catch (error) {
-        next(error);
-    }
-}
+//Has to be lead somewhere (mallon skip)
+// export async function showAboutPage(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         res.render('about_page', { session: req.session });
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
+
+
+// export async function adminHome(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const message = req.session.message;
+//         req.session.message = null; 
+//         res.render('admin_home', { message: message, session: req.session});
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// } 
 
 // export async function showBookForm(req, res, next) {
 //     try {
@@ -110,6 +95,50 @@ export async function showGymServices(req, res, next) {
 //         next(error);
 //     }
 // }
+
+//Only loads the template, no connection to the database
+// export async function showPaymentInfoForm(req, res, next) {
+//     try {
+//         req.session.previousPage = req.originalUrl;
+//         const selectedgymID = req.params.selectedgymID;
+//         const selectedclassID = req.params.selectedclassID;
+//         const selectedmembershipID = req.params.selectedmembershipID;
+//         res.render('payment_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
+//     }
+//     catch (error) {
+//         next(error);
+//     }
+// }
+
+
+export async function home(req, res, next) {
+    try {
+        req.session.previousPage = req.originalUrl;
+        const message = req.session.message;
+        req.session.message = null; 
+
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+        const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
+        res.render('home', { onlyWeightlifting: onlyWeightlifting, homeGym:homeGym, message: message, session: req.session});
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function showGymServices(req, res, next) {
+    try {
+        req.session.previousPage = req.originalUrl;
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+        const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
+        res.render('about_classes', { onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, session: req.session });
+    }
+    catch (error) {
+        next(error);
+    }
+}
 
 export async function extendMembership(req, res, next) {
     try {
@@ -183,7 +212,6 @@ export async function selectMembership(req, res, next) {
     }
 }
 
-
 export async function showPersonalInfoForm(req, res, next) {
     try {
         // Keep track of the previous page
@@ -232,20 +260,6 @@ export async function showPersonalInfoForm(req, res, next) {
         next(error);
     }
 }
-
-//Only loads the template, no connection to the database
-// export async function showPaymentInfoForm(req, res, next) {
-//     try {
-//         req.session.previousPage = req.originalUrl;
-//         const selectedgymID = req.params.selectedgymID;
-//         const selectedclassID = req.params.selectedclassID;
-//         const selectedmembershipID = req.params.selectedmembershipID;
-//         res.render('payment_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
-//     }
-//     catch (error) {
-//         next(error);
-//     }
-// }
 
 export async function doPersonalInfo(req, res, next) {
     try {
@@ -346,17 +360,6 @@ export async function showAccountPage(req, res, next) {
     }
 }
 
-//Has to be lead somewhere (mallon skip)
-export async function showAboutPage(req, res, next) {
-    try {
-        req.session.previousPage = req.originalUrl;
-        res.render('about_page', { session: req.session });
-    }
-    catch (error) {
-        next(error);
-    }
-}
-
 export async function doContact(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
@@ -448,8 +451,6 @@ export async function deleteMembership(req, res, next) {
     try {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         await model.deleteMembership(customerID, req.params.membershipID);
-        // console.log(req.params.membershipID);
-        // console.log('Membership deleted');
         res.redirect('/account_page');
     }
     catch (error) {
@@ -490,7 +491,7 @@ export async function showGeneralSchedule(req, res, next) {
         const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
-        res.render('gymLab_schedule', {selectGym: req.params.selectedgym, monlyWeightlifting: onlyWeightlifting, homeGym: homeGym, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        res.render('gymLab_schedule', {selectedGym: req.params.selectedgym, monlyWeightlifting: onlyWeightlifting, homeGym: homeGym, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
     }
     catch (error) {
         next(error);
