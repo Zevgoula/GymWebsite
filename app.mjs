@@ -21,7 +21,7 @@ app.use(express.static('public'))
 app.use((req, res, next) => {
   if (req.session) {
      res.locals.userId = req.session.loggedUserId;
-    //  req.session.customerID = await gymChainController.getCustomerID(req.session.loggedUserId);
+    
   } else {
      res.locals.userId = 'visitor';
   }

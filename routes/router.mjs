@@ -3,7 +3,6 @@ const router = express.Router();
 
 import dotenv from 'dotenv'
 if (process.env.NODE_ENV !== 'production') {
-    console.log('loading .env')
     dotenv.config();
 }
 
