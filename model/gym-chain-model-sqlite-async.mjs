@@ -749,3 +749,23 @@ export let getMembership = async function (membershipId) {
     }
 }
 
+export let checkIfUserHasWeightligtingOnly = async function (customerId) {
+    
+    try {
+        const memberships = await getAllActiveMembershipsFromCustomerID(customerId);
+        if(memberships === undefined){
+            return false;
+        }
+        if (memberships.length === 1) {
+            const membershipInfo = await getMembershipInfofromID(memberships[0].membership_id);
+            return (membershipInfo.membership_id === 4 || membershipInfo.membership_id === 8 || membershipInfo.membership_id === 12) 
+        }   
+        else {
+            return false;
+        }
+    }
+    catch (err) {
+        throw err;
+    }
+}
+

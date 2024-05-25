@@ -28,7 +28,9 @@
             <li><a href="/login">Login</a></li>
         {{/if}}
         {{#if userId}}
-            <li><a href="/customer_schedule">View Your Schedule</a></li>
+            {{#unless onlyWeightlinfting}}
+                <li><a href="/customer_schedule">View Your Schedule</a></li>
+            {{/unless}}
         {{/if}}
 
     </ul>
