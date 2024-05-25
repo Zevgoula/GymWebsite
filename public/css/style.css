@@ -765,6 +765,7 @@ textarea{
    justify-content: center;
    align-items: center;
    padding-top: 100px;
+   padding-bottom: 10%;
 }
 
 .classes-title{
@@ -1260,6 +1261,45 @@ textarea{
 }
 
 .schedule-buttons-container{
-   width: 100%;
+   width: 80%;
+   height: auto;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   padding-top: 100px;
+}
+
+.schedule-buttons-container h1{
+   font-size: 3em;
+   color: white;
+   font-weight: bold;
+   text-align: center;
+   margin-top: 3%
+}
+
+.schedule-buttons-container-buttons{
+   width: 40%;
+   height: auto;
+   display: flex;
+   flex-direction: row;
+   align-items: right;
+}
+
+.gymlab-schedule-placeholder{
+   width: 80%;
+   height: auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
    align-items: center;
+   padding-top: 0%;
+   padding-bottom: 10%;
+}
+
+.extend-buttons-container{
+   height: auto;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   padding-top: 5%;
 }

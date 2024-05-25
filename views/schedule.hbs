@@ -1,8 +1,10 @@
+<div class="gymlab-schedule-placeholder">
 <form class='calendar-form' action="/schedule" method="post">
     {{#if view}}
-        <h1 style="color:rgb(255, 255, 255)">YOUR SCHEDULE</h1>
+        <h1 style="color:rgb(255, 255, 255); font-size: 5em; padding-bottom: 3%; padding-top: 7%;">YOUR SCHEDULE</h1>
     {{else}}
-        <h1 style="color:rgb(255, 255, 255)">CREATE YOUR SCHEDULE</h1>
+        <h1 style="color:rgb(255, 255, 255); font-size: 5em; padding-bottom: 2%; padding-top: 7%;">CREATE YOUR SCHEDULE</h1>
+        <h1 style="color:rgb(255, 255, 255); font-size: 2em; padding-bottom: 3%;">BOOK AN ONE-HOUR CLASS ANY DAY YOU WANT</h1>
     {{/if}}
     <div class="schedule-container">
         <div class="schedule-header">
@@ -33,7 +35,7 @@
                                 {{#if_eq this.time ../../this}}
                                 {{!-- Display schedule.name --}}
                                     {{#if ../../../view}}
-                                    
+
                                             {{this.name}}
                                         
                                     {{else}}
@@ -55,25 +57,27 @@
     </div>
     {{#if view}}
         {{#if memberships}}
-            <div class="submit-button">
+            <div class="submit-button" style=" width: auto; padding-top: 5%;">
                 <button type="button" id="submit-button" class="anim_button" onclick="window.location.href='/schedule'"><span></span>CREATE NEW SCHEDULE</button>
             </div>
         {{else}}
-            <div class="submit-button">
+            <div class="submit-button" style=" width: auto; padding-top: 5%;">
                 <button type="button" id="submit-button" class="anim_button" onclick="window.location.href='/message'"><span></span>CREATE NEW SCHEDULE</button>
             </div>
         {{/if}}
     {{else}}
-        <div class="submit-button">
-            <button type="submit" id="submit-button" class="anim_button"><span></span>CREATE SCHEDULE</button>
-        </div>
         {{#if message}}
-            <h1 style="color:rgb(255, 255, 255)">{{message}}</h1>
+            <h1 style="color:rgb(255, 255, 255); text-transform: uppercase; padding-top: 5%">{{message}}</h1>
             
         {{/if}}
+        <div class="submit-button" style=" width: auto; padding-top: 2%;">
+            <button type="submit" id="submit-button" class="anim_button"><span></span>CREATE SCHEDULE</button>
+        </div>
+        
     {{/if}}
     <input type="hidden" id="selectedSessionIDs" name="sessionIDs" value=""></input>
 </form>
+</div>
 
 <script>
 // Store selected button IDs for each date and name combination

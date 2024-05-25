@@ -1,22 +1,22 @@
 <div class="extend-membership-placeholder">
     <div class="extend-membership-title">
-        <h1>YOU ALREADY HAVE AN ACTIVE MEMBERSHIP FOR {{m_info.name}} THAT EXPIRES ON {{m_info.exp_date}} </h1> <!-- EDO THA MPEI TO CLASS POU EXEI DIALEKSEI O CUSTOMER -->
+        <h1 style="font-size: 1.5em; width: 80%; padding-left: 10%;">YOU ALREADY HAVE AN ACTIVE MEMBERSHIP FOR {{m_info.name}} THAT EXPIRES ON {{m_info.exp_date}} </h1> <!-- EDO THA MPEI TO CLASS POU EXEI DIALEKSEI O CUSTOMER -->
     </div>
-    <div class="extend-membership-form-container">
-
+    {{!-- <div class="extend-membership-form-container"> --}}
+    <div class="extend-buttons-container">
         {{#if_eq length 1}}
-            <div class="anim_button" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND MEMBERSHIP FOR ANOTHER MONTH<span></span></div>
+            <div class="anim_button" style="font-weight: 700;" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND FOR ANOTHER 1 MONTH<span></span></div>
         {{/if_eq}}
 
         {{#if_eq length 2}}
-            <div class="anim_button" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND MEMBERSHIP FOR ANOTHER 6 MONTHS<span></span></div>
+            <div class="anim_button" style="font-weight: 700;" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND FOR ANOTHER 6 MONTHS<span></span></div>
         {{/if_eq}}
 
         {{#if_eq length 3}}
-            <div class="anim_button" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND MEMBERSHIP FOR ANOTHER 12 MONTHS<span></span></div>
+            <div class="anim_button" style="font-weight: 700;" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND FOR ANOTHER 12 MONTHS<span></span></div>
         {{/if_eq}}
         
-        <div class="anim_button" onclick="window.location.href='/home'">GO HOME<span></span>
+        <div class="anim_button" style="font-weight: 700;" onclick="window.location.href='/home'">GO HOME<span></span></div>
     </div>
-    </div>
+    {{!-- </div> --}}
 </div>
