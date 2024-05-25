@@ -55,6 +55,9 @@ router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipI
 //Post request for contact form
 router.route('/home').post(gymChainController.doContact);
 
+//Show message
+router.route('/message').get(gymChainController.showMessage);
+
 
 // //Show book form
 // router.route('/book').get(gymChainController.showBookForm);

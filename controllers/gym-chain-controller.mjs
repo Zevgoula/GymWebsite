@@ -137,8 +137,11 @@ export async function selectClass(req, res, next) {
         const selectedgymID = req.params.selectedgymID;
         console.log('selected gym '+selectedgymID);
 
+        const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
+        const homeGym = await model.getHomeGym(customerID);
+
         const classInfo = await model.getClassesInfo();
-        res.render('services', { gym_id: selectedgymID, classes: classInfo, session: req.session });
+        res.render('services', { homeGym: homeGym, gym_id: selectedgymID, classes: classInfo, session: req.session });
     }
     catch (error) {
         next(error);
@@ -339,17 +342,26 @@ export async function showBookSchedule(req, res, next) {
         
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
+        const memberships = await model.getAllActiveMembershipsFromCustomerID(customerID);
+
+        if (!memberships) {
+            // Setting every letter to lowercase and then capitalizing the first letter of each word
+            let homeGymName = homeGym.location;
+            homeGymName = homeGymName.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+            await model.clearSchedule(customerID);
+            const schedule = await model.getBookableSessions(customerID, homeGymName);
+            const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const message = req.session.message;
+            req.session.message = null;
+            
+            res.render('schedule', { message: message, homeGym:homeGym, view: false, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        }
+        else {
+            req.session.message = 'You have to buy a membership first';
+            res.redirect('/message');
+        }
         
-        // Setting every letter to lowercase and then capitalizing the first letter of each word
-        let homeGymName = homeGym.location;
-        homeGymName = homeGymName.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-        await model.clearSchedule(customerID);
-        const schedule = await model.getBookableSessions(customerID, homeGymName);
-        const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
-        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        
-        
-        res.render('schedule', { homeGym:homeGym, view: false, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
 
     }
     catch (error) {
@@ -361,6 +373,12 @@ export async function doBookSchedule(req, res, next) {
     try {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const sessionIDs = req.body.sessionIDs.split(',');
+        console.log('sessionIDs: ' + sessionIDs);
+        if (sessionIDs) {
+            req.session.message = 'You have to select at least one session';
+            res.redirect('/schedule');
+
+        }
         for (let i = 0; i < sessionIDs.length; i++) {
             
             await model.bookSession(customerID, parseInt(sessionIDs[i]));
@@ -394,6 +412,17 @@ export async function deleteMembership(req, res, next) {
         // console.log(req.params.membershipID);
         // console.log('Membership deleted');
         res.redirect('/account_page');
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+export async function showMessage(req, res, next) {
+    try {
+        const message = req.session.message;
+        req.session.message = null;
+        res.render('message', { message: message, session: req.session });
     }
     catch (error) {
         next(error);
