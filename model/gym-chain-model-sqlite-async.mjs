@@ -749,14 +749,15 @@ export let getMembership = async function (membershipId) {
     }
 }
 
-export let checkIfUserHasWeightligtingOnly = async function (customerId) {
+export let checkIfUserHasWeightliftingOnly = async function (customerId) {
     
     try {
         const memberships = await getAllActiveMembershipsFromCustomerID(customerId);
-        if(memberships === undefined){
-            return false;
+        console.log('Memberships: ', memberships);
+        if(memberships === undefined || memberships.length === 0 || memberships === null || !memberships) {
+            return true;
         }
-        if (memberships.length === 1) {
+        else if (memberships.length === 1) {
             const membershipInfo = await getMembershipInfofromID(memberships[0].membership_id);
             return (membershipInfo.membership_id === 4 || membershipInfo.membership_id === 8 || membershipInfo.membership_id === 12) 
         }   
