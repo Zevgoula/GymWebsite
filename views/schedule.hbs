@@ -45,17 +45,22 @@
 
     </div>
     {{#if view}}
-        <div class="submit-button">
-            <button type="button" id="submit-button" class="anim_button" onclick="window.location.href='/schedule'"><span></span>CREATE NEW SCHEDULE</button>
-        </div>
+        {{#if memberships}}
+            <div class="submit-button">
+                <button type="button" id="submit-button" class="anim_button" onclick="window.location.href='/schedule'"><span></span>CREATE NEW SCHEDULE</button>
+            </div>
+        {{else}}
+            <div class="submit-button">
+                <button type="button" id="submit-button" class="anim_button" onclick="window.location.href='/message'"><span></span>CREATE NEW SCHEDULE</button>
+            </div>
+        {{/if}}
     {{else}}
         <div class="submit-button">
             <button type="submit" id="submit-button" class="anim_button"><span></span>CREATE SCHEDULE</button>
         </div>
         {{#if message}}
             <h1 style="color:rgb(255, 255, 255)">{{message}}</h1>
-            <button type="button" id="buy-membership-button" class="anim_button" onclick="window.location.href='/memberships'"><span></span>BUY MEMBERSHIP</button>
-            <button type="button" id="go-home-button" class="anim_button" onclick="window.location.href='/home'"><span></span>GO HOME</button>
+            
         {{/if}}
     {{/if}}
     <input type="hidden" id="selectedSessionIDs" name="sessionIDs" value=""></input>
