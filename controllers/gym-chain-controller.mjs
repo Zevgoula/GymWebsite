@@ -480,7 +480,6 @@ export async function showGeneralSchedule(req, res, next) {
         if (homeGym == undefined) {
             let location = req.params.selectedgym;
             location = location.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
-
             schedule = await model.getSchedule(location);
         }
         else {

@@ -183,6 +183,17 @@ catch (error) {
 //     }
 // }
 
+// export let getAllActiveMemberships = async function () {
+//     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE exp_date > date('now')");
+//     try {
+//         const memberships = await stmt.all();
+//         return memberships;
+//     } 
+//     catch (err) {
+//         throw err;
+//     }
+// }
+
 
 export let getPurchaseIDs = async function (customerID, membershipID) {
     const stmt = await sql.prepare("SELECT purchase_id FROM BUYS WHERE customer_id = ? AND membership_id = ?");
@@ -202,9 +213,6 @@ export let getPurchaseIDs = async function (customerID, membershipID) {
         throw err;
     }
 }
-
-
-
 
 //Return the first user found with the given username
 export let getUserByUsername = async (username) => {
@@ -498,17 +506,6 @@ export let getClassIDFromMembershipID = async function (membershipID) {
     }
 }
 
-export let getAllActiveMemberships = async function () {
-    const stmt = await sql.prepare("SELECT * FROM BUYS WHERE exp_date > date('now')");
-    try {
-        const memberships = await stmt.all();
-        return memberships;
-    } 
-    catch (err) {
-        throw err;
-    }
-}
-
 export let getAllActiveMembershipsFromCustomerID = async function (customerID) {
     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ? AND exp_date > date('now')");
     try {
@@ -599,7 +596,7 @@ export let getBookings = async function (customerID) {
 }
 
 export let getSessionIDfromLocationDayTime = async function (location, day, time) {
-    const dayName = getdayNamefromDate(day);
+    const dayName = getDayNamefromDate(day);
     const stmt = await sql.prepare("SELECT session_id FROM SESSION WHERE location = ? AND day = ? AND time = ?");
     try {
         const sessionID = await stmt.get(location, dayName, time);
@@ -665,7 +662,7 @@ export let getClassIDFromName = async function (name) {
     }
 }
 
-export let getdayNamefromDate = function (date) {
+export let getDayNamefromDate = function (date) {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const day = new Date(date).getDay();
     return days[day];
