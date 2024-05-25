@@ -344,7 +344,7 @@ export async function showBookSchedule(req, res, next) {
         let homeGymName = homeGym.location;
         homeGymName = homeGymName.toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
         await model.clearSchedule(customerID);
-        const schedule = await model.getCustomerScheduleFromCustomerIDAndLocation(customerID, homeGymName);
+        const schedule = await model.getBookableSessions(customerID, homeGymName);
         const timeSlots = ['09:00', '10:00', '11:00','12:00', '13:00', '14:00', '15:00', '16:00', '17:00',  '18:00', '19:00', '20:00', '21:00']; 
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
         

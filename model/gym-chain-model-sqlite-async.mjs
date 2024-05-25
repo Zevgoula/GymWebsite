@@ -647,6 +647,17 @@ export let getCustomerScheduleFromCustomerIDAndLocation = async function (custom
     }
 }
 
+export let getBookableSessions = async function (customerId, location) {
+    const stmt = await sql.prepare("WITH BookableSessions AS (SELECT SESSION.session_id FROM SESSION LEFT JOIN BOOKS ON SESSION.session_id = BOOKS.session_id GROUP BY SESSION.session_id, SESSION.capacity HAVING COUNT(BOOKS.session_id) < SESSION.capacity )SELECT SESSION.session_id, CUSTOMER.customer_id, SESSION.day, SESSION.time, CLASS.name, SESSION.location FROM CUSTOMER JOIN BUYS ON CUSTOMER.customer_id = BUYS.customer_id JOIN INCLUDES ON INCLUDES.membership_id = BUYS.membership_id JOIN REPRESENTS ON INCLUDES.class_id = REPRESENTS.class_id JOIN CLASS ON CLASS.class_id = REPRESENTS.class_id JOIN SESSION ON SESSION.session_id = REPRESENTS.session_id JOIN BookableSessions ON SESSION.session_id = BookableSessions.session_id WHERE CUSTOMER.customer_id = ? AND SESSION.location = ? AND BUYS.exp_date > date('now');")
+    try {
+        const schedule = await stmt.all(customerId, location);
+        return schedule;
+    }
+    catch (err) {
+        throw err;
+    }
+}
+
 export let setHomeGym = async function (customerId, gymId) {
     const stmt = await sql.prepare("INSERT INTO BELONGS (customer_id, gym_id) VALUES (?, ?)");
     try {
