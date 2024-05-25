@@ -17,7 +17,7 @@ export let doRegister = async function (req, res) {
     try {
         const registrationResult = await userModel.registerUser(req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.email);
         if (registrationResult.message) {
-            //FIXME πρεπει να λεει οτι υπαρχει ηδη χρηστης με αυτο το ονομα
+            console.log("user already exists");
             res.render('createAccount', {layout: 'main', message: "user already exists"});
         }
         else {
@@ -27,7 +27,7 @@ export let doRegister = async function (req, res) {
     catch (error) {
         console.error('registration error: ' + error);
 
-        res.render('home', {layout: 'main'})
+        res.render('home', {layout: 'main', message: "registration error"})
     }
 }
 
