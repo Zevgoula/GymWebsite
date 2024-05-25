@@ -134,14 +134,14 @@ export async function selectGym(req, res, next) {
 export async function selectClass(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        const selectedgymID = req.params.selectedgymID;
-        console.log('selected gym '+selectedgymID);
+        const selectedgym = await model.getGymFromLocation(req.params.selectedgym);
+        console.log('selected gym '+selectedgym.location);
 
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
 
         const classInfo = await model.getClassesInfo();
-        res.render('services', { homeGym: homeGym, gym_id: selectedgymID, classes: classInfo, session: req.session });
+        res.render('services', { homeGym: homeGym, gym: selectedgym, classes: classInfo, session: req.session });
     }
     catch (error) {
         next(error);
@@ -151,28 +151,29 @@ export async function selectClass(req, res, next) {
 export async function selectMembership(req, res, next) {
     try {
         req.session.previousPage = req.originalUrl;
-        const selectedgymID = req.params.selectedgymID;
-        const selectedclassID = req.params.selectedclassID;
-        console.log('selected class ' + selectedclassID);
+        const selectedgym = req.params.selectedgym;
+        const selectedclass = req.params.selectedclass;
+        console.log('selected class ' + selectedclass);
 
         //Get the membership Information for the selected class (all classes have 3 memberships)
-        const membershipsInfo = await model.getMembershipsInfofromClassID(selectedclassID);
+        const class_obj = await model.getClassFromName(selectedclass);
+        const membershipsInfo = await model.getMembershipsInfofromClassID(class_obj.class_id);
         
-        res.render('memberships', { gym_id: selectedgymID, class_id: selectedclassID, membershipsInfo: membershipsInfo, session: req.session });
+        res.render('memberships', { gym: selectedgym, class: selectedclass, membershipsInfo: membershipsInfo, session: req.session });
     }
     catch (error) {
         next(error);
     }
 }
 
-//Only loads the template, no connection to the database
+
 export async function showPersonalInfoForm(req, res, next) {
     try {
         // Keep track of the previous page
         req.session.previousPage = req.originalUrl;
         // Get the selected gym, class and membership IDs
-        const selectedgymID = req.params.selectedgymID;
-        const selectedclassID = req.params.selectedclassID;
+        const selectedgym = req.params.selectedgym;
+        const selectedclass = req.params.selectedclass;
         const selectedmembershipID = req.params.selectedmembershipID;
 
         // Get the customer id from the username
@@ -183,14 +184,15 @@ export async function showPersonalInfoForm(req, res, next) {
         let m_flag = false;
         // Check if the selected class is already in the active classes
         for (let i = 0; i < activeClasses.length; i++) {
-            if (activeClasses[i].class_id == selectedclassID) {
+            if (activeClasses[i].class_id == selectedclass) {
                 m_flag = true;
                 break;
             }
         }
 
         // Get name and expiration date of the membership that the customer already has
-        const m_info = await model.getMembershipInfoFromCustomerIDAndClassID(customer_id, selectedclassID);
+        const class_obj = await model.getClassFromName(selectedclass);
+        const m_info = await model.getMembershipInfoFromCustomerIDAndClassID(customer_id, class_obj.class_id);
         const selectedMembershipLength = await model.getMembershipLengthFromID(selectedmembershipID);
 
         // Render the correct page based on the flag
@@ -198,7 +200,7 @@ export async function showPersonalInfoForm(req, res, next) {
             res.render('extend_membership', { m_info: m_info, length: selectedMembershipLength, customerID: customer_id, session: req.session });
         }
         else{
-            res.render('personal_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
+            res.render('personal_info', { gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
 
         }
     }
@@ -234,11 +236,11 @@ export async function doPersonalInfo(req, res, next) {
         const zip_code = req.body.zip_code;
         await model.updatePersonalInfo(req.session.loggedUserId, phone_number, address, city, state, zip_code);
 
-        const selectedgymID = req.params.selectedgymID;
-        const selectedclassID = req.params.selectedclassID;
+        const selectedgym = req.params.selectedgym;
+        const selectedclass = req.params.selectedclass;
         const selectedmembershipID = req.params.selectedmembershipID;
 
-        res.render('payment_info', { gym_id: selectedgymID, class_id: selectedclassID, membership_id: selectedmembershipID, session: req.session });
+        res.render('payment_info', { gym: selectedgym, class: selectedclass, membership_id: selectedmembershipID, session: req.session });
     }
     catch (error) {
         next(error);
@@ -254,14 +256,16 @@ export async function doPaymentInfo(req, res, next) {
         const cvv = req.body.cvv;
         // await model.addPaymentInfo(req.session.loggedUserId, ccn, cvv, exp_date);
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
-        console.log('here')
+
         const selectedmembershipID = req.params.selectedmembershipID;
-        const selectedgymID = req.params.selectedgymID;
+        const selectedgym = req.params.selectedgym;
+
         console.log('selected membership ' + selectedmembershipID);
         const homeGym = await model.getHomeGym(customerID);
         if (!homeGym)
             {
-                await model.setHomeGym(customerID, selectedgymID);
+                const gym_obj = await model.getGymFromLocation(selectedgym);
+                await model.setHomeGym(customerID, gym_obj.gym_id);
             }
             
         await model.buyMembership(customerID, selectedmembershipID);

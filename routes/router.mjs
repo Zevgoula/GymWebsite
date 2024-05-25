@@ -36,21 +36,21 @@ router.get('/acount_page/:membershipID', gymChainController.deleteMembership);
 router.get('/joinNow', gymChainController.selectGym);
 
 //Select class
-router.route('/services/:selectedgymID').get(gymChainController.selectClass);
+router.route('/services/:selectedgym').get(gymChainController.selectClass);
 
 //Select membership
-router.route('/memberships/:selectedgymID/:selectedclassID').get(gymChainController.selectMembership);
+router.route('/memberships/:selectedgym/:selectedclass').get(gymChainController.selectMembership);
 
 //Show personal info form
-router.route('/personal_info/:selectedgymID/:selectedclassID/:selectedmembershipID').get(gymChainController.showPersonalInfoForm);
+router.route('/personal_info/:selectedgym/:selectedclass/:selectedmembershipID').get(gymChainController.showPersonalInfoForm);
 //Post request for personal info
-router.route('/personal_info/:selectedgymID/:selectedclassID/:selectedmembershipID').post(gymChainController.doPersonalInfo);
+router.route('/personal_info/:selectedgym/:selectedclass/:selectedmembershipID').post(gymChainController.doPersonalInfo);
 
 
 //Show payment info form
 // router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipID').get(gymChainController.showPaymentInfoForm);
 //Post request for payment info
-router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipID').post(gymChainController.doPaymentInfo);
+router.route('/payment_info/:selectedgym/:selectedclass/:selectedmembershipID').post(gymChainController.doPaymentInfo);
 
 //Post request for contact form
 router.route('/home').post(gymChainController.doContact);
