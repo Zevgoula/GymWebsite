@@ -368,8 +368,6 @@ export async function showBookSchedule(req, res, next) {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
         const memberships = await model.getAllActiveMembershipsFromCustomerID(customerID);
-        // console.log('memberships: ' + memberships[0].membership_id);
-        console.log('Type of memberships: ' + typeof memberships);
 
         if (memberships) {
             // Setting every letter to lowercase and then capitalizing the first letter of each word
@@ -400,7 +398,7 @@ export async function doBookSchedule(req, res, next) {
     try {
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const sessionIDs = req.body.sessionIDs.split(',');
-        console.log('sessionIDs: ' + sessionIDs);
+        console.log('selected sessionIDs: ' + sessionIDs);
         if (sessionIDs == null || sessionIDs == '') {
             req.session.message = 'You have to select at least one session';
             res.redirect('/schedule');
@@ -410,7 +408,6 @@ export async function doBookSchedule(req, res, next) {
             for (let i = 0; i < sessionIDs.length; i++) {
             
                 await model.bookSession(customerID, parseInt(sessionIDs[i]));
-                console.log('session id: ' + parseInt(sessionIDs[i]));
                 
             }
             res.redirect('/customer_schedule');

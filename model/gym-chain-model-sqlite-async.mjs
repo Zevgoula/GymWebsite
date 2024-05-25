@@ -753,7 +753,6 @@ export let checkIfUserHasWeightliftingOnly = async function (customerId) {
     
     try {
         const memberships = await getAllActiveMembershipsFromCustomerID(customerId);
-        console.log('Memberships: ', memberships);
         if(memberships === undefined || memberships.length === 0 || memberships === null || !memberships) {
             return true;
         }
