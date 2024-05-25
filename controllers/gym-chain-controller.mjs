@@ -183,6 +183,7 @@ export async function showPersonalInfoForm(req, res, next) {
         const selectedgym = req.params.selectedgym;
         const selectedclass = req.params.selectedclass;
         const selectedmembershipID = req.params.selectedmembershipID;
+        console.log('selected membership ' + selectedmembershipID);
 
         // Get the customer id from the username
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
@@ -299,7 +300,6 @@ export async function showAccountPage(req, res, next) {
         const customerInfo = await model.getCustomerInfo(req.session.loggedUserId);
         const activeMemberships = await model.getAllActiveMembershipsFromCustomerID(customerInfo.customer_id);
         const inactiveMemberships = await model.getAllInactiveMembershipsFromCustomerID(customerInfo.customer_id);
-        console.log('Active memberships: ', activeMemberships);
 
         let active_names = [];
         let active_combined;
