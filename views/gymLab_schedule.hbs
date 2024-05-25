@@ -1,17 +1,18 @@
-
-
 {{#unless userId}}
-    <button type="button" onclick="window.location.href='/gymLab_schedule/ATHENS'"><span></span>ATHENS</button>
-    <button type="button" onclick="window.location.href='/gymLab_schedule/PATRA'"><span></span>PATRA</button>
-    <button type="button" onclick="window.location.href='/gymLab_schedule/KARPENISI'"><span></span>KARPENISI</button>
-
+    <div class="schedule-buttons-container">
+        <button type="button" class="anim_button" onclick="window.location.href='/gymLab_schedule/ATHENS'"><span></span>ATHENS</button>
+        <button type="button" class="anim_button" onclick="window.location.href='/gymLab_schedule/PATRA'"><span></span>PATRA</button>
+        <button type="button" class="anim_button" onclick="window.location.href='/gymLab_schedule/KARPENISI'"><span></span>KARPENISI</button>
+    </div>
 {{else}}
     {{#if homeGym}}
-        <h1 style="color:aliceblue">{{homeGym.location}} SCHEDULE</h1>
+        <h1 style="color:rgb(255, 255, 255); text-trasform: capitalize;">{{homeGym.location}} SCHEDULE</h1>
     {{else}}
-        <button type="button" onclick="window.location.href='/gymLab_schedule/ATHENS'"><span></span>ATHENS</button>
-        <button type="button" onclick="window.location.href='/gymLab_schedule/PATRA'"><span></span>PATRA</button>
-        <button type="button" onclick="window.location.href='/gymLab_schedule/KARPENISI'"><span></span>KARPENISI</button>
+    <div class="schedule-buttons-container">
+        <button type="button" class="anim_button" onclick="window.location.href='/gymLab_schedule/ATHENS'"><span></span>ATHENS</button>
+        <button type="button" class="anim_button" onclick="window.location.href='/gymLab_schedule/PATRA'"><span></span>PATRA</button>
+        <button type="button" class="anim_button" onclick="window.location.href='/gymLab_schedule/KARPENISI'"><span></span>KARPENISI</button>
+    </div>
     {{/if}}
 {{/unless}}
 

@@ -1258,3 +1258,8 @@ textarea{
    justify-content: center;
    align-items: center;
 }
+
+.schedule-buttons-container{
+   width: 100%;
+   align-items: center;
+}
