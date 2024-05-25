@@ -1,79 +1,94 @@
 {{#with customerInfo}}
-    <h1 style="color: white">
-        Account Page
-    </h1>
-    <h2 style="color: white">
-        HOME GYM: {{../homeGym.location}}
-    </h2>
-    <p style="color: white">
-        Name: {{fname}} {{lname}}
-    </p>
-    <p style="color: white">
-        Email: {{email}}
-    </p>
-    <p style="color: white">
-        Phone: {{phone}}
-    </p>
-    <p style="color: white">
-        Address: {{address}}
-    </p>
-    <p style="color: white">
-        City: {{city}}
-    </p>
-    <p style="color: white">
-        State: {{state}}
-    </p>
-    <p style="color: white">
-        Zip code: {{zip_code}}
-    </p>
+<div class="input-box">
+        <h1 style="color: white">
+            Account Page
+        </h1>
+</div>
+<form class="form-container" style="width:80%">
+    
+    
+    <div class="input-box">
+        <h2>HOME GYM: {{../homeGym.location}}</h2>
+    </div>
+
+    <div class="input-box">
+        <h2>Name: {{fname}} {{lname}}</h2>
+    </div>
+    
+    <div class="input-box">
+        <h2>Email: {{email}}</h2>
+    </div>
+
+    <div class="input-box">
+        <h2>Phone: {{phone_number}}</h2>
+    </div>
+
+    <div class="input-box">
+        <h2>Address: {{address}}</h2>
+    </div>
+
+    <div class="input-box">
+        <h2>City: {{city}}</h2>
+    </div>
+
+    <div class="input-box">
+        <h2>State: {{state}}</h2>
+    </div>
+
+    <div class="input-box">
+        <h2>Zip code: {{zip_code}}</h2>
+    </div>
+</form>
 {{/with}}
+<form class="form-container" style="width:80%">
 {{#if active_memberships}}
-    <h1 style="color: white">
+    <h2 style="color: white">
             Active memberships
-    </h1>
+    </h2>
     {{#each active_memberships}}
         
-        <p style="color: white">
+        <h2 style="color: white">
             Type: {{this.name}}
-        </p>
-        <p style="color: white">
+        </h2>
+        <h2 style="color: white">
             Start Date: {{this.start_date}}
-        </p>
-        <p style="color: white">
+        </h2>
+        <h2 style="color: white">
             End Date: {{this.exp_date}}
-        </p>
-        <button onclick="window.location.href='/acount_page/{{this.membership_id}}'">Delete Membership</button>
+        </h2>
+        <button class='anim_button' onclick="window.location.href='/acount_page/{{this.membership_id}}'"><span></span>Delete Membership</button>
     {{/each}}
 {{/if}}
 {{#if inactive_memberships}}
-    <h1 style="color: white">
+    <h2 style="color: white">
             Inactive memberships
-    </h1>
+    </h2>
     {{#each inactive_memberships}}
         
-        <p style="color: white">
+        <h2 style="color: white">
             Type: {{this.name}}
-        </p>
+        </h2>
 
-        <p style="color: white">
+        <h2 style="color: white">
             Start Date: {{this.start_date}}
-        </p>
+        </h2>
 
-        <p style="color: white">
+        <h2 style="color: white">
             End Date: {{this.exp_date}}
-        </p>
+        </h2>
         
     {{/each}}
 {{/if}}
 
 {{^customerInfo}}
-    <h1 style="color: white">
+    <h2 style="color: white">
         Account Page
-    </h1>
-    <p style="color: white">
+    </h2>
+    <h2 style="color: white">
         Please log in to view your account information.
-    </p>
+    </h2>
 {{/customerInfo}}
+</form>
 
 
 {{!-- <style>
