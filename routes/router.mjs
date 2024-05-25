@@ -69,7 +69,7 @@ router.route('/message').get(gymChainController.showMessage);
 // router.route('/available_hours/:classDate/:classLocation').post(gymChainController.doTimesForm);
 
 //Extend_membership
-router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainController.extend_membership);
+router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainController.extendMembership);
 
 //Booking Schedule
 router.route('/schedule').get(gymChainController.showBookSchedule);
