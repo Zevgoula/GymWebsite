@@ -1,31 +1,35 @@
-<form class='form-container' action="/payment_info/{{gym}}/{{class}}/{{membership_id}}" method="post">
-    <h1>Payment info</h1>
-    <div class="input-box">
-        <input onkeydown="return /[a-z]/i.test(event.key)" name="fname" placeholder="First name" required>
-    </div>
-    <div class="input-box">
-        <input onkeydown="return /[a-z]/i.test(event.key)" name="lname" placeholder="Last name" required>
-    </div>
-    <div class="input-box">
-        <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" 
-         autocomplete="cc-number" maxlength="19" 
-         placeholder="Credit Card Number" required>
-    </div>
-    <div class="input-box">
-        <input id="exp-date" type="tel" name="exp_date" inputmode="numeric"
-        placeholder="Expiration date" required>
-    </div>
-    <div class="input-box">
-        <input type="text" maxlength="3" name="cvv" placeholder="CVV" required>
 
-    </div>
-    <div class="remember-forgot">
-        <label><input type="checkbox">Remember me.</label>
-    </div>
-    <button type="submit" class="btn">Submit</button>
+<div class="form-placeholder">
+    <form class='form-container' action="/payment_info/{{gym}}/{{class}}/{{membership_id}}" method="post">
+        <h1>Payment info</h1>
+        <div class="input-box">
+            <input onkeydown="return /[a-z]/i.test(event.key)" name="fname" placeholder="First name" required>
+        </div>
+        <div class="input-box">
+            <input onkeydown="return /[a-z]/i.test(event.key)" name="lname" placeholder="Last name" required>
+        </div>
+        <div class="input-box">
+            <input id="ccn" type="tel" inputmode="numeric" 
+            autocomplete="cc-number" maxlength="19" 
+            placeholder="Credit Card Number" required>
+        </div>
+        <div class="input-box">
+            <input id="exp-date" type="tel" name="exp_date" inputmode="numeric"
+            placeholder="Expiration date" required>
+        </div>
+        <div class="input-box">
+            <input type="text" maxlength="3" name="cvv" placeholder="CVV" required>
 
-    
-</form>
+        </div>
+        <div class="remember-forgot">
+            <label><input type="checkbox">Remember me.</label>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+
+        
+    </form>
+</div>
+
 <script>
     document.getElementById('ccn').addEventListener('input', function (e) {
         let value = e.target.value.replace(/\D/g, ''); // Remove all non-digit characters

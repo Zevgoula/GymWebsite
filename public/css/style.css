@@ -1303,3 +1303,112 @@ textarea{
    align-items: center;
    padding-top: 5%;
 }
+
+
+
+/* Account Page */
+/* body {
+   background-color: #121212;
+   font-family: Arial, sans-serif;
+   color: #ffffff;
+   margin: 0;
+   padding: 0;
+} */
+
+.account-page-placeholder{
+   width: 80%;
+   height: 100%;
+   display: flex;
+   flex-direction: row;
+   padding-top: 5%;
+   
+}
+.account-page-container {
+   width: 25%;
+   height: 100%;
+   margin: 3%;
+   padding: 20px;
+   background: transparent;
+   border-radius: 15px;
+   border: 2px solid rgba(225, 225, 225, 0.4);
+   backdrop-filter: blur(10px);
+}
+
+.account-header {
+   color: #ffffff;
+   border-bottom: 2px solid #4a4a4a;
+   padding-bottom: 10px;
+   margin-bottom: 20px;
+}
+.account-details p{
+   color: #bbbbbb;
+   margin: 5px 0;
+}
+
+.account-details {
+   display: flex;
+   flex-direction: column;
+   padding-left: 5%;
+   padding-right: 5%;
+}
+
+.account-attribute {
+   display: flex;
+   justify-content: space-between;
+}
+
+.account-attribute-name{
+   color: white;
+   font-size: 2.0em;
+}
+
+.account-attribute-value{
+   color: #bbbbbb;
+   font-size: 2.0em;
+   padding-left: 20%;
+}
+
+.delete-button{
+   width: 45%;
+   height: auto;
+   padding: 15px 0;
+   text-align: center;
+   align-items: center;
+   margin: 5% 27% 5% 27%;
+   border-radius: 25px;
+   font-weight: bold;
+   border: 2px solid #474545;
+   background: transparent;
+   color: #fff;
+   cursor: pointer;
+   position: relative;
+   overflow: hidden;
+}
+
+.delete-button span{
+   background: #970101;
+   height: 100%;
+   width: 0;
+   border-radius: 25px;
+   position: absolute;
+   left: 0;
+   bottom: 0;
+   z-index: -1;
+   transition: 0.5s;
+}
+
+.delete-button:hover span{
+   width: 100%;
+ }
+
+ .form-placeholder{
+   width: 100%;
+   height: auto;
+   display: flex;
+   justify-content: center;
+ }
+
+ 
+
+
+

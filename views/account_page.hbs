@@ -1,192 +1,99 @@
-{{#with customerInfo}}
-<div class="input-box">
-        <h1 style="color: white">
-            Account Page
-        </h1>
-</div>
-<form class="form-container" style="width:80%">
-    
-    
-    <div class="input-box">
-        <h2>HOME GYM: {{../homeGym.location}}</h2>
+<div class="account-page-placeholder">
+    <div class="account-page-container">
+        {{#with customerInfo}}
+            <h1 class="account-header">Account Page</h1>
+            <h2 class="account-header">HOME GYM: {{../homeGym.location}}</h2>
+            <div class="account-details">
+                <div class="account-attribute">
+                    <div class="account-attribute-name">Name:</div>
+                    <div class="account-attribute-value">{{fname}} {{lname}}</div>
+                </div>
+                <div class="account-attribute">
+                    <div class="account-attribute-name">Email:</div>
+                    <div class="account-attribute-value">{{email}}</div>
+                </div>
+                <div class="account-attribute">
+                    <div class="account-attribute-name">Phone:</div>
+                    <div class="account-attribute-value">{{phone_number}}</div>
+                </div>
+                <div class="account-attribute">
+                    <div class="account-attribute-name">Address:</div>
+                    <div class="account-attribute-value">{{address}}</div>
+                </div>
+                <div class="account-attribute">
+                    <div class="account-attribute-name">City:</div>
+                    <div class="account-attribute-value">{{city}}</div>
+                </div>
+                <div class="account-attribute">
+                    <div class="account-attribute-name">State:</div>
+                    <div class="account-attribute-value">{{state}}</div>
+                </div>
+                <div class="account-attribute">
+                    <div class="account-attribute-name">Zip code:</div>
+                    <div class="account-attribute-value">{{zip_code}}</div>
+                </div>
+            </div>
+        {{/with}}
     </div>
-
-    <div class="input-box">
-        <h2>Name: {{fname}} {{lname}}</h2>
-    </div>
-    
-    <div class="input-box">
-        <h2>Email: {{email}}</h2>
-    </div>
-
-    <div class="input-box">
-        <h2>Phone: {{phone_number}}</h2>
-    </div>
-
-    <div class="input-box">
-        <h2>Address: {{address}}</h2>
-    </div>
-
-    <div class="input-box">
-        <h2>City: {{city}}</h2>
-    </div>
-
-    <div class="input-box">
-        <h2>State: {{state}}</h2>
-    </div>
-
-    <div class="input-box">
-        <h2>Zip code: {{zip_code}}</h2>
-    </div>
-</form>
-{{/with}}
-<form class="form-container" style="width:80%">
-{{#if active_memberships}}
-    <h2 style="color: white">
-            Active memberships
-    </h2>
-    {{#each active_memberships}}
-        
-        <h2 style="color: white">
-            Type: {{this.name}}
-        </h2>
-        <h2 style="color: white">
-            Start Date: {{this.start_date}}
-        </h2>
-        <h2 style="color: white">
-            End Date: {{this.exp_date}}
-        </h2>
-        <button class='anim_button' onclick="window.location.href='/acount_page/{{this.membership_id}}'"><span></span>Delete Membership</button>
-    {{/each}}
-{{/if}}
-{{#if inactive_memberships}}
-    <h2 style="color: white">
-            Inactive memberships
-    </h2>
-    {{#each inactive_memberships}}
-        
-        <h2 style="color: white">
-            Type: {{this.name}}
-        </h2>
-
-        <h2 style="color: white">
-            Start Date: {{this.start_date}}
-        </h2>
-
-        <h2 style="color: white">
-            End Date: {{this.exp_date}}
-        </h2>
-        
-    {{/each}}
-{{/if}}
-
-{{^customerInfo}}
-    <h2 style="color: white">
-        Account Page
-    </h2>
-    <h2 style="color: white">
-        Please log in to view your account information.
-    </h2>
-{{/customerInfo}}
-</form>
-
-
-{{!-- <style>
-    body {
-        background-color: #121212;
-        font-family: Arial, sans-serif;
-        color: #ffffff;
-        margin: 0;
-        padding: 0;
-    }
-    .account-page-container {
-        max-width: 800px;
-        margin: auto;
-        padding: 20px;
-        background-color: #1e1e1e;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .account-header, .membership-header {
-        color: #ffffff;
-        border-bottom: 2px solid #4a4a4a;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
-    .account-details p, .membership-details p {
-        color: #bbbbbb;
-        margin: 5px 0;
-    }
-    .membership-container {
-        background-color: #292929;
-        padding: 10px;
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-    .membership-container h2 {
-        color: #ffffff;
-        margin-top: 0;
-    }
-    .membership-container p {
-        color: #dddddd;
-    }
-    .membership-container button {
-        background-color: #d32f2f;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-    .membership-container button:hover {
-        background-color: #b71c1c;
-    }
-    .login-message {
-        color: #bbbbbb;
-    }
-</style>
-
-<div class="account-page-container">
-    {{#with customerInfo}}
-        <h1 class="account-header">Account Page</h1>
-        <h2 class="account-header">HOME GYM: {{../homeGym.location}}</h2>
-        <div class="account-details">
-            <p>Name: {{fname}} {{lname}}</p>
-            <p>Email: {{email}}</p>
-            <p>Phone: {{phone}}</p>
-            <p>Address: {{address}}</p>
-            <p>City: {{city}}</p>
-            <p>State: {{state}}</p>
-            <p>Zip code: {{zip_code}}</p>
-        </div>
-    {{/with}}
-
     {{#if active_memberships}}
-        <h1 class="membership-header">Active Memberships</h1>
-        {{#each active_memberships}}
-            <div class="membership-container">
-                <h2>Type: {{this.name}}</h2>
-                <p>Start Date: {{this.start_date}}</p>
-                <p>End Date: {{this.exp_date}}</p>
-                <button onclick="window.location.href='/acount_page/{{this.membership_id}}'">Delete Membership</button>
-            </div>
-        {{/each}}
-    {{/if}}
 
+        <div class="account-page-container">
+            
+
+            <h1 class="account-header">Active Memberships</h1>
+            {{#each active_memberships}}
+                <div class="account-details">
+
+                    <div class="account-attribute">
+                        <div class="account-attribute-name">Type:</div>
+                        <div class="account-attribute-value">{{this.name}}</div>
+                    </div>
+
+                    <div class="account-attribute">
+                        <div class="account-attribute-name">Start Date:</div>
+                        <div class="account-attribute-value">{{this.start_date}}</div>
+                    </div>
+
+                    <div class="account-attribute">
+                        <div class="account-attribute-name">End Date:</div>
+                        <div class="account-attribute-value">{{this.exp_date}}</div>
+                    </div>
+
+                    <button class="delete-button" onclick="window.location.href='/acount_page/{{this.membership_id}}'"><span></span>Delete Membership</button>
+                    <h1 class="account-header"></h1>
+                </div>
+            {{/each}}
+
+        </div>
+    {{/if}}
     {{#if inactive_memberships}}
-        <h1 class="membership-header">Inactive Memberships</h1>
-        {{#each inactive_memberships}}
-            <div class="membership-container">
-                <h2>Type: {{this.name}}</h2>
-                <p>Start Date: {{this.start_date}}</p>
-                <p>End Date: {{this.exp_date}}</p>
-            </div>
-        {{/each}}
-    {{/if}}
 
-    {{^customerInfo}}
-        <h1 class="account-header">Account Page</h1>
-        <p class="login-message">Please log in to view your account information.</p>
-    {{/customerInfo}}
-</div> --}}
+        <div class="account-page-container">
+            
+
+            <h1 class="account-header">Inactive Memberships</h1>
+            {{#each inactive_memberships}}
+                <div class="account-details">
+
+                    <div class="account-attribute">
+                        <div class="account-attribute-name">Type:</div>
+                        <div class="account-attribute-value">{{this.name}}</div>
+                    </div>
+
+                    <div class="account-attribute">
+                        <div class="account-attribute-name">Start Date:</div>
+                        <div class="account-attribute-value">{{this.start_date}}</div>
+                    </div>
+
+                    <div class="account-attribute">
+                        <div class="account-attribute-name">End Date:</div>
+                        <div class="account-attribute-value">{{this.exp_date}}</div>
+                    </div>
+
+
+                </div>
+            {{/each}}
+
+        </div>
+    {{/if}}
+</div>
