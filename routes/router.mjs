@@ -3,7 +3,6 @@ const router = express.Router();
 
 import dotenv from 'dotenv'
 if (process.env.NODE_ENV !== 'production') {
-    console.log('loading .env')
     dotenv.config();
 }
 
@@ -75,6 +74,9 @@ router.get('/membership_extended/:customerID/:selectedmembershipID', gymChainCon
 //Booking Schedule
 router.route('/schedule').get(gymChainController.showBookSchedule);
 router.route('/schedule').post(gymChainController.doBookSchedule);
+
+//General Schedule
+router.route('/gymLab_schedule/:selectedgym').get(gymChainController.showGeneralSchedule);
 
 //Customer Schedule
 router.get('/customer_schedule', gymChainController.viewSchedule);
