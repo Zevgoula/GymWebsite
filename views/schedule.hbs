@@ -1,4 +1,9 @@
 <form class='calendar-form' action="/schedule" method="post">
+    {{#if view}}
+        <h1 style="color:rgb(255, 255, 255)">YOUR SCHEDULE</h1>
+    {{else}}
+        <h1 style="color:rgb(255, 255, 255)">CREATE YOUR SCHEDULE</h1>
+    {{/if}}
     <div class="schedule-container">
         <div class="schedule-header">
             <div class="schedule-cell"></div>
