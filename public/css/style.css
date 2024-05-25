@@ -397,7 +397,7 @@ textarea{
    width: 30%;
    background-size: cover;
    background-position: center;
-   background-image: linear-gradient(180deg, rgba(117, 117, 117, 0.2),  rgba(117, 117, 117, 0.2)), url(/images/weigthlifting.jpg);
+   background-image: linear-gradient(180deg, rgba(117, 117, 117, 0.2),  rgba(117, 117, 117, 0.2)), url(/images/pilates.png);
 }
 
 .service:nth-child(2){
@@ -418,7 +418,7 @@ textarea{
    background-size: cover;
    background-position: center;
    width: 30%;
-   background-image: linear-gradient(180deg,  rgba(53, 97, 60, 0.2),  rgba(117, 117, 117, 0.2)), url(/images/pilates.png);
+   background-image: linear-gradient(180deg,  rgba(117, 117, 117, 0.2),  rgba(117, 117, 117, 0.2)), url(/images/weigthlifting.jpg);
 }
 
 .service a {
@@ -435,37 +435,6 @@ textarea{
    font-weight: 700;
    letter-spacing: -.1rem;;
 }
-
-/* .learn_more{
-   margin-top: 60px;
-   width: 200px;
-   padding: 15px 0;
-   text-align: center;  
-   justify-content: center;  
-   border-radius: 25px;
-   font-weight: bold;
-   border: 2px solid #474545;
-   background: transparent;
-   color: #fff;
-   cursor: pointer;
-   position: relative;
-   overflow: hidden;
-}
-
-.learn_more span{
-   background: #474545;
-   height: 100%;
-   width: 0;
-   border-radius: 25px;
-   left: 0;
-   bottom: 0;
-   z-index: -1;
-   transition: 0.5s;
-}
-
-.learn_more:hover span{
-   width: 100%;
-} */
 
 /* About Page */
 .title{
@@ -673,15 +642,6 @@ textarea{
 
 .perk p {
    margin-left: 10px;
-}
-
-a {
-   color: #ffffff;
-   text-decoration: none;
-}
-
-a:hover {
-   text-decoration: underline;
 }
 
 .membership-description {
