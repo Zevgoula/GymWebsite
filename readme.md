@@ -32,5 +32,5 @@ Before you begin, ensure you have the following installed:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/gym-chain-website.git
-   cd gym-chain-website
+   git clone https://github.com/Zevgoula/GymWebsite.git
+   
