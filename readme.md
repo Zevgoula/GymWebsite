@@ -58,36 +58,16 @@ Contains static assets (CSS, JS, images).
 ## routes/
 Contains route definitions.
 
-## config/
-Contains configuration files and database setup scripts.
-
-# Routes
-
-## Public Routes
-
-- **/home:** Home page
-- **/login:** User login
-- **/joinNow:** Membership sign-up
-- **/about_classes:** Information about gym services and classes
-- **/contact:** Contact form
-
-## Protected Routes (require authentication)
-
-- **/account_page:** User account details
-- **/services/:location:** Membership purchase for a specific gym location
-- **/gymLab_schedule/:location:** Class schedule for a specific gym location
-- **/customer_schedule:** View user's booked classes
-- **/logout:** User logout
-
 # Database Schema
 
 ## Tables
 
-- **Users:** Stores user account information.
-- **Memberships:** Stores membership details.
-- **Classes:** Stores gym class information.
-- **Sessions:** Stores class session details.
-- **Bookings:** Stores class booking information.
+- **User:** Stores user account information.
+- **Membership:** Stores membership details.
+- **Class:** Stores gym class information.
+- **Session:** Stores class session details.
+- **Books:** Stores class booking information.
+- **
 
 
 
