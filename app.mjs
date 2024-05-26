@@ -65,7 +65,7 @@ app.set('view engine', 'hbs');
 app.use((err, req, res, next) => {
 
   console.error('ERROR: ' + err.message + '\n' + err.stack);
-  res.render('error', {message: err.message, stack: err.stack});
+  res.render('message', {message: "Oops something went wrong!", error: true});
 
 })
 

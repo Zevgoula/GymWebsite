@@ -498,4 +498,14 @@ export async function showGeneralSchedule(req, res, next) {
     }
 }
 
+//For testing error handling
+export async function showError(req, res, next) {
+    try {
+        res.render('message', {message: "Oops something went wrong!", error: true, session: req.session});
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
 
