@@ -9,7 +9,6 @@ data/fill_db.sql
 test.mjs
 test_better.mjs
 gym_chain_new.db
-gym_chain1.db
 data/program1.txt
 data/diagram_final.erdm
 data/schema_final.json
