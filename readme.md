@@ -38,7 +38,7 @@ Before you begin, ensure you have the following installed:
   
       MODEL=sqlite-async
       LOGIN_CONTROLLER=login-controller-password
-      SESSION_SECRET=PhenyugCucow3
+      SESSION_SECRET= aBigString
       SESSION_NAME=gymChain-session
       SESSION_LIFETIME=1000 * 60 * 60 * 2
       PORT=9999
