@@ -4,3 +4,6 @@
     <button type="button" id="buy-membership-button" class="anim_button" onclick="window.location.href='/services/{{homeGym.location}}'"><span></span>BUY MEMBERSHIP</button>
     <button type="button" id="go-home-button" class="anim_button" onclick="window.location.href='/home'"><span></span>GO HOME</button>
 {{/if_eq}}
+{{#if error}}
+    <button type="button" id="go-home-button" class="anim_button" onclick="window.location.href='/home'"><span></span>GO HOME</button>
+{{/if}}

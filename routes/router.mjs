@@ -72,6 +72,10 @@ router.route('/createAccount').get(logInController.checkAuthenticated, logInCont
 router.post('/createAccount', logInController.doRegister);
 
 
+//For testing error handling
+router.get('/error', gymChainController.showError);
+
+
 
 
 
