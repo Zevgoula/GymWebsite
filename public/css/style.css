@@ -1523,6 +1523,19 @@ textarea{
    
  }
 
+ /* Media Queries for Responsiveness */
+@media (min-width: 768px) {
+   .account-page-container {
+       width: 70%;
+   }
+}
+
+@media (min-width: 1024px) {
+   .account-page-container {
+       width: 50%;
+   }
+}
+
  
 
 
