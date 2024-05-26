@@ -169,7 +169,7 @@ body{
    text-align: center;
    justify-content: center;
    color: #fff;
-   padding-bottom: 20%;
+   padding-bottom: 19%;
 }
 
  .homepage_content h1{
@@ -191,9 +191,7 @@ body{
    flex-direction: row;
    justify-content: center;
    align-items: center;
-   padding-top: 5%;
-   /* padding-bottom: 5%; */
-   background-color: #1b1b1bbe;
+   padding-top: 0%;
 }
 
 .home-info-container{
@@ -201,11 +199,26 @@ body{
    height: 100%;
    display: flex;
    flex-direction: column;
+   backdrop-filter: blur(10px);
+   
+}
+
+.home-info-container-text{
+   width: 100%;
+   height: 50%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   color: #fff;
+   margin-top: 8%;
+   
+
 }
 
 .home-info-container h1{
    width: 100%;
-   font-size: 4em;
+   font-size: 5em;
    height: 50%;
    color: white;
    font-weight: bold;
@@ -214,19 +227,34 @@ body{
    padding-bottom: 5%;
 }
 
-.home-info-container p{
-   border: #2c2c2ccc;
-   font-size: 1.8em;
+.home-info-container-text p{
+   font-size: 3em;
+   font-weight: 600;
    color: rgb(250, 250, 250);
-   text-align: justify;
+   text-align: center;
    margin-top: 2.5em;
    width: 50%;
-   margin-top: 15%;
+   margin-top: 5%;
+   
 }
 
 .home-info-p{
    width: 100%;
    display: flex;
+}
+
+.home-gyms-title{
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding-top: 100px;
+   color: white;
+   font-size: 2.5em;
+   padding-top: 30%;
+
 }
 
 
