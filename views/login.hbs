@@ -1,5 +1,9 @@
 {{!-- LOGIN FORM --}}
 <div class="form-placeholder">
+  {{!-- Needs css --}}
+  {{#if message}}
+    <h style="color: white; font-size: 2em; text-transform: uppercase; padding-top: 2%; font-weight: 500;">{{message}}</h>
+  {{/if}}
   <form class="form-container" style="margin-top:8%; width: 20%;" action="/login", method="post">
     <h1>Login</h1>
 
@@ -22,8 +26,5 @@
     </div>
     
   </form>
-  {{!-- Needs css --}}
-  {{#if message}}
-    <h style="color: white; font-size: 2em; text-transform: uppercase; padding-top: 2%; font-weight: 500;">{{message}}</h>
-  {{/if}}
+  
 </div>
