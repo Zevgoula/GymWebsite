@@ -13,3 +13,11 @@ gym_chain1.db
 data/program1.txt
 data/diagram_final.erdm
 data/schema_final.json
+views/aboutPage.hbs
+views/admin_home.hbs
+views/adminHome.hbs
+views/availableHours.hbs
+views/boook.hbs
+views/coontact.hbs
+Report/phase_1_powerpoint.pptx
+Report/diagram_first_draft.erdm
