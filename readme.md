@@ -41,52 +41,7 @@ Before you begin, ensure you have the following installed:
    ```bash
    npm run watch
    ```
-gym-chain-website/
-│
-├── controllers/        # Route handling logic
-│   ├── authController.js
-│   ├── gymController.js
-│   ├── membershipController.js
-│   ├── scheduleController.js
-│   └── ...
-│
-├── models/             # Database models and async-sqlite queries
-│   ├── User.js
-│   ├── Membership.js
-│   ├── Class.js
-│   ├── Session.js
-│   ├── Booking.js
-│   └── ...
-│
-├── views/              # Handlebars templates for rendering HTML
-│   ├── layouts/
-│   ├── partials/
-│   ├── accountPage.hbs
-│   ├── home.hbs
-│   ├── login.hbs
-│   ├── ...
-│
-├── public/             # Static assets (CSS, JS, images)
-│   ├── css/
-│   ├── js/
-│   ├── images/
-│   └── ...
-│
-├── routes/             # Route definitions
-│   ├── authRoutes.js
-│   ├── gymRoutes.js
-│   ├── membershipRoutes.js
-│   ├── scheduleRoutes.js
-│   └── ...
-│
-├── config/             # Configuration files and database setup scripts
-│   ├── db.js
-│   └── ...
-│
-├── .env                # Environment variables
-├── app.js              # Main application file
-├── package.json        # NPM dependencies and scripts
-└── README.md           # Project documentation
+
 
 
    
