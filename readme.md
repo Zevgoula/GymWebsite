@@ -33,11 +33,22 @@ Before you begin, ensure you have the following installed:
    ```bash
    git clone https://github.com/Zevgoula/GymWebsite.git
    ```
-2. Install all necessary dependencies
+2. **Create a .env file in the root of your project with the following content:**
+   ```bash
+  
+      MODEL=sqlite-async
+      LOGIN_CONTROLLER=login-controller-password
+      SESSION_SECRET=PhenyugCucow3
+      SESSION_NAME=gymChain-session
+      SESSION_LIFETIME=1000 * 60 * 60 * 2
+      PORT=9999
+   ```
+
+3. **Install all necessary dependencies**
    ```bash
    npm install
    ```
-3. Run in local server
+4. **Run in local server**
    ```bash
    npm run watch
    ```
