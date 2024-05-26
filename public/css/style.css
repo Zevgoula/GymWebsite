@@ -1326,6 +1326,12 @@ textarea{
    font-size: 14px;
 }
 
+@media (max-width: 768px) {
+   .schedule-container {
+      width: 100%;
+   }
+}
+
 .schedule-cell:first-child {
    background-color: #f9f9f9;
    font-weight: bold;
@@ -1529,12 +1535,14 @@ textarea{
 
  .select-session-button{
 
-   width: 50%;
+   width: 100%;
    text-align: center;
    border-radius: 5px;
    margin-top: 2%;
    
  }
+
+
 
  /* Media Queries for Responsiveness */
 @media (min-width: 768px) {

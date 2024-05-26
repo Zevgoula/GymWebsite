@@ -316,6 +316,7 @@ export let sendMessage = async function (username, email, subject, message_text)
     }
 }
 
+//Get the active memberships of the customer
 export let getAllActiveMembershipsFromCustomerID = async function (customerID) {
     const stmt = await sql.prepare("SELECT BUYS.membership_id, BUYS.customer_id, BUYS.purchase_id, BUYS.start_date, BUYS.exp_date, CLASS.class_id, CLASS.name FROM BUYS JOIN CLASS JOIN INCLUDES ON CLASS.class_id = INCLUDES.class_id and BUYS.membership_id = INCLUDES.membership_id WHERE customer_id = ? AND exp_date > date('now')");
     try {
@@ -334,6 +335,7 @@ export let getAllActiveMembershipsFromCustomerID = async function (customerID) {
     }
 }
 
+//Get the inactive memberships of the customer
 export let getAllInactiveMembershipsFromCustomerID = async function (customerID) {
     const stmt = await sql.prepare("SELECT BUYS.membership_id, BUYS.customer_id, BUYS.purchase_id, BUYS.start_date, BUYS.exp_date, CLASS.class_id, CLASS.name FROM BUYS JOIN CLASS JOIN INCLUDES ON CLASS.class_id = INCLUDES.class_id and BUYS.membership_id = INCLUDES.membership_id WHERE customer_id = ? AND exp_date < date('now')");
     try {
