@@ -4,7 +4,9 @@
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    /* box-sizing: border-box; */
 }
+
 
 :root{
    font-size: 10px;
@@ -423,6 +425,11 @@ textarea{
    justify-content: center;
    margin-top: 50px;
 }
+@media (max-width: 768px) {
+   .services {
+      flex-direction: column;
+   }
+}
 
 .service{
    color: white;
@@ -440,6 +447,7 @@ textarea{
    filter: brightness(0.7);
 
 }
+
 
 .service:hover {
    transition: .5s ease;
@@ -645,6 +653,12 @@ textarea{
    justify-content: center;
 }
 
+@media (max-width: 768px) {
+   .boxes {
+      flex-direction: column;
+   }
+}
+
 .box {
    border-radius: 25px;
    background-color: rgba(58, 58, 58, 0.5);
@@ -819,6 +833,12 @@ textarea{
    height: 70%;
    display: flex;
    flex-direction: row;
+}
+
+@media (max-width: 768px) {
+   .services-info {
+      flex-direction: column;
+   }
 }
 
 .about-image-container{
@@ -1324,6 +1344,15 @@ textarea{
    padding-top: 5%;
    
 }
+
+@media (max-width: 768px) {
+   .account-page-placeholder {
+      width: 100%;
+      flex-direction: column;
+   }
+}
+
+
 .account-page-container {
    width: 25%;
    height: 100%;
