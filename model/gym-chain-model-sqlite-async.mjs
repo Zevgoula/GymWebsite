@@ -522,13 +522,17 @@ export let checkIfUserHasWeightliftingOnly = async function (customerID) {
     
     try {
         const memberships = await getAllActiveMembershipsFromCustomerID(customerID);
+        //If the customer has no active memberships treat him as if he has only a weightlifting membership
         if(memberships === undefined || memberships.length === 0 || memberships === null || !memberships) {
             return true;
         }
+        //If the customer has only one membership
         else if (memberships.length === 1) {
             const membershipInfo = await getMembershipInfofromID(memberships[0].membership_id);
+            //Check if the membership is a weightlifting membership
             return (membershipInfo.membership_id === 4 || membershipInfo.membership_id === 8 || membershipInfo.membership_id === 12) 
         }   
+        //If the customer has more than one membership
         else {
             return false;
         }

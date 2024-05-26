@@ -13,26 +13,6 @@ router.route('/').get((req, res) => {
     res.redirect('/home') 
 });
 
-
-// //Show book form
-// router.route('/book').get(gymChainController.showBookForm);
-// //Post request for book form
-// router.route('/book').post(gymChainController.doBookForm);
-
-//Available hours
-// router.route('/available_hours/:classDate/:classLocation').get(gymChainController.showTimesForm);
-//Post request for available hours form
-// router.route('/available_hours/:classDate/:classLocation').post(gymChainController.doTimesForm);
-
-//About page (Not implemented)
-// router.get('/about_page', gymChainController.showAboutPage);
-
-//Admin home
-// router.get('/admin_home', gymChainController.adminHome);
-
-//Show payment info form
-// router.route('/payment_info/:selectedgymID/:selectedclassID/:selectedmembershipID').get(gymChainController.showPaymentInfoForm);
-
 //Home page
 router.get('/home', gymChainController.home);
 //Post request for contact form
