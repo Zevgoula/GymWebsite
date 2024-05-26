@@ -1,3 +1,4 @@
+{{!-- SHOW THE GENERAL SCHEDULE OF THE SESSIONS FOR A SPECIFIC GYM --}}
 <div class="gymlab-schedule-placeholder">
 {{#unless userId}}
     <div class="schedule-buttons-container">
@@ -50,7 +51,7 @@
                         {{#if_eq this.day ../this}}
                         {{!-- if schedule.time == timeSlots.time --}}
                             {{#if_eq this.time ../../this}}
-                            {{!-- Display schedule.name --}}
+                            {{!-- Display schedule.name with a different colour --}}
                                 
                                     {{#if_eq this.name "PILATES"}}
 

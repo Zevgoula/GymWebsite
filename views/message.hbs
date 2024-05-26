@@ -1,3 +1,4 @@
+{{!-- GENERAL PAGE THAT DISPLAYS AN APPROPRIATE MESSAGE AFTER A SPECIFIC ACTION --}}
 <h1 style="color:rgb(255, 255, 255); padding-top: 15%; font-size: 3em; text-transform: uppercase;">{{message}}!</h1>
 {{#if_eq message 'You have no memberships. Please buy a membership to create a schedule.'}}
     <button type="button" id="buy-membership-button" class="anim_button" onclick="window.location.href='/services/{{homeGym.location}}'"><span></span>BUY MEMBERSHIP</button>

@@ -1,8 +1,9 @@
+{{!-- PAGE FOR WHEN A ECUSTOMER ALREADY HAS A MEMBERSHIP AND WANTS TO EXTEND IT --}}
 <div class="extend-membership-placeholder">
     <div class="extend-membership-title">
         <h1 style="font-size: 1.5em; width: 80%; padding-left: 10%;">YOU ALREADY HAVE AN ACTIVE MEMBERSHIP FOR {{m_info.name}} THAT EXPIRES ON {{m_info.exp_date}} </h1> <!-- EDO THA MPEI TO CLASS POU EXEI DIALEKSEI O CUSTOMER -->
     </div>
-    {{!-- <div class="extend-membership-form-container"> --}}
+    
     <div class="extend-buttons-container">
         {{#if_eq length 1}}
             <div class="anim_button" style="font-weight: 700;" onclick="window.location.href='/membership_extended/{{customerID}}/{{m_info.membership_id}}'" >EXTEND FOR ANOTHER 1 MONTH<span></span></div>
@@ -18,5 +19,5 @@
         
         <div class="anim_button" style="font-weight: 700;" onclick="window.location.href='/home'">GO HOME<span></span></div>
     </div>
-    {{!-- </div> --}}
+    
 </div>

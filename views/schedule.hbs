@@ -1,3 +1,4 @@
+{{!-- SHOW THE CUSTOMERS' SCHEDULE OR BOOK CERTAIN SESSIONS --}}
 <div class="gymlab-schedule-placeholder">
 <form class='calendar-form' action="/schedule" method="post">
     {{#if view}}
@@ -78,6 +79,6 @@
     <input type="hidden" id="selectedSessionIDs" name="sessionIDs" value=""></input>
 </form>
 </div>
-
+{{!-- necessary js to to store the selected buttons(sessions) in a hidden input element for the backend to have acces to them --}}
 <script src="js/schedule.js"></script>
 

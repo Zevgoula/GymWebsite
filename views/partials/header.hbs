@@ -1,3 +1,4 @@
+{{!-- GENERAL HEADER THAT DYNAMICALLY CHANGES BASED ON THE USER --}}
 <div class="header-container">
 <div class="header_navbar">
     <a href="/home">
@@ -8,52 +9,61 @@
             
             {{#if homeGym}}
                 {{#with homeGym}}
+
                     <li><a href="/services/{{location}}">Buy Membership</a></li>
+
                 {{/with}}
             {{else}}
+
                 <li><a href="/joinNow">Buy Membership</a></li>
+
             {{/if}}
             
         {{else}}
+        
             <li><a href="/login">Join Now</a></li>
+
         {{/if}}
         <li><a href="/about_classes">Gym Services</a></li>
         {{#if userId}}
             {{#if homeGym}}
                 {{#with homeGym}}
+
                     <li><a href="/gymLab_schedule/{{location}}">Gym Lab Schedule</a></li>
+
                 {{/with}}
             {{else}}
+
                 <li><a href="/gymLab_schedule/ATHENS">Gym Lab Schedule</a></li>
+
             {{/if}}
         {{else}}
+
             <li><a href="/gymLab_schedule/ATHENS">Gym Lab Schedule</a></li>
+
         {{/if}}
         <li><a href="/home/#contact_form">Contact</a></li>
 
         {{#if userId}}
-            
-            {{!-- <li><a href="/account_page">Account</a></li>  this works-old --}}
-            {{!-- CHANGES FOR DROPDOWN --}}
+
             <li><a href="#">Account &dtrif;</a>
                 <ul class="dropdown">
                     <li><a class = "dropdow-element" href="/account_page">Profile</a></li>
                     {{#unless onlyWeightlifting}}
+
                         <li><a class = "dropdow-element" href="/customer_schedule">View Your Schedule</a></li>
+
                     {{/unless}}
                     <li><a class = "dropdow-element" href="/logout">Logout</a></li>
                     
                 </ul>
             </li>
+
         {{else}}
+
             <li><a href="/login">Login</a></li>
+
         {{/if}}
-        
-        {{!-- {{#if userId}}
-            {{#unless onlyWeightlifting}}
-                <li><a href="/customer_schedule">View Your Schedule</a></li>
-            {{/unless}}
-        {{/if}} --}}
 
     </ul>
 </div>
