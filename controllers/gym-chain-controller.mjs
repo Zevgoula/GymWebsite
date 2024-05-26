@@ -259,8 +259,6 @@ export async function showAccountPage(req, res, next) {
         const activeMemberships = await model.getAllActiveMembershipsFromCustomerID(customerInfo.customer_id);
         const inactiveMemberships = await model.getAllInactiveMembershipsFromCustomerID(customerInfo.customer_id);
 
-        console.log('active memberships: ' + activeMemberships);
-        console.log('inactive memberships: ' + inactiveMemberships);
         //BAD OLD METHOD WITHOUT JOIN IN SQL
         //Get the names of the classes of the memberships and combine them with the memberships
         // let active_names = [];
