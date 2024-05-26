@@ -1,40 +1,42 @@
-<form class="form-container" style="width: 20%;" action="/createAccount" method="post">
-    <h1>Register</h1>
+<div class="form-placeholder">
+    <form class="form-container" style="width: 20%;" action="/createAccount" method="post">
+        <h1>Register</h1>
 
-    <div class="input-box">
-        <input type="text" name='fname' placeholder="First name" required>
-    </div>
+        <div class="input-box">
+            <input type="text" name='fname' placeholder="First name" required>
+        </div>
 
-    <div class="input-box">
-        <input type="text" name='lname' placeholder="Last name" required>
-    </div>
+        <div class="input-box">
+            <input type="text" name='lname' placeholder="Last name" required>
+        </div>
 
-    <div class="input-box">
-        <input type="text" name='username' placeholder="Username" required>
+        <div class="input-box">
+            <input type="text" name='username' placeholder="Username" required>
 
-    </div>
+        </div>
 
-    <div class="input-box">
-        <input type="password" name='password' nameplaceholder="Password" required>
+        <div class="input-box">
+            <input type="password" name='password' nameplaceholder="Password" required>
 
-    </div>
+        </div>
 
-    <div class="input-box">
-        <input type="email" name='email' placeholder="Email" required>
+        <div class="input-box">
+            <input type="email" name='email' placeholder="Email" required>
 
-    </div>
+        </div>
 
-    <div class="remember-forgot">
-        <label><input type="checkbox">Subscribe to our newsletter.</label>
-    </div>
+        <div class="remember-forgot">
+            <label><input type="checkbox">Subscribe to our newsletter.</label>
+        </div>
 
-    <button type="submit" class="btn">Sign up</button>
+        <button type="submit" class="btn">Sign up</button>
 
-    <div class="register-link">
-        <p>Already have an account? <a href="/login">Login.</a></p>
-    </div>
-    
-</form>
-{{#if message}}
-  <p style="color: white">{{message}}</p>
-{{/if}}
+        <div class="register-link">
+            <p>Already have an account? <a href="/login">Login.</a></p>
+        </div>
+        
+    </form>
+    {{#if message}}
+        <p style="color: white">{{message}}</p>
+    {{/if}}
+</div>

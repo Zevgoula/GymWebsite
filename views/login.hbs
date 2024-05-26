@@ -1,26 +1,28 @@
-<form class="form-container" style="margin-top:8%; width: 20%;" action="/login", method="post">
-  <h1>Login</h1>
+<div class="form-placeholder">
+  <form class="form-container" style="margin-top:8%; width: 20%;" action="/login", method="post">
+    <h1>Login</h1>
 
-  <div class="input-box">
-    <input type="text" name="username" placeholder="Username" required />
-  </div>
+    <div class="input-box">
+      <input type="text" name="username" placeholder="Username" required />
+    </div>
 
-  <div class="input-box">
-    <input type="password" name="password" placeholder="Password" required />
-  </div>
+    <div class="input-box">
+      <input type="password" name="password" placeholder="Password" required />
+    </div>
 
-  <div class="remember-forgot">
-    <label><input type="checkbox" />Remember me</label>
-    <a href="#">Forgot Password?</a>
-  </div>
-  <button type="submit" class="btn">Login</button>
+    <div class="remember-forgot">
+      <label><input type="checkbox" />Remember me</label>
+      <a href="#">Forgot Password?</a>
+    </div>
+    <button type="submit" class="btn">Login</button>
 
-  <div class="register-link">
-    <p>Don't have an account? <a href="/createAccount">Register.</a></p>
-  </div>
-  
-</form>
-{{!-- Needs css --}}
-{{#if message}}
-  <h style="color: white; font-size: 2em; text-transform: uppercase; padding-top: 2%; font-weight: 500;">{{message}}</h>
-{{/if}}
+    <div class="register-link">
+      <p>Don't have an account? <a href="/createAccount">Register.</a></p>
+    </div>
+    
+  </form>
+  {{!-- Needs css --}}
+  {{#if message}}
+    <h style="color: white; font-size: 2em; text-transform: uppercase; padding-top: 2%; font-weight: 500;">{{message}}</h>
+  {{/if}}
+</div>

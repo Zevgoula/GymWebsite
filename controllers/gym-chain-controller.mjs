@@ -553,7 +553,8 @@ export async function showMessage(req, res, next) {
         req.session.message = null;
         const customerID = await model.getCustomerIDFromUsername(req.session.loggedUserId);
         const homeGym = await model.getHomeGym(customerID);
-        res.render('message', {homeGym: homeGym,  message: message, session: req.session });
+        const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
+        res.render('message', {onlyWeightlifting: onlyWeightlifting, homeGym: homeGym,  message: message, session: req.session });
     }
     catch (error) {
         next(error);
@@ -588,7 +589,7 @@ export async function showGeneralSchedule(req, res, next) {
 
         //Check if the user has only a weightlifting membership
         const onlyWeightlifting = await model.checkIfUserHasWeightliftingOnly(customerID);
-        res.render('gymLab_schedule', {selectedGym: req.params.selectedgym, monlyWeightlifting: onlyWeightlifting, homeGym: homeGym, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
+        res.render('gymLab_schedule', {selectedGym: req.params.selectedgym, onlyWeightlifting: onlyWeightlifting, homeGym: homeGym, timeSlots:timeSlots, days: days, schedule: schedule, session: req.session });
     }
     catch (error) {
         next(error);
