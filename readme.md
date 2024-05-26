@@ -4,6 +4,9 @@
 
 This project is a Node.js web application for a gym chain, providing features like membership management, class scheduling, and user account handling. The app uses SQLite as the database, with asynchronous SQLite queries for efficient data handling.
 
+## Public domain
+https://gymlab.onrender.com/home
+
 ## Features
 
 - User authentication and account management
@@ -83,7 +86,6 @@ Contains route definitions.
 - **Gym** Stores gym details
 - **Includes** Stores which class each membership includes
 - **Message** Stores messages sent by visitors and users
-- **Payment Info** Stores user payment details
 - **Represents** Stores which class each session represents
 
 
