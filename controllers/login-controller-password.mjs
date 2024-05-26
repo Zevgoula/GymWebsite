@@ -2,17 +2,19 @@ import bcrypt from 'bcrypt';
 
 import * as userModel from '../model/gym-chain-model-sqlite-async.mjs';
 
-
+//Show the login form
 export let showLogInForm = function (req, res) {
     res.render("login", {layout: 'main'});
 
 }
 
+//Show the register form
 export let showRegisterForm = function (req, res) {
     res.render('createAccount', {layout: 'main'});
 
 }
 
+//Register a new user
 export let doRegister = async function (req, res) {
     try {
         const registrationResult = await userModel.registerUser(req.body.fname, req.body.lname, req.body.username, req.body.password, req.body.email);
@@ -31,6 +33,7 @@ export let doRegister = async function (req, res) {
     }
 }
 
+//Login a user
 export let doLogin = async function (req, res) {
     //Ελέγχει αν το username και το password είναι σωστά και εκτελεί την
     //συνάρτηση επιστροφής authenticated
@@ -61,6 +64,7 @@ export let doLogin = async function (req, res) {
     }
 }
 
+//Logout a user
 export let doLogout = (req, res) => {
     //Σημειώνουμε πως ο χρήστης δεν είναι πια συνδεδεμένος
     req.session.destroy();
