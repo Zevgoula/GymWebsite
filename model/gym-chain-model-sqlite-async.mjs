@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 
 let sql;
 
+// Connect to the database
 try {
     sql = await Database.open('data/gym_chain1.db');
     console.log('Connected to the gym-chain database.');
@@ -11,284 +12,6 @@ try {
 catch (error) {
     throw Error('Error connecting to the database: ' + error);
 }
-
-////Not used anywhere for now
-// export let findUserByUsernamePassword = async (username, password) => {
-//     //Φέρε μόνο μια εγγραφή (το LIMIT 0, 1) που να έχει username και password ίσο με username και password 
-//     const stmt = await sql.prepare("SELECT username, password FROM User WHERE username = ? AND password = ? LIMIT 0, 1");
-//     try {
-//         const user = await stmt.all(username, password);
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-//Check if the user is an admin OLD
-// export let isAdmin = async function (username) {
-//     if (username === undefined) {
-//         console.log('user is visitor');
-//         return false;
-//     }
-//     else {
-//         const stmt = await sql.prepare("SELECT role FROM User WHERE username = ?");
-//         try {
-//             const role = await stmt.get(username);
-//             return role.role === 'admin';
-//         } 
-//         catch (err) {
-//             throw err;
-//         }
-//     }
-// }
-
-//Add a new payment information(NOT USED ANYWHERE FOR NOW)
-// export let addPaymentInfo = async function (username, ccn, cvv,  exp_date) {
-//     const stmt = await sql.prepare("INSERT INTO Payment_info (username, ccn, cvv, exp_date) VALUES (?, ?, ?, ?)");
-//     try {
-//         await stmt.run(username, ccn, cvv,  exp_date);
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let checkIfCustomerHasMembership = async function (customerID, membershipID) {
-//     const purchaseID = await getPurchaseIDs(customerID, membershipID);
-//     // console.log('Purchase ID: ', purchaseID);
-//     if (purchaseID === undefined) {
-//         return false;
-//     }
-//     else{
-//         for (let i = 0; i < purchaseID.length; i++) {
-//             if (await checkIfMembershipIsActive(customerID, membershipID, purchaseID[i].purchase_id)) {
-//                 return true;
-//             }
-//         }               
-//     }
-// }
-
-// export let checkIfMembershipIsActive = async function (customerID, membershipID, purchaseID) {
-//     const stmt = await sql.prepare("SELECT exp_date FROM BUYS WHERE customer_id = ? AND membership_id = ? AND purchase_id = ?");
-//     try {
-//         const exp_date_obj = await stmt.get(customerID, membershipID, purchaseID);
-//         const currentDate = new Date();
-
-//         const expirationDate = stringToDate(exp_date_obj.exp_date);
-//         // console.log('Current date: ', currentDate);
-//         // console.log('Expiration date: ', expirationDate);
-
-//         if (currentDate > expirationDate) {
-//             return false;
-//         } else {
-//             return true;
-// }
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-
-
-
-// export let checkIfCustomerHasAnyMembershipFromClassID = async function (customerID, classId) {
-//     try{
-//         const membershipsInfo = await getMembershipsInfofromClassID(classId);
-//         // console.log('Memberships Info: ', membershipsInfo);
-//         // const a  = await checkIfCustomerHasMembership(customerID, membershipsInfo[0].membership_id);
-//         // const b = await checkIfCustomerHasMembership(customerID, membershipsInfo[1].membership_id);
-//         // const c = await checkIfCustomerHasMembership(customerID, membershipsInfo[2].membership_id);
-
-//         // console.log('a: ', a);
-//         // console.log('b: ', b);
-//         // console.log('c: ', c);
-
-//         if (await checkIfCustomerHasMembership(customerID, membershipsInfo[0].membership_id) || await checkIfCustomerHasMembership(customerID, membershipsInfo[1].membership_id) || await checkIfCustomerHasMembership(customerID, membershipsInfo[2].membership_id)) {
-//             return true;
-//         }
-//         else {
-//             return false;
-//         }
-//     }
-//     catch(err){
-//         throw err;
-//     }
-// }
-
-// export let getMessages = async function () {
-//     const stmt = await sql.prepare("SELECT * FROM Message");
-//     try {
-//         const messages = await stmt.all();
-//         return messages;
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-//
-
-//OLD
-// export let getActiveMemberships = async function (customerID) {
-//     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ?");
-//     try {
-//         const memberships = await stmt.all(customerID);
-//         let activeMemberships = [];
-//         for (let i = 0; i < memberships.length; i++) {
-//             if (await checkIfMembershipIsActive(customerID, memberships[i].membership_id, memberships[i].purchase_id)) {
-//                 activeMemberships.push(memberships[i]);
-//             }
-//         }
-//         return activeMemberships;
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getInactiveMemberships = async function (customerID) {
-//     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE customer_id = ?");
-//     try {
-//         const memberships = await stmt.all(customerID);
-//         let inactiveMemberships = [];
-//         for (let i = 0; i < memberships.length; i++) {
-//             if (!await checkIfMembershipIsActive(customerID, memberships[i].membership_id, memberships[i].purchase_id)) {
-//                 inactiveMemberships.push(memberships[i]);
-//             }
-//         }
-//         return inactiveMemberships;
-//     }
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getAllMemberships = async function (customerID) {
-//     const active_memberships = await getActiveMemberships(customerID);
-//     const inactive_memberships = await getInactiveMemberships(customerID);
-//     const combined = active_memberships.concat(inactive_memberships);
-//     return combined;
-// }
-
-// export let getCustomerScheduleFromCustomerIDAndLocation = async function (customerID, location) {
-//     const stmt = await sql.prepare ("SELECT SESSION.session_id, CUSTOMER.customer_id, SESSION.day, SESSION.time, CLASS.name, SESSION.location FROM CUSTOMER JOIN SESSION JOIN CLASS JOIN REPRESENTS JOIN BUYS JOIN INCLUDES ON CUSTOMER.customer_id = BUYS.customer_id AND INCLUDES.membership_id = BUYS.membership_id AND CLASS.class_id = REPRESENTS.class_id AND SESSION.session_id = REPRESENTS.session_id AND INCLUDES.class_id = REPRESENTS.class_id WHERE CUSTOMER.customer_id = ? AND SESSION.location = ? AND BUYS.exp_date > date('now')");
-//     try {
-
-//         const schedule = await stmt.all(customerID, location);
-//         return schedule;
-//     }
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getAllActiveMemberships = async function () {
-//     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE exp_date > date('now')");
-//     try {
-//         const memberships = await stmt.all();
-//         return memberships;
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-//Get the class name from the membership ID
-// export let getClassNameFromMembershipID = async function (membershipID) {
-//     const stmt = await sql.prepare("SELECT class_id FROM INCLUDES WHERE membership_id = ?");
-//     const stmt2 = await sql.prepare("SELECT name FROM Class WHERE class_id = ?");
-//     try {
-//         const classId_obj = await stmt.get(membershipID);
-//         const class_id = classId_obj.class_id;
-//         const className = await stmt2.get(class_id);
-//         return className.name;
-
-        
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getClassIDFromMembershipID = async function (membershipID) {
-//     const stmt = await sql.prepare("SELECT class_id FROM INCLUDES WHERE membership_id = ?");
-//     try {
-//         const classId_obj = await stmt.get(membershipID);
-//         return classId_obj.class_id;
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getAllInactiveMemberships = async function () {
-//     const stmt = await sql.prepare("SELECT * FROM BUYS WHERE exp_date < date('now')");
-//     try {
-//         const memberships = await stmt.all();
-//         return memberships;
-//     } 
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getSessionIDfromLocationDayTime = async function (location, day, time) {
-//     const dayName = getDayNamefromDate(day);
-//     const stmt = await sql.prepare("SELECT session_id FROM SESSION WHERE location = ? AND day = ? AND time = ?");
-//     try {
-//         const sessionID = await stmt.get(location, dayName, time);
-//         return sessionID.session_id;
-//     }
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getClassesInfoOfCustomer = async function (customerID) {
-//     //Only the active classes
-//     const stmt = await sql.prepare("SELECT INCLUDES.class_id , CLASS.name FROM BUYS JOIN INCLUDES JOIN CLASS ON BUYS.membership_id = INCLUDES.membership_id AND INCLUDES.class_id = CLASS.class_id WHERE BUYS.exp_date > date('now') AND customer_id = ? AND CLASS.name != 'WEIGHTLIFTING'");
-//     try {
-//         const classesInfo = await stmt.all(customerID);
-//         return classesInfo;
-//     }
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getAvailableHoursFromCustomerID = async function (customerID) {
-//     const stmt = await sql.prepare("SELECT A.session_id, A.name, A.day, A.time, A.class_id, A.location FROM (SELECT REPRESENTS.session_id, SESSION.day, SESSION.time, REPRESENTS.class_id, CLASS.name, SESSION.location FROM SESSION JOIN REPRESENTS JOIN CLASS ON SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id) AS A JOIN (SELECT INCLUDES.class_id FROM BUYS JOIN INCLUDES ON BUYS.membership_id = INCLUDES.membership_id WHERE BUYS.exp_date > date('now') AND customer_id = ?) AS B ON A.class_id = B.class_id");
-//     try {
-//         const availableHours = await stmt.all(customerID);
-//         return availableHours;
-//     }
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getClassIDFromName = async function (name) {
-//     const stmt = await sql.prepare("SELECT class_id FROM CLASS WHERE name = ?");
-//     try {
-//         const classId = await stmt.get(name);
-//         return classId.class_id;
-//     }
-//     catch (err) {
-//         throw err;
-//     }
-// }
-
-// export let getTimesFromClassClubDay = async function (classId, location, day) {
-//     const stmt = await sql.prepare("SELECT SESSION.time FROM SESSION JOIN REPRESENTS ON SESSION.session_id = REPRESENTS.session_id WHERE REPRESENTS.class_id = ? AND SESSION.location = ? AND SESSION.day = ?");
-//     try {
-//         const times = await stmt.all(classId, location, day);
-//         return times;
-//     }
-//     catch (err) {
-//         throw err;
-//     }
-// }
 
 //Get the memberships for the selected class (all classes have 3 memberships)
 export let getMembershipsInfofromClassID = async function (classID) {
@@ -650,6 +373,7 @@ export let getMembershipInfoFromCustomerIDAndClassID = async function (customerI
     }
 }
 
+//Get the schedule of a specific location
 export let getSchedule = async function (location) {
     const stmt = await sql.prepare("SELECT REPRESENTS.session_id, SESSION.day, SESSION.time, REPRESENTS.class_id, CLASS.name, SESSION.location FROM SESSION JOIN REPRESENTS JOIN CLASS ON SESSION.session_id = REPRESENTS.session_id AND CLASS.class_id = REPRESENTS.class_id WHERE location = ?");
     
@@ -663,6 +387,7 @@ export let getSchedule = async function (location) {
 
 }
 
+//Get the booked sessions for the customer
 export let getBookings = async function (customerID) {
     const stmt = await sql.prepare("SELECT CLASS.name, SESSION.location, SESSION.session_id, SESSION.day, SESSION.time, BOOKS.customer_id FROM BOOKS JOIN SESSION JOIN CLASS JOIN REPRESENTS ON SESSION.session_id = BOOKS.session_id AND CLASS.class_id = REPRESENTS.class_id AND REPRESENTS.session_id = SESSION.session_id WHERE BOOKS.customer_id = ?");
     try {
@@ -674,6 +399,7 @@ export let getBookings = async function (customerID) {
     }
 }
 
+//Book a session
 export let bookSession = async function (customerID, sessionId) {
     const stmt = await sql.prepare("INSERT INTO BOOKS (customer_id, session_id) VALUES (?, ?)");
     try {
@@ -684,12 +410,14 @@ export let bookSession = async function (customerID, sessionId) {
     }
 }
 
+//Get the day name from the date
 export let getDayNamefromDate = function (date) {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const day = new Date(date).getDay();
     return days[day];
 }
 
+//Get the bookable sessions for the customer
 export let getBookableSessions = async function (customerID, location) {
     const stmt = await sql.prepare("WITH BookableSessions AS (SELECT SESSION.session_id FROM SESSION LEFT JOIN BOOKS ON SESSION.session_id = BOOKS.session_id GROUP BY SESSION.session_id, SESSION.capacity HAVING COUNT(BOOKS.session_id) < SESSION.capacity )SELECT SESSION.session_id, CUSTOMER.customer_id, SESSION.day, SESSION.time, CLASS.name, SESSION.location FROM CUSTOMER JOIN BUYS ON CUSTOMER.customer_id = BUYS.customer_id JOIN INCLUDES ON INCLUDES.membership_id = BUYS.membership_id JOIN REPRESENTS ON INCLUDES.class_id = REPRESENTS.class_id JOIN CLASS ON CLASS.class_id = REPRESENTS.class_id JOIN SESSION ON SESSION.session_id = REPRESENTS.session_id JOIN BookableSessions ON SESSION.session_id = BookableSessions.session_id WHERE CUSTOMER.customer_id = ? AND SESSION.location = ? AND BUYS.exp_date > date('now');")
     try {
@@ -701,6 +429,7 @@ export let getBookableSessions = async function (customerID, location) {
     }
 }
 
+//Set the home gym of the customer
 export let setHomeGym = async function (customerID, gymId) {
     const stmt = await sql.prepare("INSERT INTO BELONGS (customer_id, gym_id) VALUES (?, ?)");
     try {
@@ -711,6 +440,7 @@ export let setHomeGym = async function (customerID, gymId) {
     }
 }
 
+//Get the home gym of the customer
 export let getHomeGym = async function (customerID) {
     const stmt = await sql.prepare("SELECT BELONGS.gym_id, GYM.location FROM BELONGS JOIN GYM ON BELONGS.gym_id = GYM.gym_id WHERE customer_id = ?");
     try {
@@ -727,6 +457,7 @@ export let getHomeGym = async function (customerID) {
     }
 }
 
+//Delete a membership of a customer
 export let deleteMembership = async function (customerID, membershipID) {
     const stmt = await sql.prepare("DELETE FROM BUYS WHERE customer_id = ? AND membership_id = ? AND exp_date > date('now')");
     const stmt2 = await sql.prepare("DELETE FROM BOOKS WHERE customer_id = ? AND session_id IN (SELECT session_id FROM REPRESENTS WHERE class_id IN (SELECT class_id FROM INCLUDES WHERE membership_id = ?))");
@@ -739,6 +470,7 @@ export let deleteMembership = async function (customerID, membershipID) {
     }
 }
 
+//Clear the schedule of the customer
 export let clearSchedule = async function (customerID) {
     const stmt = await sql.prepare("DELETE FROM BOOKS WHERE customer_id = ?");
     try {
@@ -749,6 +481,7 @@ export let clearSchedule = async function (customerID) {
     }
 }
 
+//Get gym info from the location
 export let getGymFromLocation = async function (location) {
     const stmt = await sql.prepare("SELECT * FROM GYM WHERE location = ?");
     try {
@@ -760,6 +493,7 @@ export let getGymFromLocation = async function (location) {
     }
 }
 
+//Get the class info from the name
 export let getClassFromName = async function (name) {
     const stmt = await sql.prepare("SELECT * FROM CLASS WHERE name = ?");
     try {
@@ -771,6 +505,7 @@ export let getClassFromName = async function (name) {
     }
 }
 
+//Get the membership info from the id
 export let getMembershipFromMembershipID = async function (membershipID) {
     const stmt = await sql.prepare("SELECT * FROM MEMBERSHIP WHERE membership_id = ?");
     try {
@@ -782,6 +517,7 @@ export let getMembershipFromMembershipID = async function (membershipID) {
     }
 }
 
+//Check if the user has only a weightlifting membership
 export let checkIfUserHasWeightliftingOnly = async function (customerID) {
     
     try {

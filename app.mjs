@@ -15,9 +15,10 @@ import gymChainSession from './app-setup/app-setup-session.mjs'
 
 app.use(gymChainSession)
 
+// Server static files
 app.use(express.static('public'))
 
-
+// Middleware to check if user is logged in
 app.use((req, res, next) => {
   if (req.session) {
      res.locals.userId = req.session.loggedUserId;
@@ -28,12 +29,12 @@ app.use((req, res, next) => {
   next();
 });
 
-
+// Import routes
 import routes from './routes/router.mjs'
 
 app.use('/', routes);
 
-
+//Template engine
 app.engine('hbs', exphbs.engine({ 
   extname: '.hbs',
   defaultLayout: 'main',
