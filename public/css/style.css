@@ -169,11 +169,12 @@ body{
    text-align: center;
    justify-content: center;
    color: #fff;
+   padding-bottom: 20%;
 }
 
  .homepage_content h1{
     font-size: 7em;
-    margin-top: 10vh;
+    margin-top: 6%;
 }
  
  .homepage_content p{
@@ -182,6 +183,52 @@ body{
    line-height: 5px;
    font-size: 1.5em;
 }
+
+.home-box{
+   width: 100%;
+   height: auto;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   padding-top: 5%;
+   /* padding-bottom: 5%; */
+   background-color: #1b1b1bbe;
+}
+
+.home-info-container{
+   width: 100%;
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+}
+
+.home-info-container h1{
+   width: 100%;
+   font-size: 4em;
+   height: 50%;
+   color: white;
+   font-weight: bold;
+   text-align: center;
+   margin-top: 3%;
+   padding-bottom: 5%;
+}
+
+.home-info-container p{
+   border: #2c2c2ccc;
+   font-size: 1.8em;
+   color: rgb(250, 250, 250);
+   text-align: justify;
+   margin-top: 2.5em;
+   width: 50%;
+   margin-top: 15%;
+}
+
+.home-info-p{
+   width: 100%;
+   display: flex;
+}
+
 
 .anim_button {
    width: 200px;
