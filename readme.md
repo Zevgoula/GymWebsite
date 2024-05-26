@@ -65,9 +65,16 @@ Contains route definitions.
 - **User:** Stores user account information.
 - **Membership:** Stores membership details.
 - **Class:** Stores gym class information.
-- **Session:** Stores class session details.
+- **Session:** Stores class session details (the weekly schedule for each gym)
 - **Books:** Stores class booking information.
-- **
+- **Belongs** Stores customers' home gym
+- **Customer** Stores customers' details
+- **Gym** Stores gym details
+- **Includes** Stores which class each membership includes
+- **Message** Stores messages sent by visitors and users
+- **Payment Info** Stores user payment details
+- **Represents** Stores which class each session represents
+
 
 
 
