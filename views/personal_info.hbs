@@ -33,7 +33,7 @@
 
     </div>
     <div class="input-box">
-      <input maxlength="12" type="tel" name="phone_number" inputmode="numeric" placeholder="Phone number" required />
+      <input pattern="^[0-9-+\s()]{6,16}" data-for="phoneNumber" maxlength="12" type="tel" name="phone_number" inputmode="numeric" placeholder="Phone number" required />
       <input
         id="zip" pattern="\d{5}" maxlength="5" 
         type="text" inputmode="numeric"
@@ -54,25 +54,4 @@
   </form>
 </div>
 
-<script>
-  document.getElementById('zip').addEventListener('input', function (e) {
-            let input = e.target.value.replace(/\D/g, '').substring(0, 5);
-            e.target.value = input;
-        });
-
-        document.getElementById('zip-form').addEventListener('submit', function (e) {
-            const zipInput = document.getElementById('zip');
-
-            // Basic zip code pattern validation
-            const zipPattern = /^\d{5}$/;
-            const isValidZip = zipPattern.test(zipInput.value);
-
-            if (!isValidZip) {
-                e.preventDefault();
-                zipError.style.display = 'inline';
-            } else {
-                zipError.style.display = 'none';
-            }
-        });
-
-</script>
+<script src="js/personal_info.js"></script>
