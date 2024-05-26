@@ -1,70 +1,82 @@
 {{!-- GENERAL HEADER THAT DYNAMICALLY CHANGES BASED ON THE USER --}}
 <div class="header-container">
-<div class="header_navbar">
-    <a href="/home">
-        <img src="/images/logo.png" class="logo">
-    </a>
-    <ul>
-        {{#if userId}}
-            
-            {{#if homeGym}}
-                {{#with homeGym}}
+    <div class="header_navbar" id="myTopnav">
+        <a href="/home">
+            <img src="/images/logo.png" class="logo">
+        </a>
+        <ul class="links">
+            {{#if userId}}
+                
+                {{#if homeGym}}
+                    {{#with homeGym}}
 
-                    <li><a href="/services/{{location}}">Buy Membership</a></li>
+                        <li><a href="/services/{{location}}">Buy Membership</a></li>
 
-                {{/with}}
+                    {{/with}}
+                {{else}}
+
+                    <li><a href="/joinNow">Buy Membership</a></li>
+
+                {{/if}}
+                
             {{else}}
-
-                <li><a href="/joinNow">Buy Membership</a></li>
+            
+                <li><a href="/login">Join Now</a></li>
 
             {{/if}}
-            
-        {{else}}
-        
-            <li><a href="/login">Join Now</a></li>
+            <li><a href="/about_classes">Gym Services</a></li>
+            {{#if userId}}
+                {{#if homeGym}}
+                    {{#with homeGym}}
 
-        {{/if}}
-        <li><a href="/about_classes">Gym Services</a></li>
-        {{#if userId}}
-            {{#if homeGym}}
-                {{#with homeGym}}
+                        <li><a href="/gymLab_schedule/{{location}}">Gym Lab Schedule</a></li>
 
-                    <li><a href="/gymLab_schedule/{{location}}">Gym Lab Schedule</a></li>
+                    {{/with}}
+                {{else}}
 
-                {{/with}}
+                    <li><a href="/gymLab_schedule/ATHENS">Gym Lab Schedule</a></li>
+
+                {{/if}}
             {{else}}
 
                 <li><a href="/gymLab_schedule/ATHENS">Gym Lab Schedule</a></li>
 
             {{/if}}
-        {{else}}
+            <li><a href="/home/#contact_form">Contact</a></li>
 
-            <li><a href="/gymLab_schedule/ATHENS">Gym Lab Schedule</a></li>
+            {{#if userId}}
 
-        {{/if}}
-        <li><a href="/home/#contact_form">Contact</a></li>
+                <li><a href="#">Account &dtrif;</a>
+                    <ul class="dropdown">
+                        <li><a class = "dropdow-element" href="/account_page">Profile</a></li>
+                        {{#unless onlyWeightlifting}}
 
-        {{#if userId}}
+                            <li><a class = "dropdow-element" href="/customer_schedule">View Your Schedule</a></li>
 
-            <li><a href="#">Account &dtrif;</a>
-                <ul class="dropdown">
-                    <li><a class = "dropdow-element" href="/account_page">Profile</a></li>
-                    {{#unless onlyWeightlifting}}
+                        {{/unless}}
+                        <li><a class = "dropdow-element" href="/logout">Logout</a></li>
+                        
+                    </ul>
+                </li>
 
-                        <li><a class = "dropdow-element" href="/customer_schedule">View Your Schedule</a></li>
+            {{else}}
 
-                    {{/unless}}
-                    <li><a class = "dropdow-element" href="/logout">Logout</a></li>
-                    
-                </ul>
-            </li>
+                <li><a href="/login">Login</a></li>
 
-        {{else}}
+            {{/if}}
 
-            <li><a href="/login">Login</a></li>
-
-        {{/if}}
-
-    </ul>
+        </ul>
+        {{!-- <span class="icon" onclick="toggleMenu()">&#9776;</span> --}}
+    </div>
 </div>
-</div>
+
+{{!-- <script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "header_navbar") {
+            x.className += " responsive";
+        } else {
+            x.className = "header_navbar";
+        }
+    }
+</script> --}}
