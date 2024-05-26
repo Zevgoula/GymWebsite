@@ -37,13 +37,36 @@
                                 {{!-- Display schedule.name --}}
                                     {{#if ../../../view}}
 
-                                            {{this.name}}
-                                        
-                                    {{else}}
+                                            {{#if_eq this.name "PILATES"}}
 
-                                        <button class='select-session-button' type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
-                                            {{this.name}}
-                                        </button>
+                                                <div style="background-color:#658864">
+                                                    {{this.name}}
+                                                </div>
+                                        
+
+                                            {{/if_eq}}
+
+                                            {{#if_eq this.name "CROSSFIT"}}
+
+                                                <div style="background-color:#B7B78A">
+                                                    {{this.name}}
+                                                </div>
+
+                                            {{/if_eq}}
+
+                                            {{#if_eq this.name "YOGA"}}
+
+                                                <div style="background-color:#DDDDDD">
+                                                    {{this.name}}
+                                                </div>
+
+                                            {{/if_eq}}
+                                                
+                                            {{else}}
+
+                                                <button class='select-session-button' type="button" id ="{{this.session_id}}_{{../this}}_{{../../this}}_{{this.name}}">
+                                                    {{this.name}}
+                                                </button>
 
                                     {{/if}}
                                 {{/if_eq}}
