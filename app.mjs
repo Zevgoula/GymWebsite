@@ -22,9 +22,11 @@ app.use(express.static('public'))
 app.use((req, res, next) => {
   if (req.session) {
      res.locals.userId = req.session.loggedUserId;
+     console.log("User is logged in as: " + res.locals.userId);
     
   } else {
      res.locals.userId = 'visitor';
+      console.log("User is not logged in");
   }
   next();
 });
