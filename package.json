@@ -2,7 +2,7 @@
 	"name": "gym-chain",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.mjs",
+	"main": "start.mjs",
 	"scripts": {
 		"clean": "rm -rf node_modules",
 		"reinstall": "npm run clean && npm install",
